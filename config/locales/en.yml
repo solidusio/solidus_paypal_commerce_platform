@@ -2,3 +2,6 @@ en:
   activerecord:
     models:
       solidus_paypal_commerce_platform/gateway: Paypal Commerce Platform
+  hello: Hello world
+  sign_up_for_paypal: Setup PayPal Commerce Platform
+  start_paying_with_paypal: Start paying with Paypal Commerce Platform
