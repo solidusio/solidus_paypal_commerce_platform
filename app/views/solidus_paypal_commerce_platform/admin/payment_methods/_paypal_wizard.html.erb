@@ -1,6 +1,6 @@
 <a
   target="_blank"
-  data-paypal-onboard-complete="onboardedCallback"
+  data-paypal-onboard-complete='SolidusPaypalCommercePlatform_onboardCallback'
   data-paypal-button="true"
   href="<%= wizard.button_url %>"
 >
@@ -9,3 +9,7 @@
   </button>
 </a>
 <script id="paypal-js" src="https://www.sandbox.paypal.com/webapps/merchantboarding/js/lib/lightbox/partner.js"></script>
+
+<script>
+  window.SolidusPaypalCommercePlatform_onboardCallback = SolidusPaypalCommercePlatform.onboardCallback
+</script>

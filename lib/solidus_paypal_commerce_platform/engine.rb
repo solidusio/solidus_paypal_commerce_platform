@@ -7,7 +7,7 @@ module SolidusPaypalCommercePlatform
   class Engine < Rails::Engine
     include SolidusSupport::EngineExtensions
 
-    isolate_namespace ::Spree
+    isolate_namespace SolidusPaypalCommercePlatform
 
     engine_name 'solidus_paypal_commerce_platform'
 
