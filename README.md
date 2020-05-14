@@ -1,7 +1,58 @@
 SolidusPaypalCommercePlatform
 =============================
 
-Introduction goes here.
+The official PayPal integration of Solidus.
+
+Getting Started
+---------------
+
+### I already have API credentials
+
+If you already have API credentials, then you'll need to store them somewhere. You can do this directly in the
+preferences of the payment method, but we recommend storing your API credentials as an ENV variable and loading
+them in as a preference on initialization.
+
+```
+# config/initializers/spree.rb
+Spree::Config.configure do |config|
+  config.static_model_preferences.add(
+    SolidusPaypalCommercePlatform::Gateway,
+    'paypal_commerce_platform_credentials', {
+      test_mode: !Rails.env.production?,
+      client_id: ENV['PAYPAL_CLIENT_ID'],
+      client_secret: ENV['PAYPAL_CLIENT_SECRET'],
+    }
+  )
+end
+```
+
+### I don't have API credentials
+
+In this case, we still recommend following the above flow for security, but we have made a payment method setup
+wizard to make it easier to get started. On the payment_methods index page, you'll see a button to set up your
+PayPal Commerce Platform payment method. Click on this button and follow the instructions provided by PayPal.
+When you return to your app, your payment method should be set up and ready to go.
+
+### Email Confirmation
+
+A confirmed email is required to get paid by PayPal, please make sure that you've confirmed your email before going
+live with this payment method.
+
+Wizards
+-------
+
+This gem adds support for payment method wizards to be set up. Payment wizards can be used to automatically set up
+payment methods by directing the user to a sign-in page for whatever service they're connecting. In this gem, the
+user is directed to sign up/in for PayPal, and then give us access to their credentials, which we store in preferences.
+
+To add a payment wizard, add the class where your wizard is stored on initialization:
+```
+initializer "register_solidus_paypal_commerce_platform_wizard", after: "spree.register.payment_methods" do |app|
+  app.config.spree.payment_setup_wizards << "SolidusPaypalCommercePlatform::Wizard"
+end
+```
+
+Your wizard class name should have a `name` and `partial_name` defined, where `partial_name` is the path to the partial you'd like to display on the wizard setup section. In our case, we just display a button to direct the user to PayPal.
 
 Installation
 ------------
