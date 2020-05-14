@@ -52,7 +52,7 @@ initializer "register_solidus_paypal_commerce_platform_wizard", after: "spree.re
 end
 ```
 
-Your wizard class name should have a `name` and `partial_name` defined, where `partial_name` is the path to the partial you'd like to display on the wizard setup section. In our case, we just display a button to direct the user to PayPal.
+The instances of your wizard class should respond to `#name` and `#partial_name`, where `partial_name` will return the path to the partial you'd like to display on the wizard setup section. In our case, we just display a button to direct the user to PayPal.
 
 Installation
 ------------
