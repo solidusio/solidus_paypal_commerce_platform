@@ -19,6 +19,12 @@ module SolidusPaypalCommercePlatform
         run 'bin/rails railties:install:migrations FROM=solidus_paypal_commerce_platform'
       end
 
+      def mount_engine
+        insert_into_file File.join('config', 'routes.rb'), after: "Rails.application.routes.draw do\n" do
+          "mount SolidusPaypalCommercePlatform::Engine, at: '/solidus_paypal_commerce_platform'\n"
+        end
+      end
+
       def run_migrations
         run_migrations = options[:auto_run_migrations] || ['', 'y', 'Y'].include?(ask('Would you like to run the migrations now? [Y/n]')) # rubocop:disable Metrics/LineLength
         if run_migrations

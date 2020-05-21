@@ -1,0 +1,8 @@
+<!--
+  insert_after '#listing_payment_methods'
+  original 'bf5a94b3b0967d88b88f72bc26131897ff85a1d0'
+-->
+
+<% if can?(:create, Spree::PaymentMethod) %>
+  <%= render partial: 'solidus_paypal_commerce_platform/admin/payment_methods/setup_wizards' %>
+<% end %>

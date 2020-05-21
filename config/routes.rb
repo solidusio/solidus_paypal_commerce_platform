@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
-Spree::Core::Engine.routes.draw do
+SolidusPaypalCommercePlatform::Engine.routes.draw do
   # Add your extension routes here
+  resources :wizard, only: [:create]
+  # post :paypal_wizard, to: "wizard#create"
 end
