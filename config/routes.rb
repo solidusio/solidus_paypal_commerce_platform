@@ -3,5 +3,6 @@
 SolidusPaypalCommercePlatform::Engine.routes.draw do
   # Add your extension routes here
   resources :wizard, only: [:create]
-  # post :paypal_wizard, to: "wizard#create"
+  resources :orders, only: [:create]
+  resources :payments, only: [:create]
 end

@@ -1,0 +1,12 @@
+<script
+  src="<%= payment_method.sdk_url %>">
+</script>
+
+<div id="paypal-button-container"></div>
+<input type="hidden" name="payment_source[<%= payment_method.id %>][paypal_order_id]" id="payments_source_paypal_order_id">
+
+<script>
+  $( document ).ready(function() {
+    SolidusPaypalCommercePlatform.renderButton("<%= payment_method.id %>")
+  })
+</script>
