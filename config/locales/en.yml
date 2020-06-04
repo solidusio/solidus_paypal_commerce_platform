@@ -1,5 +1,8 @@
 en:
   activerecord:
+    attributes:
+      solidus_paypal_commerce_platform/source:
+        paypal_order_id: ""
     models:
       solidus_paypal_commerce_platform/gateway: Paypal Commerce Platform
   hello: Hello world
