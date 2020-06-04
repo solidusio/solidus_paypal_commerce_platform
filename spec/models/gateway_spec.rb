@@ -33,7 +33,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
         path: "/v2/checkout/orders/#{paypal_order_id}/capture",
         headers: {
           "Content-Type" => "application/json",
-          "Authoriation" => "test auth",
+          "Authorization" => "test auth",
           "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
         },
         verb: "POST"
@@ -51,7 +51,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
         path: "/v2/checkout/orders/#{paypal_order_id}/authorize",
         headers: {
           "Content-Type" => "application/json",
-          "Authoriation" => "test auth",
+          "Authorization" => "test auth",
           "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
         },
         verb: "POST"
@@ -70,7 +70,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
         path: "/v2/payments/authorizations/#{authorization_id}/capture",
         headers: {
           "Content-Type" => "application/json",
-          "Authoriation" => "test auth",
+          "Authorization" => "test auth",
           "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
         },
         verb: "POST"

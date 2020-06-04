@@ -58,7 +58,7 @@ module SolidusPaypalCommercePlatform
           path: "/v2/checkout/orders/#{order_number}/authorize",
           headers: {
             "Content-Type" => "application/json",
-            "Authoriation" => @env.authorizationString(),
+            "Authorization" => @env.authorizationString(),
             "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
           },
           verb: "POST"
@@ -72,7 +72,7 @@ module SolidusPaypalCommercePlatform
           path: "/v2/payments/authorizations/#{authorization_id}/capture",
           headers: {
             "Content-Type" => "application/json",
-            "Authoriation" => @env.authorizationString(),
+            "Authorization" => @env.authorizationString(),
             "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
           },
           verb: "POST"
@@ -86,7 +86,7 @@ module SolidusPaypalCommercePlatform
           path: "/v2/checkout/orders/#{order_number}/capture",
           headers: {
             "Content-Type" => "application/json",
-            "Authoriation" => @env.authorizationString(),
+            "Authorization" => @env.authorizationString(),
             "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
           },
           verb: "POST"
@@ -101,7 +101,7 @@ module SolidusPaypalCommercePlatform
           body: SolidusPaypalCommercePlatform::PaypalOrder.new(order).to_json(intent),
           headers: {
             "Content-Type" => "application/json",
-            "Authoriation" => @env.authorizationString(),
+            "Authorization" => @env.authorizationString(),
             "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
           },
           verb: "POST"
