@@ -31,7 +31,8 @@ module SolidusPaypalCommercePlatform
 
     def api_credentials
       @api_credentials ||= begin
-        paypal_client = SolidusPaypalCommercePlatform::Requests.new(params[:sharedId])
+        paypal_env = PayPal::SandboxEnvironment.new(credentials[:sharedId])
+        paypal_client = SolidusPaypalCommercePlatform::Requests.new(paypal_env)
 
         paypal_client.trade_tokens(params)
       end
