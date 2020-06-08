@@ -1,0 +1,15 @@
+<fieldset data-hook="credit_card">
+  <legend align="center"><%= SolidusPaypalCommercePlatform::Gateway.model_name.human %></legend>
+
+  <div class="row">
+    <div class="alpha six columns">
+      <dl>
+        <dt><%= I18n.t("spree.identifier") %>:</dt>
+        <dd><%= payment.number %></dd>
+
+        <dt><%= I18n.t("paypal_order_id") %>:</dt>
+        <dd><%= payment.source.paypal_order_id %></dd>
+      </dl>
+    </div>
+  </div>
+</fieldset>
