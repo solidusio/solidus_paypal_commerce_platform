@@ -1,14 +1,16 @@
-<hr>
-<div class="setup-wizards">
-  <% wizards = Rails.application.config.spree.payment_setup_wizards %>
-  <% wizards.map(&:new).each do |wizard| %>
-    <div class="setup-wizard">
-      <div class="setup-wizard-name">
-        <h5><%= wizard.name %></h5>
+<% if can?(:create, Spree::PaymentMethod) %>
+  <hr>
+  <div class="setup-wizards">
+    <% wizards = Rails.application.config.spree.payment_setup_wizards %>
+    <% wizards.map(&:new).each do |wizard| %>
+      <div class="setup-wizard">
+        <div class="setup-wizard-name">
+          <h5><%= wizard.name %></h5>
+        </div>
+        <div class="setup-wizard-body">
+          <%= render partial: wizard.partial_name, locals: { wizard: wizard } %>
+        </div>
       </div>
-      <div class="setup-wizard-body">
-        <%= render partial: wizard.partial_name, locals: { wizard: wizard } %>
-      </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+<% end %>
