@@ -1,3 +1,5 @@
+require 'paypal-checkout-sdk'
+
 module SolidusPaypalCommercePlatform
   class WizardController < ::Spree::Api::BaseController
     helper ::Spree::Core::Engine.routes.url_helpers
