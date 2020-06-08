@@ -19,8 +19,12 @@ module SolidusPaypalCommercePlatform
     end
 
     def trade_tokens(credentials)
-      access_token = get_access_token(credentials).result.access_token
-      get_api_credentials({accessToken:access_token}).result
+      access_token = get_access_token(
+        auth_code: credentials.fetch(:authCode),
+        nonce: credentials.fetch(:nonce),
+      ).result.access_token
+
+      get_api_credentials(accessToken: access_token).result
     end
 
     def create_order(order, auto_capture)
@@ -58,7 +62,7 @@ module SolidusPaypalCommercePlatform
           path: "/v2/checkout/orders/#{order_number}/authorize",
           headers: {
             "Content-Type" => "application/json",
-            "Authoriation" => @env.authorizationString(),
+            "Authorization" => @env.authorizationString(),
             "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
           },
           verb: "POST"
@@ -72,7 +76,7 @@ module SolidusPaypalCommercePlatform
           path: "/v2/payments/authorizations/#{authorization_id}/capture",
           headers: {
             "Content-Type" => "application/json",
-            "Authoriation" => @env.authorizationString(),
+            "Authorization" => @env.authorizationString(),
             "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
           },
           verb: "POST"
@@ -86,7 +90,7 @@ module SolidusPaypalCommercePlatform
           path: "/v2/checkout/orders/#{order_number}/capture",
           headers: {
             "Content-Type" => "application/json",
-            "Authoriation" => @env.authorizationString(),
+            "Authorization" => @env.authorizationString(),
             "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
           },
           verb: "POST"
@@ -101,7 +105,7 @@ module SolidusPaypalCommercePlatform
           body: SolidusPaypalCommercePlatform::PaypalOrder.new(order).to_json(intent),
           headers: {
             "Content-Type" => "application/json",
-            "Authoriation" => @env.authorizationString(),
+            "Authorization" => @env.authorizationString(),
             "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
           },
           verb: "POST"
@@ -109,14 +113,14 @@ module SolidusPaypalCommercePlatform
       )
     end
 
-    def get_access_token(credentials)
+    def get_access_token(auth_code:, nonce:)
       @client.execute(
         Request.new({
           path: "/v1/oauth2/token",
           body: {
             grant_type: "authorization_code",
-            code: credentials[:authCode],
-            code_verifier: credentials[:nonce]
+            code: auth_code,
+            code_verifier: nonce,
           },
           headers: {
             "Content-Type" => "application/x-www-form-urlencoded",

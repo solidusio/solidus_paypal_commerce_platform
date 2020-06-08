@@ -7,19 +7,19 @@ RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
 
   before do
     response = OpenStruct.new(
-      status_code: 201, 
+      status_code: 201,
       result: OpenStruct.new(
         purchase_units: [
           OpenStruct.new(
             payments: OpenStruct.new(
               authorizations: [
                 OpenStruct.new(id: SecureRandom.hex(4))
-                ]
-              )
+              ]
             )
-          ]
-        )
-      ) 
+          )
+        ]
+      )
+    )
 
     allow_any_instance_of(PayPal::PayPalHttpClient).to receive(:execute) { response }
     allow_any_instance_of(PayPal::SandboxEnvironment).to receive(:authorizationString) { "test auth" }
@@ -33,7 +33,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
         path: "/v2/checkout/orders/#{paypal_order_id}/capture",
         headers: {
           "Content-Type" => "application/json",
-          "Authoriation" => "test auth",
+          "Authorization" => "test auth",
           "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
         },
         verb: "POST"
@@ -51,7 +51,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
         path: "/v2/checkout/orders/#{paypal_order_id}/authorize",
         headers: {
           "Content-Type" => "application/json",
-          "Authoriation" => "test auth",
+          "Authorization" => "test auth",
           "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
         },
         verb: "POST"
@@ -70,7 +70,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
         path: "/v2/payments/authorizations/#{authorization_id}/capture",
         headers: {
           "Content-Type" => "application/json",
-          "Authoriation" => "test auth",
+          "Authorization" => "test auth",
           "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
         },
         verb: "POST"
