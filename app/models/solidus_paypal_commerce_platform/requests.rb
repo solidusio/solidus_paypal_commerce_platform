@@ -33,8 +33,12 @@ module SolidusPaypalCommercePlatform
     end
 
     def capture_order(order_number)
-      if post_capture(order_number).status_code == 201
-        return OpenStruct.new(success?:true)
+      request = post_capture(order_number)
+      if request.status_code == 201
+        return OpenStruct.new(
+          success?: true,
+          id: request.result.purchase_units[0].payments.captures[0].id
+        )
       end
     end
 
@@ -49,7 +53,21 @@ module SolidusPaypalCommercePlatform
     end
 
     def capture_authorized_order(authorization_id)
-      if post_capture_authorized(authorization_id).status_code == 201
+      request = post_capture_authorized(authorization_id)
+      if request.status_code == 201
+        return OpenStruct.new(
+          success?: true,
+          id: request.result.id
+        )
+      end
+    end
+
+    def get_order(order_id)
+      get_order_details(order_id).result
+    end
+
+    def refund_order(refund)
+      if post_order_refund(refund.payment.source.capture_id,refund).status_code == 201
         return OpenStruct.new(success?:true)
       end
     end
@@ -71,6 +89,38 @@ module SolidusPaypalCommercePlatform
             "Authorization" => @env.authorizationString()
           },
           verb: "POST"
+        })
+      )
+    end
+
+    def post_order_refund(capture_id,refund)
+      @client.execute(
+        Request.new({
+          path: "/v2/payments/captures/#{capture_id}/refund",
+          body: {
+            "amount": {
+              "currency_code": refund.currency,
+              "value": refund.amount
+            }
+          },
+          headers: {
+            "Content-Type" => "application/json",
+            "Authorization" => @env.authorizationString()
+          },
+          verb: "POST"
+        })
+      )
+    end
+
+    def get_order_details(order_number)
+      @client.execute(
+        Request.new({
+          path: "/v2/checkout/orders/#{order_number}",
+          headers: {
+            "Content-Type" => "application/json",
+            "Authoriation" => @env.authorizationString()
+          },
+          verb: "GET"
         })
       )
     end

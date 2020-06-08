@@ -4,6 +4,7 @@ class AddPaypalCommercePlatformSources < ActiveRecord::Migration[5.2]
       t.string :paypal_order_id
       t.integer :payment_method_id
       t.string :authorization_id
+      t.string :capture_id
       t.timestamps
     end
   end
