@@ -13,6 +13,7 @@ module SolidusPaypalCommercePlatform
 
     initializer "register_solidus_paypal_commerce_platform_gateway", after: "spree.register.payment_methods" do |app|
       app.config.spree.payment_methods << SolidusPaypalCommercePlatform::Gateway
+      SolidusPaypalCommercePlatform::Gateway.allowed_admin_form_preference_types << :paypal_select
       Spree::PermittedAttributes.source_attributes.concat [:paypal_order_id, :authorization_id]
     end
 

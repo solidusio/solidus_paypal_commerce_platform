@@ -1,5 +1,6 @@
-SolidusPaypalCommercePlatform.renderButton = function(payment_method_id) {
+SolidusPaypalCommercePlatform.renderButton = function(payment_method_id, style) {
   paypal.Buttons({
+    style: style,
     createOrder: function (data, actions) {
       return Spree.ajax({
         url: '/solidus_paypal_commerce_platform/orders',
