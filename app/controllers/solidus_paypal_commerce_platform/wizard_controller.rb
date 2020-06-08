@@ -8,12 +8,16 @@ module SolidusPaypalCommercePlatform
       @payment_method = Spree::PaymentMethod.new(payment_method_params)
 
       if @payment_method.save
-        flash[:success] = "The PayPal Commerce Platform payment method has been successfully created"
-        render json: {
-          redirectUrl: spree.edit_admin_payment_method_url(@payment_method.id)
-        }, status: :ok
+        edit_url = spree.edit_admin_payment_method_url(@payment_method)
+
+        render(
+          json: {redirectUrl: edit_url},
+          status: :created,
+          location: edit_url,
+          notice: "The PayPal Commerce Platform payment method has been successfully created"
+        )
       else
-        render json: {}, status: 500
+        render json: @payment_method.errors, status: :unprocessable_entity
       end
     end
 
