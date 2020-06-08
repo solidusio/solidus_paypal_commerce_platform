@@ -12,7 +12,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def can_void?(payment)
-      !payment.failed? && !payment.void?
+      can_capture?(payment)
     end
 
     def can_credit?(payment)
