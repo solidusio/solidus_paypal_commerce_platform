@@ -1,5 +1,3 @@
-require 'paypal-checkout-sdk'
-
 module SolidusPaypalCommercePlatform
   class WizardController < ::Spree::Api::BaseController
     helper ::Spree::Core::Engine.routes.url_helpers
@@ -25,23 +23,19 @@ module SolidusPaypalCommercePlatform
 
     private
 
-    def use_sandbox?
-      !Rails.env.production?
-    end
-
     def payment_method_params
       {
         name: "PayPal Commerce Platform",
         type: SolidusPaypalCommercePlatform::Gateway,
         preferred_client_id: api_credentials.client_id,
         preferred_client_secret: api_credentials.client_secret,
-        preferred_test_mode: use_sandbox?
+        preferred_test_mode: SolidusPaypalCommercePlatform.env.sandbox?
       }
     end
 
     def api_credentials
       @api_credentials ||= begin
-        paypal_env_class = use_sandbox? ? PayPal::SandboxEnvironment : PayPal::LiveEnvironment
+        paypal_env_class = SolidusPaypalCommercePlatform.env_class
         paypal_env = paypal_env_class.new(params.fetch(:sharedId), nil)
         paypal_client = SolidusPaypalCommercePlatform::Requests.new(paypal_env)
 
