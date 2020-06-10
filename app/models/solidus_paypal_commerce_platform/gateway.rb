@@ -16,6 +16,16 @@ module SolidusPaypalCommercePlatform
       end
     end
 
+    class Client < PayPal::PayPalHttpClient
+      def execute(request)
+        begin
+          super(request)
+        rescue PayPalHttp::HttpError
+          OpenStruct.new(status_code: nil)
+        end
+      end
+    end
+
     def initialize(options)
       test_mode = options.fetch(:test_mode, nil)
       client_id = options.fetch(:client_id)
@@ -26,26 +36,29 @@ module SolidusPaypalCommercePlatform
       paypal_env = env_class.new(client_id, client_secret)
 
       @auth_string = paypal_env.authorizationString
-      @client = PayPal::PayPalHttpClient.new(paypal_env)
+      @client = Client.new(paypal_env)
       @options = options
     end
 
     def purchase(money, source, options)
-      result = capture_order(source.paypal_order_id)
-      source.update(capture_id: result.id)
-      result
+      response = capture_order(source.paypal_order_id)
+      capture_id = response.params["result"].purchase_units[0].payments.captures[0].id
+      source.update(capture_id: capture_id) if response.success?
+      response
     end
 
     def authorize(money, source, options)
       response = authorize_order(source.paypal_order_id)
-      source.update(authorization_id: response.authorization_id)
+      authorization_id = response.params["result"].purchase_units.first.payments.authorizations.first.id
+      source.update(authorization_id: authorization_id) if response.success?
       response
     end
 
     def capture(money, response_code, options)
-      result = capture_authorized_order(options[:originator].source.authorization_id)
-      options[:originator].source.update(capture_id: result.id)
-      result
+      response = capture_authorized_order(options[:originator].source.authorization_id)
+      capture_id = response.params["result"].id
+      options[:originator].source.update(capture_id: capture_id) if response.success?
+      response
     end
 
     def credit(money_cents, transaction_id, options)
@@ -71,33 +84,15 @@ module SolidusPaypalCommercePlatform
     end
 
     def capture_order(order_number)
-      request = post_capture(order_number)
-      if request.status_code == 201
-        return OpenStruct.new(
-          success?: true,
-          id: request.result.purchase_units[0].payments.captures[0].id
-        )
-      end
+      Response.new(post_capture(order_number), "Payment captured")
     end
 
     def authorize_order(order_number)
-      response = post_authorize(order_number)
-      if response.status_code == 201
-        return OpenStruct.new(
-          success?: true,
-          authorization_id: response.result.purchase_units.first.payments.authorizations.first.id
-        )
-      end
+      Response.new(post_authorize(order_number), "Payment authorized")
     end
 
     def capture_authorized_order(authorization_id)
-      request = post_capture_authorized(authorization_id)
-      if request.status_code == 201
-        return OpenStruct.new(
-          success?: true,
-          id: request.result.id
-        )
-      end
+      Response.new(post_capture_authorized(authorization_id), "Authorization captured")
     end
 
     def get_order(order_id)
@@ -105,15 +100,11 @@ module SolidusPaypalCommercePlatform
     end
 
     def refund_order(refund)
-      if post_order_refund(refund.payment.source.capture_id,refund).status_code == 201
-        return OpenStruct.new(success?:true)
-      end
+      Response.new(post_order_refund(refund.payment.source.capture_id,refund),"Payment refunded for #{Spree::Money.new(refund.amount)}")
     end
 
     def void_authorization(authorization_id)
-      if post_void_authorization(authorization_id).status_code == 204
-        return OpenStruct.new(success?: true)
-      end
+      Response.new(post_void_authorization(authorization_id), "Payment voided")
     end
 
     private
