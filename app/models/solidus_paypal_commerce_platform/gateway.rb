@@ -29,7 +29,9 @@ module SolidusPaypalCommercePlatform
     end
 
     def purchase(money, source, options)
-      request.capture_order(source.paypal_order_id)
+      result = request.capture_order(source.paypal_order_id)
+      source.update(capture_id: result.id)
+      result
     end
 
     def authorize(money, source, options)
@@ -39,7 +41,13 @@ module SolidusPaypalCommercePlatform
     end
 
     def capture(money, response_code, options)
-      request.capture_authorized_order(options[:originator].source.authorization_id)
+      result = request.capture_authorized_order(options[:originator].source.authorization_id)
+      options[:originator].source.update(capture_id: result.id)
+      result
+    end
+
+    def credit(money_cents, transaction_id, options)
+      request.refund_order(options[:originator])
     end
 
     def void(response_code, options)

@@ -4,15 +4,20 @@ require 'paypal-checkout-sdk'
 RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
   let(:paypal_payment_method) { create(:paypal_payment_method) }
   let(:payment) { create(:payment) }
+  let(:completed_payment) { create(:payment, :completed)}
 
   before do
     response = OpenStruct.new(
       status_code: 201,
       result: OpenStruct.new(
+        id: SecureRandom.hex(4),
         purchase_units: [
           OpenStruct.new(
             payments: OpenStruct.new(
               authorizations: [
+                OpenStruct.new(id: SecureRandom.hex(4))
+              ],
+              captures: [
                 OpenStruct.new(id: SecureRandom.hex(4))
               ]
             )
@@ -93,8 +98,36 @@ RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
         },
         verb: "POST"
       }
+
       expect(SolidusPaypalCommercePlatform::Requests::Request).to receive(:new).with(request)
+
       paypal_payment_method.void(nil,{originator: payment})
+    end
+  end
+
+  context "#refund" do
+    it "should send a refund request to paypal" do
+      capture_id = SecureRandom.hex(4)
+      source = paypal_payment_method.payment_source_class.create(capture_id: capture_id)
+      completed_payment.source = source
+      request = {
+        path: "/v2/payments/captures/#{capture_id}/refund",
+        body: {
+          amount: {
+            currency_code: "USD",
+            value: 0.12e2
+          }
+        },
+        headers: {
+          "Content-Type" => "application/json",
+          "Authorization" => "test auth"
+        },
+        verb: "POST"
+      }
+
+      expect(SolidusPaypalCommercePlatform::Requests::Request).to receive(:new).with(request)
+
+      paypal_payment_method.credit(1000,{},{originator: completed_payment.refunds.new(amount:12)})
     end
   end
 end
