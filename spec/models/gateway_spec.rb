@@ -79,4 +79,22 @@ RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
       paypal_payment_method.capture(1000,{},{originator: payment})
     end
   end
+
+  context "#void" do
+    it "should send a void request to paypal" do
+      authorization_id = SecureRandom.hex(8)
+      source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
+      payment.source = source
+      request = {
+        path: "/v2/payments/authorizations/#{authorization_id}/void",
+        headers: {
+          "Content-Type" => "application/json",
+          "Authorization" => "test auth",
+        },
+        verb: "POST"
+      }
+      expect(SolidusPaypalCommercePlatform::Requests::Request).to receive(:new).with(request)
+      paypal_payment_method.void(nil,{originator: payment})
+    end
+  end
 end

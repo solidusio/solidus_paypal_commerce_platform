@@ -54,7 +54,26 @@ module SolidusPaypalCommercePlatform
       end
     end
 
+    def void_authorization(authorization_id)
+      if post_void_authorization(authorization_id).status_code == 204
+        return OpenStruct.new(success?: true)
+      end
+    end
+
     private
+
+    def post_void_authorization(authorization_id)
+      @client.execute(
+        Request.new({
+          path: "/v2/payments/authorizations/#{authorization_id}/void",
+          headers: {
+            "Content-Type" => "application/json",
+            "Authorization" => @env.authorizationString()
+          },
+          verb: "POST"
+        })
+      )
+    end
 
     def post_authorize(order_number)
       @client.execute(

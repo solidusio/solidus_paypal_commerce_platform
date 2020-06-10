@@ -42,6 +42,10 @@ module SolidusPaypalCommercePlatform
       request.capture_authorized_order(options[:originator].source.authorization_id)
     end
 
+    def void(response_code, options)
+      request.void_authorization(options[:originator].source.authorization_id)
+    end
+
     def request
       Requests.new(client_id, client_secret)
     end
