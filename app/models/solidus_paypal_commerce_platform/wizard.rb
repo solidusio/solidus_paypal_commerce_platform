@@ -22,7 +22,7 @@ module SolidusPaypalCommercePlatform
         sellerNonce: NONCE
       }
 
-      URI("https://www.sandbox.paypal.com/bizsignup/partner/entry?"+parameters.to_query)
+      URI("https://#{SolidusPaypalCommercePlatform.env_domain}/bizsignup/partner/entry?#{parameters.to_query}")
     end
 
     private
