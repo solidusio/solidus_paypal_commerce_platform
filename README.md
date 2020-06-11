@@ -12,7 +12,7 @@ If you already have API credentials, then you'll need to store them somewhere. Y
 preferences of the payment method, but we recommend storing your API credentials as an ENV variable and loading
 them in as a preference on initialization.
 
-```
+```ruby
 # config/initializers/spree.rb
 Spree::Config.configure do |config|
   config.static_model_preferences.add(
@@ -46,7 +46,8 @@ payment methods by directing the user to a sign-in page for whatever service the
 user is directed to sign up/in for PayPal, and then give us access to their credentials, which we store in preferences.
 
 To add a payment wizard, add the class where your wizard is stored on initialization:
-```
+
+```ruby
 initializer "register_solidus_paypal_commerce_platform_wizard", after: "spree.register.payment_methods" do |app|
   app.config.spree.payment_setup_wizards << "SolidusPaypalCommercePlatform::Wizard"
 end
@@ -108,7 +109,7 @@ to `sandbox/bin/rails`.
 
 Example:
 
-```shell
+```
 $ bin/rails server
 => Booting Puma
 => Rails 6.0.2.1 application starting in development
