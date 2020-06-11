@@ -25,44 +25,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def gateway_class
-      self
-    end
-
-    def purchase(money, source, options)
-      result = request.capture_order(source.paypal_order_id)
-      source.update(capture_id: result.id)
-      result
-    end
-
-    def authorize(money, source, options)
-      response = request.authorize_order(source.paypal_order_id)
-      source.update(authorization_id: response.authorization_id)
-      response
-    end
-
-    def capture(money, response_code, options)
-      result = request.capture_authorized_order(options[:originator].source.authorization_id)
-      options[:originator].source.update(capture_id: result.id)
-      result
-    end
-
-    def credit(money_cents, transaction_id, options)
-      request.refund_order(options[:originator])
-    end
-
-    def void(response_code, options)
-      request.void_authorization(options[:originator].source.authorization_id)
-    end
-
-    def request
-      @request ||= SolidusPaypalCommercePlatform::Gateway.new(paypal_env)
-    end
-
-    def paypal_env
-      @paypal_env ||= begin
-        paypal_env_class = preferred_test_mode ? PayPal::SandboxEnvironment : PayPal::LiveEnvironment
-        paypal_env_class.new(client_id, client_secret)
-      end
+      Gateway
     end
 
     def button_style

@@ -13,9 +13,44 @@ module SolidusPaypalCommercePlatform
       end
     end
 
-    def initialize(paypal_env)
+    def initialize(options)
+      test_mode = options.fetch(:test_mode, nil)
+      client_id = options.fetch(:client_id)
+      client_secret = options.fetch(:client_secret, "")
+
+      test_mode = SolidusPaypalCommercePlatform.env.sandbox? if test_mode.nil?
+      env_class = test_mode ? PayPal::SandboxEnvironment : PayPal::LiveEnvironment
+      paypal_env = env_class.new(client_id, client_secret)
+
       @auth_string = paypal_env.authorizationString
       @client = PayPal::PayPalHttpClient.new(paypal_env)
+      @options = options
+    end
+
+    def purchase(money, source, options)
+      result = capture_order(source.paypal_order_id)
+      source.update(capture_id: result.id)
+      result
+    end
+
+    def authorize(money, source, options)
+      response = authorize_order(source.paypal_order_id)
+      source.update(authorization_id: response.authorization_id)
+      response
+    end
+
+    def capture(money, response_code, options)
+      result = capture_authorized_order(options[:originator].source.authorization_id)
+      options[:originator].source.update(capture_id: result.id)
+      result
+    end
+
+    def credit(money_cents, transaction_id, options)
+      refund_order(options[:originator])
+    end
+
+    def void(response_code, options)
+      void_authorization(options[:originator].source.authorization_id)
     end
 
     def trade_tokens(credentials)
