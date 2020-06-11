@@ -1,6 +1,7 @@
+require 'paypal-checkout-sdk'
+
 module SolidusPaypalCommercePlatform
   class Gateway
-    require 'paypal-checkout-sdk'
 
     class Request
       attr_accessor :path, :body, :headers, :verb
