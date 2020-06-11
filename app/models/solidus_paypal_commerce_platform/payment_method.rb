@@ -55,7 +55,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def request
-      @request ||= Requests.new(paypal_env)
+      @request ||= SolidusPaypalCommercePlatform::Gateway.new(paypal_env)
     end
 
     def paypal_env

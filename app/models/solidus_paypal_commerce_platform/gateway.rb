@@ -1,5 +1,5 @@
 module SolidusPaypalCommercePlatform
-  class Requests
+  class Gateway
     require 'paypal-checkout-sdk'
 
     class Request

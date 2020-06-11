@@ -37,7 +37,7 @@ module SolidusPaypalCommercePlatform
       @api_credentials ||= begin
         paypal_env_class = SolidusPaypalCommercePlatform.env_class
         paypal_env = paypal_env_class.new(params.fetch(:sharedId), nil)
-        paypal_client = SolidusPaypalCommercePlatform::Requests.new(paypal_env)
+        paypal_client = SolidusPaypalCommercePlatform::Gateway.new(paypal_env)
 
         paypal_client.trade_tokens(params)
       end
