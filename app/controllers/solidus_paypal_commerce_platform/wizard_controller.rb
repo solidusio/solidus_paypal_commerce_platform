@@ -8,12 +8,16 @@ module SolidusPaypalCommercePlatform
       @payment_method = Spree::PaymentMethod.new(payment_method_params)
 
       if @payment_method.save
-        flash[:success] = "The PayPal Commerce Platform payment method has been successfully created"
-        render json: {
-          redirectUrl: spree.edit_admin_payment_method_url(@payment_method.id)
-        }, status: :ok
+        edit_url = spree.edit_admin_payment_method_url(@payment_method)
+
+        render(
+          json: {redirectUrl: edit_url},
+          status: :created,
+          location: edit_url,
+          notice: "The PayPal Commerce Platform payment method has been successfully created"
+        )
       else
-        render json: {}, status: 500
+        render json: @payment_method.errors, status: :unprocessable_entity
       end
     end
 
@@ -25,13 +29,15 @@ module SolidusPaypalCommercePlatform
         type: SolidusPaypalCommercePlatform::Gateway,
         preferred_client_id: api_credentials.client_id,
         preferred_client_secret: api_credentials.client_secret,
-        preferred_test_mode: !Rails.env.production?
+        preferred_test_mode: SolidusPaypalCommercePlatform.env.sandbox?
       }
     end
 
     def api_credentials
       @api_credentials ||= begin
-        paypal_client = SolidusPaypalCommercePlatform::Requests.new(params[:sharedId])
+        paypal_env_class = SolidusPaypalCommercePlatform.env_class
+        paypal_env = paypal_env_class.new(params.fetch(:sharedId), nil)
+        paypal_client = SolidusPaypalCommercePlatform::Requests.new(paypal_env)
 
         paypal_client.trade_tokens(params)
       end

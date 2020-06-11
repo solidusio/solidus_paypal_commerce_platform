@@ -70,6 +70,12 @@ bundle
 bundle exec rails g solidus_paypal_commerce_platform:install
 ```
 
+### PayPal Sandbox/Live Environment
+
+This extension will automatically selecte a PayPal environment based on Rails environment so that "production" will be mapped to the "live" PayPal environment, and everything else will be routed to the "sandbox" PayPal environment.
+
+If you want to override these values you can either set `SolidusPaypalCommercePlatform.env` to `"live"` or `"sandbox"` inside an initializer. Or, alternatively, you can set the `PAYPAL_ENV` environment variable to one of the same two values.
+
 Testing
 -------
 

@@ -55,7 +55,14 @@ module SolidusPaypalCommercePlatform
     end
 
     def request
-      Requests.new(client_id, client_secret)
+      @request ||= Requests.new(paypal_env)
+    end
+
+    def paypal_env
+      @paypal_env ||= begin
+        paypal_env_class = preferred_test_mode ? PayPal::SandboxEnvironment : PayPal::LiveEnvironment
+        paypal_env_class.new(client_id, client_secret)
+      end
     end
 
     def button_style
