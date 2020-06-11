@@ -1,5 +1,5 @@
 module SolidusPaypalCommercePlatform
-  class Gateway < SolidusSupport.payment_method_parent_class
+  class PaymentMethod < SolidusSupport.payment_method_parent_class
     include SolidusPaypalCommercePlatform::ButtonOptionsHelper
     preference :client_id, :string
     preference :client_secret, :string

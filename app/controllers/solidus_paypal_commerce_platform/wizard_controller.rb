@@ -26,7 +26,7 @@ module SolidusPaypalCommercePlatform
     def payment_method_params
       {
         name: "PayPal Commerce Platform",
-        type: SolidusPaypalCommercePlatform::Gateway,
+        type: SolidusPaypalCommercePlatform::PaymentMethod,
         preferred_client_id: api_credentials.client_id,
         preferred_client_secret: api_credentials.client_secret,
         preferred_test_mode: SolidusPaypalCommercePlatform.env.sandbox?

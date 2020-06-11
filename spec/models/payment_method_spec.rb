@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'paypal-checkout-sdk'
 
-RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
+RSpec.describe "SolidusPaypalCommercePlatform::PaymentMethod", type: :model do
   let(:paypal_payment_method) { create(:paypal_payment_method) }
   let(:payment) { create(:payment) }
   let(:completed_payment) { create(:payment, :completed)}

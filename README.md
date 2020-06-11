@@ -16,7 +16,7 @@ them in as a preference on initialization.
 # config/initializers/spree.rb
 Spree::Config.configure do |config|
   config.static_model_preferences.add(
-    SolidusPaypalCommercePlatform::Gateway,
+    SolidusPaypalCommercePlatform::PaymentMethod,
     'paypal_commerce_platform_credentials', {
       test_mode: !Rails.env.production?,
       client_id: ENV['PAYPAL_CLIENT_ID'],
