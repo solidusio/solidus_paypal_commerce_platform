@@ -6,7 +6,7 @@ module SolidusPaypalCommercePlatform
 
     def create
       authorize! :update, @order, order_token
-      render json: @payment_method.request.create_order(@order, @payment_method.auto_capture), status: :ok
+      render json: @payment_method.gateway.create_order(@order, @payment_method.auto_capture), status: :ok
     end
 
     private

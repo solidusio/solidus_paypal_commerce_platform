@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'paypal-checkout-sdk'
 
-RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
+RSpec.describe "SolidusPaypalCommercePlatform::PaymentMethod", type: :model do
   let(:paypal_payment_method) { create(:paypal_payment_method) }
   let(:payment) { create(:payment) }
   let(:completed_payment) { create(:payment, :completed)}
@@ -43,7 +43,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
         },
         verb: "POST"
       }
-      expect(SolidusPaypalCommercePlatform::Requests::Request).to receive(:new).with(request)
+      expect(SolidusPaypalCommercePlatform::Gateway::Request).to receive(:new).with(request)
       paypal_payment_method.purchase(1000,source,{})
     end
   end
@@ -61,7 +61,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
         },
         verb: "POST"
       }
-      expect(SolidusPaypalCommercePlatform::Requests::Request).to receive(:new).with(request)
+      expect(SolidusPaypalCommercePlatform::Gateway::Request).to receive(:new).with(request)
       paypal_payment_method.authorize(1000,source,{})
     end
   end
@@ -80,7 +80,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
         },
         verb: "POST"
       }
-      expect(SolidusPaypalCommercePlatform::Requests::Request).to receive(:new).with(request)
+      expect(SolidusPaypalCommercePlatform::Gateway::Request).to receive(:new).with(request)
       paypal_payment_method.capture(1000,{},{originator: payment})
     end
   end
@@ -99,7 +99,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
         verb: "POST"
       }
 
-      expect(SolidusPaypalCommercePlatform::Requests::Request).to receive(:new).with(request)
+      expect(SolidusPaypalCommercePlatform::Gateway::Request).to receive(:new).with(request)
 
       paypal_payment_method.void(nil,{originator: payment})
     end
@@ -125,7 +125,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::Gateway", type: :model do
         verb: "POST"
       }
 
-      expect(SolidusPaypalCommercePlatform::Requests::Request).to receive(:new).with(request)
+      expect(SolidusPaypalCommercePlatform::Gateway::Request).to receive(:new).with(request)
 
       paypal_payment_method.credit(1000,{},{originator: completed_payment.refunds.new(amount:12)})
     end

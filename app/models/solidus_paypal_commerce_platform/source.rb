@@ -16,16 +16,16 @@ module SolidusPaypalCommercePlatform
     end
 
     def can_credit?(payment)
-      payment.completed? && 
-      payment.credit_allowed > 0 && 
-      capture_id && 
+      payment.completed? &&
+      payment.credit_allowed > 0 &&
+      capture_id &&
       request.get_order(paypal_order_id).status == "COMPLETED"
     end
 
     private
 
     def request
-      SolidusPaypalCommercePlatform::Requests.new(payment_method.client_id, payment_method.client_secret)
+      SolidusPaypalCommercePlatform::Gateway.new(payment_method.client_id, payment_method.client_secret)
     end
 
   end
