@@ -30,7 +30,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::PaymentMethod", type: :model do
     allow_any_instance_of(PayPal::SandboxEnvironment).to receive(:authorizationString) { "test auth" }
   end
 
-  context "#purchase" do
+  describe "#purchase" do
     it "should send a purchase request to paypal" do
       paypal_order_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(paypal_order_id: paypal_order_id)
@@ -48,7 +48,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::PaymentMethod", type: :model do
     end
   end
 
-  context "#authorize" do
+  describe "#authorize" do
     it "should send an authorize request to paypal" do
       paypal_order_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(paypal_order_id: paypal_order_id)
@@ -66,7 +66,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::PaymentMethod", type: :model do
     end
   end
 
-  context "#capture" do
+  describe "#capture" do
     it "should send a capture request to paypal" do
       authorization_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
@@ -85,7 +85,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::PaymentMethod", type: :model do
     end
   end
 
-  context "#void" do
+  describe "#void" do
     it "should send a void request to paypal" do
       authorization_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
@@ -105,7 +105,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::PaymentMethod", type: :model do
     end
   end
 
-  context "#refund" do
+  describe "#refund" do
     it "should send a refund request to paypal" do
       capture_id = SecureRandom.hex(4)
       source = paypal_payment_method.payment_source_class.create(capture_id: capture_id)
