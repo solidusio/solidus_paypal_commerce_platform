@@ -130,4 +130,24 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
       paypal_payment_method.credit(1000,{},{originator: completed_payment.refunds.new(amount:12)})
     end
   end
+
+  describe '.javascript_sdk_url' do
+    subject(:url) { URI(paypal_payment_method.javascript_sdk_url(order: order)) }
+
+    context 'when checkout_steps include "confirm"' do
+      let(:order) { double("order", checkout_steps: {"confirm" => "bar"}) }
+
+      it 'sets autocommit' do
+        expect(url.query.split("&")).to include("commit=false")
+      end
+    end
+
+    context 'when checkout_steps does not include "confirm"' do
+      let(:order) { double("order", checkout_steps: {"foo" => "bar"}) }
+
+      it 'disables autocommit' do
+        expect(url.query.split("&")).to include("commit=true")
+      end
+    end
+  end
 end

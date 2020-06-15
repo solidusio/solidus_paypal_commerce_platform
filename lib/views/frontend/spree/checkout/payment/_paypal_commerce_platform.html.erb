@@ -1,6 +1,4 @@
-<script
-  src="<%= payment_method.sdk_url %>">
-</script>
+<script src="<%= payment_method.javascript_sdk_url(order: @order) %>"></script>
 
 <div id="paypal-button-container"></div>
 <input type="hidden" name="payment_source[<%= payment_method.id %>][paypal_order_id]" id="payments_source_paypal_order_id">

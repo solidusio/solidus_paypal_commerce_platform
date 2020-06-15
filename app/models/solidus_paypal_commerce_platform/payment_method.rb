@@ -37,13 +37,19 @@ module SolidusPaypalCommercePlatform
       }
     end
 
-    def sdk_url
+    def javascript_sdk_url(order: nil)
+      # Both instance and class respond to checkout_steps.
+      step_names = order ? order.checkout_steps : Spree::Order.checkout_steps.keys
+
+      commit_immediately = step_names.include? "confirm"
+
       parameters = {
         'client-id': client_id,
-        intent: auto_capture ? "capture" : "authorize"
+        intent: auto_capture ? "capture" : "authorize",
+        commit: commit_immediately ? "false" : "true",
       }
 
-      URI("https://www.paypal.com/sdk/js?"+parameters.to_query)
+      "https://www.paypal.com/sdk/js?#{parameters.to_query}"
     end
 
   end
