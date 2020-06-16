@@ -5,4 +5,5 @@ SolidusPaypalCommercePlatform::Engine.routes.draw do
   resources :wizard, only: [:create]
   resources :orders, only: [:create]
   resources :payments, only: [:create]
+  get :shipping_rates, to: "shipping_rates#simulate_shipping_rates"
 end
