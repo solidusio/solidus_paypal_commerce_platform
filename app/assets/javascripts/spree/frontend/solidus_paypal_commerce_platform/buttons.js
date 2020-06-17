@@ -15,8 +15,25 @@ SolidusPaypalCommercePlatform.renderButton = function(payment_method_id, style) 
       })
     },
     onApprove: function (data, actions) {
-      $("#payments_source_paypal_order_id").val(data.orderID)
-      $("#checkout_form_payment").submit()
+      actions.order.get().then(function(res){
+        var updated_address = res.purchase_units[0].shipping.address
+        return Spree.ajax({
+          url: '/solidus_paypal_commerce_platform/update_address',
+          method: 'POST',
+          data: {
+            address: res.purchase_units[0].shipping.address,
+            order_id: Spree.current_order_id,
+            order_token: Spree.current_order_token
+          },
+          error: function(response) {
+            message = response.responseJSON;
+            alert('There were some problems with your payment address - ' + message);
+          }
+        }).then(function() {
+          $("#payments_source_paypal_order_id").val(data.orderID)
+          $("#checkout_form_payment").submit()
+        })
+      })
     },
     onShippingChange: function(data, actions) {
       Spree.ajax({
