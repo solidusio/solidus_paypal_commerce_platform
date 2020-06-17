@@ -50,6 +50,7 @@ module SolidusPaypalCommercePlatform
 
     def build_address(address)
       country = Spree::Country.find_by(iso: address[:country_code])
+      # Also adds fake information for a few fields, so validations can run
       Spree::Address.new(
         city: address[:city],
         state: country.states.find_by(abbr: address[:state]),
@@ -57,7 +58,8 @@ module SolidusPaypalCommercePlatform
         zipcode: address[:postal_code],
         country: country,
         address1: "123 Fake St.",
-        address2: ""
+        phone: "123456789",
+        firstname: "Fake"
       )
     end
 
