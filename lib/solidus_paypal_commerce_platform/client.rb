@@ -35,5 +35,18 @@ module SolidusPaypalCommercePlatform
         ActiveMerchant::Billing::Response.new(false, failure_message)
       end
     end
+
+    def execute_with_response(request, success_message: nil, failure_message: nil)
+      i18n_scope = i18n_scope_for(request)
+      wrap_response(
+        execute(request),
+        success_message: I18n.t("#{i18n_scope}.success", default: nil),
+        failure_message: I18n.t("#{i18n_scope}.failure", default: nil)
+      )
+    end
+
+    def i18n_scope_for(request)
+      "solidus_paypal_commerce_platform.reponses.#{request.class.name.underscore}"
+    end
   end
 end
