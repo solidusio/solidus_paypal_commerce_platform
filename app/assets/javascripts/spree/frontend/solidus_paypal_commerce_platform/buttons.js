@@ -26,6 +26,11 @@ SolidusPaypalCommercePlatform.renderButton = function(payment_method_id, style) 
           order_id: Spree.current_order_id,
           order_token: Spree.current_order_token,
           address: data.shipping_address
+        },
+        error: function(response) {
+          message = response.responseJSON;
+          console.log('There were some problems with your payment address - ' + message);
+          actions.reject()
         }
       }).then(function(res) {
         return actions.order.patch([

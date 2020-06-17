@@ -7,7 +7,11 @@ module SolidusPaypalCommercePlatform
       authorize! :show, @order, order_token
       simulated_order = SolidusPaypalCommercePlatform::OrderSimulator.new(@order).simulate_with_address(params[:address])
       
-      render json: SolidusPaypalCommercePlatform::PaypalOrder.new(simulated_order).to_replace_json, status: :ok
+      if simulated_order.ship_address.valid?
+        render json: SolidusPaypalCommercePlatform::PaypalOrder.new(simulated_order).to_replace_json, status: :ok
+      else
+        render json: simulated_order.ship_address.errors.full_messages, status: :unprocessable_entity
+      end
     end
 
     private

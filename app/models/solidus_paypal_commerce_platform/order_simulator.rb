@@ -58,7 +58,8 @@ module SolidusPaypalCommercePlatform
         zipcode: address[:postal_code],
         country: country,
         address1: "123 Fake St.",
-        address2: ""
+        phone: "123456789",
+        firstname: "Fake"
       )
     end
 
