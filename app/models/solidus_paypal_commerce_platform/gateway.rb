@@ -147,7 +147,7 @@ module SolidusPaypalCommercePlatform
           path: "/v2/checkout/orders/#{order_number}",
           headers: {
             "Content-Type" => "application/json",
-            "Authoriation" => @auth_string
+            "Authorization" => @auth_string
           },
           verb: "GET"
         })
