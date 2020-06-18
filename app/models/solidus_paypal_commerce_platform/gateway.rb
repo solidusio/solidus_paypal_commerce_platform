@@ -37,7 +37,6 @@ module SolidusPaypalCommercePlatform
       env_class = test_mode ? PayPal::SandboxEnvironment : PayPal::LiveEnvironment
       paypal_env = env_class.new(client_id, client_secret)
 
-      @auth_string = paypal_env.authorizationString
       @client = Client.new(paypal_env)
       @client.add_injector(&PARTNER_ATTRIBUTION_INJECTOR)
       @options = options
@@ -121,7 +120,6 @@ module SolidusPaypalCommercePlatform
           path: "/v2/payments/authorizations/#{authorization_id}/void",
           headers: {
             "Content-Type" => "application/json",
-            "Authorization" => @auth_string
           },
           verb: "POST"
         })
@@ -140,7 +138,6 @@ module SolidusPaypalCommercePlatform
           },
           headers: {
             "Content-Type" => "application/json",
-            "Authorization" => @auth_string
           },
           verb: "POST"
         })
@@ -153,7 +150,6 @@ module SolidusPaypalCommercePlatform
           path: "/v2/checkout/orders/#{order_number}",
           headers: {
             "Content-Type" => "application/json",
-            "Authorization" => @auth_string
           },
           verb: "GET"
         })
@@ -166,7 +162,6 @@ module SolidusPaypalCommercePlatform
           path: "/v2/checkout/orders/#{order_number}/authorize",
           headers: {
             "Content-Type" => "application/json",
-            "Authorization" => @auth_string,
           },
           verb: "POST"
         })
@@ -179,7 +174,6 @@ module SolidusPaypalCommercePlatform
           path: "/v2/payments/authorizations/#{authorization_id}/capture",
           headers: {
             "Content-Type" => "application/json",
-            "Authorization" => @auth_string,
           },
           verb: "POST"
         })
@@ -192,7 +186,6 @@ module SolidusPaypalCommercePlatform
           path: "/v2/checkout/orders/#{order_number}/capture",
           headers: {
             "Content-Type" => "application/json",
-            "Authorization" => @auth_string,
           },
           verb: "POST"
         })
@@ -206,7 +199,6 @@ module SolidusPaypalCommercePlatform
           body: SolidusPaypalCommercePlatform::PaypalOrder.new(order).to_json(intent),
           headers: {
             "Content-Type" => "application/json",
-            "Authorization" => @auth_string,
           },
           verb: "POST"
         })

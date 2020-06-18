@@ -27,7 +27,6 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
     )
 
     allow_any_instance_of(PayPal::PayPalHttpClient).to receive(:execute) { response }
-    allow_any_instance_of(PayPal::SandboxEnvironment).to receive(:authorizationString) { "test auth" }
   end
 
   describe "#purchase" do
@@ -38,7 +37,6 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
         path: "/v2/checkout/orders/#{paypal_order_id}/capture",
         headers: {
           "Content-Type" => "application/json",
-          "Authorization" => "test auth",
         },
         verb: "POST"
       }
@@ -55,7 +53,6 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
         path: "/v2/checkout/orders/#{paypal_order_id}/authorize",
         headers: {
           "Content-Type" => "application/json",
-          "Authorization" => "test auth",
         },
         verb: "POST"
       }
@@ -73,7 +70,6 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
         path: "/v2/payments/authorizations/#{authorization_id}/capture",
         headers: {
           "Content-Type" => "application/json",
-          "Authorization" => "test auth",
         },
         verb: "POST"
       }
@@ -90,8 +86,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
       request = {
         path: "/v2/payments/authorizations/#{authorization_id}/void",
         headers: {
-          "Content-Type" => "application/json",
-          "Authorization" => "test auth",
+          "Content-Type" => "application/json"
         },
         verb: "POST"
       }
@@ -116,8 +111,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
           }
         },
         headers: {
-          "Content-Type" => "application/json",
-          "Authorization" => "test auth"
+          "Content-Type" => "application/json"
         },
         verb: "POST"
       }
