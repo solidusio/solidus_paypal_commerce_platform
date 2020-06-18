@@ -39,7 +39,6 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
         headers: {
           "Content-Type" => "application/json",
           "Authorization" => "test auth",
-          "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
         },
         verb: "POST"
       }
@@ -57,7 +56,6 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
         headers: {
           "Content-Type" => "application/json",
           "Authorization" => "test auth",
-          "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
         },
         verb: "POST"
       }
@@ -76,7 +74,6 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
         headers: {
           "Content-Type" => "application/json",
           "Authorization" => "test auth",
-          "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
         },
         verb: "POST"
       }

@@ -5,6 +5,10 @@ require 'paypal-checkout-sdk'
 module SolidusPaypalCommercePlatform
   class Gateway
 
+    PARTNER_ATTRIBUTION_INJECTOR = ->(request) {
+      request.headers["PayPal-Partner-Attribution-Id"] = "Solidus_PCP_SP"
+    }
+
     class Request
       attr_accessor :path, :body, :headers, :verb
 
@@ -35,6 +39,7 @@ module SolidusPaypalCommercePlatform
 
       @auth_string = paypal_env.authorizationString
       @client = Client.new(paypal_env)
+      @client.add_injector(&PARTNER_ATTRIBUTION_INJECTOR)
       @options = options
     end
 
@@ -159,7 +164,6 @@ module SolidusPaypalCommercePlatform
           headers: {
             "Content-Type" => "application/json",
             "Authorization" => @auth_string,
-            "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
           },
           verb: "POST"
         })
@@ -173,7 +177,6 @@ module SolidusPaypalCommercePlatform
           headers: {
             "Content-Type" => "application/json",
             "Authorization" => @auth_string,
-            "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
           },
           verb: "POST"
         })
@@ -187,7 +190,6 @@ module SolidusPaypalCommercePlatform
           headers: {
             "Content-Type" => "application/json",
             "Authorization" => @auth_string,
-            "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
           },
           verb: "POST"
         })
@@ -202,7 +204,6 @@ module SolidusPaypalCommercePlatform
           headers: {
             "Content-Type" => "application/json",
             "Authorization" => @auth_string,
-            "PayPal-Partner-Attribution-Id" => "Solidus_PCP_SP",
           },
           verb: "POST"
         })
