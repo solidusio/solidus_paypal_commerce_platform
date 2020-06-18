@@ -12,3 +12,14 @@ en:
   virtual_terminal_notice_html: Backend Credit Card payments can only be accepted through PayPal via the <a href="https://www.paypal.com/merchantapps/appcenter/acceptpayments/virtualterminal">PayPal Virtual Terminal</a>.
   solidus_paypal_commerce_platform:
     responses:
+      pay_pal_checkout_sdk/orders/orders_capture_request:
+        success: "Payment captured"
+      pay_pal_checkout_sdk/orders/orders_authorize_request:
+        success: "Payment authorized"
+      pay_pal_checkout_sdk/orders/authorizations_capture_request":
+        success: "Authorization captured"
+      pay_pal_checkout_sdk/orders/captures_refund_request":
+        success: "Payment refunded for %{amount}"
+      pay_pal_checkout_sdk/orders/authorizations_void_request":
+        success: "Payment voided"
+
