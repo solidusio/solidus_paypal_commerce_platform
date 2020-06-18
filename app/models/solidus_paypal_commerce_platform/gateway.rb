@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'paypal-checkout-sdk'
+require 'solidus_paypal_commerce_platform/access_token_authorization_request'
+require 'solidus_paypal_commerce_platform/fetch_merchant_credentials_request'
 
 module SolidusPaypalCommercePlatform
   class Gateway
@@ -54,16 +56,17 @@ module SolidusPaypalCommercePlatform
       void_authorization(options[:originator].source.authorization_id)
     end
 
-    def trade_tokens(credentials)
-      access_token = get_access_token(
-        auth_code: credentials.fetch(:authCode),
-        nonce: credentials.fetch(:nonce),
-      ).result.access_token
+    def trade_tokens(auth_code:, nonce:)
+      access_token = @client.execute(OAuthTokenRequest.new(
+        environment: @client.environment,
+        auth_code: auth_code,
+        nonce: nonce,
+      )).result.access_token
 
-      get_api_credentials(
+      @client.execute(FetchMerchantCredentialsRequest.new(
         access_token: access_token,
         partner_merchant_id: SolidusPaypalCommercePlatform.partner_id,
-      ).result
+      )).result
     end
 
     def create_order(order, auto_capture)
@@ -184,37 +187,6 @@ module SolidusPaypalCommercePlatform
             "Content-Type" => "application/json",
           },
           verb: "POST"
-        })
-      )
-    end
-
-    def get_access_token(auth_code:, nonce:)
-      @client.execute(
-        Request.new({
-          path: "/v1/oauth2/token",
-          body: {
-            grant_type: "authorization_code",
-            code: auth_code,
-            code_verifier: nonce,
-          },
-          headers: {
-            "Content-Type" => "application/x-www-form-urlencoded",
-            "Authorization" => @auth_string,
-          },
-          verb: "POST"
-        })
-      )
-    end
-
-    def get_api_credentials(access_token:, partner_merchant_id:)
-      @client.execute(
-        Request.new({
-          path: "/v1/customer/partners/#{partner_merchant_id}/merchant-integrations/credentials",
-          headers: {
-            "Content-Type" => "application/json",
-            "Authorization" => "Bearer #{access_token}"
-          },
-          verb: "GET"
         })
       )
     end
