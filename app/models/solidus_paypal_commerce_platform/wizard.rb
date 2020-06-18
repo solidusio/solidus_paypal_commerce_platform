@@ -1,7 +1,5 @@
 module SolidusPaypalCommercePlatform
   class Wizard
-    NONCE = "0fb0e3e75e3deb58de8fb4e8dc27eb25ab2cbcabdb84"
-
     def name
       I18n.t('start_paying_with_paypal')
     end
@@ -13,13 +11,13 @@ module SolidusPaypalCommercePlatform
     def button_url
       parameters = {
         product: "addipmt",
-        partnerId: "5LQZV7RJDGKG2",
-        partnerClientId: "ATDpQjHzjCz_C_qbbJ76Ca0IjcmwlS4FztD6YfuRFZXDCmcWWw8-8QWcF3YIkbC85ixTUuuSEvrBMVSX",
+        partnerId: SolidusPaypalCommercePlatform.partner_id,
+        partnerClientId: SolidusPaypalCommercePlatform.partner_client_id,
         features: "PAYMENT,REFUND",
         partnerLogoUrl: logo,
         integrationType: "FO",
         displayMode: "minibrowser",
-        sellerNonce: NONCE
+        sellerNonce: SolidusPaypalCommercePlatform.nonce
       }
 
       URI("https://#{SolidusPaypalCommercePlatform.env_domain}/bizsignup/partner/entry?#{parameters.to_query}")

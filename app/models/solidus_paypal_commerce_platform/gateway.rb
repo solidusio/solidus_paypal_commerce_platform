@@ -78,7 +78,10 @@ module SolidusPaypalCommercePlatform
         nonce: credentials.fetch(:nonce),
       ).result.access_token
 
-      get_api_credentials(accessToken: access_token).result
+      get_api_credentials(
+        access_token: access_token,
+        partner_merchant_id: SolidusPaypalCommercePlatform.partner_id,
+      ).result
     end
 
     def create_order(order, auto_capture)
@@ -228,13 +231,13 @@ module SolidusPaypalCommercePlatform
       )
     end
 
-    def get_api_credentials(credentials)
+    def get_api_credentials(access_token:, partner_merchant_id:)
       @client.execute(
         Request.new({
-          path: "/v1/customer/partners/5LQZV7RJDGKG2/merchant-integrations/credentials",
+          path: "/v1/customer/partners/#{partner_merchant_id}/merchant-integrations/credentials",
           headers: {
             "Content-Type" => "application/json",
-            "Authorization" => "Bearer #{credentials[:accessToken]}"
+            "Authorization" => "Bearer #{access_token}"
           },
           verb: "GET"
         })
