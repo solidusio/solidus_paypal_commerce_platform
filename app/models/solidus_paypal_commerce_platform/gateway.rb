@@ -18,11 +18,9 @@ module SolidusPaypalCommercePlatform
 
     class Client < PayPal::PayPalHttpClient
       def execute(request)
-        begin
-          super(request)
-        rescue PayPalHttp::HttpError
-          OpenStruct.new(status_code: nil)
-        end
+        super
+      rescue PayPalHttp::HttpError
+        OpenStruct.new(status_code: nil)
       end
     end
 
