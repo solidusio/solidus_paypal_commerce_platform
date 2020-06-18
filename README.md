@@ -1,6 +1,9 @@
 SolidusPaypalCommercePlatform
 =============================
 
+[![CircleCI](https://circleci.com/gh/nebulab/solidus_paypal_commerce_platform.svg?style=shield)](https://circleci.com/gh/nebulab/solidus_paypal_commerce_platform)
+[![codecov](https://codecov.io/gh/nebulab/solidus_paypal_commerce_platform/branch/master/graph/badge.svg)](https://codecov.io/gh/nebulab/solidus_paypal_commerce_platform)
+
 The official PayPal integration of Solidus.
 
 Getting Started
