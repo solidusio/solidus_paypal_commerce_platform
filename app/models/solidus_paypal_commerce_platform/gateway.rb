@@ -4,11 +4,6 @@ require 'paypal-checkout-sdk'
 
 module SolidusPaypalCommercePlatform
   class Gateway
-
-    PARTNER_ATTRIBUTION_INJECTOR = ->(request) {
-      request.headers["PayPal-Partner-Attribution-Id"] = "Solidus_PCP_SP"
-    }
-
     class Request
       attr_accessor :path, :body, :headers, :verb
 
@@ -20,25 +15,13 @@ module SolidusPaypalCommercePlatform
       end
     end
 
-    class Client < PayPal::PayPalHttpClient
-      def execute(request)
-        super
-      rescue PayPalHttp::HttpError
-        OpenStruct.new(status_code: nil)
-      end
-    end
-
     def initialize(options)
-      test_mode = options.fetch(:test_mode, nil)
-      client_id = options.fetch(:client_id)
-      client_secret = options.fetch(:client_secret, "")
-
-      test_mode = SolidusPaypalCommercePlatform.env.sandbox? if test_mode.nil?
-      env_class = test_mode ? PayPal::SandboxEnvironment : PayPal::LiveEnvironment
-      paypal_env = env_class.new(client_id, client_secret)
-
-      @client = Client.new(paypal_env)
-      @client.add_injector(&PARTNER_ATTRIBUTION_INJECTOR)
+      # Cannot use kwargs because of how the Gateway is initialize by Solidus.
+      @client = Client.new(
+        test_mode: options.fetch(:test_mode, nil),
+        client_id: options.fetch(:client_id),
+        client_secret: options.fetch(:client_secret, ""),
+      )
       @options = options
     end
 
@@ -89,15 +72,15 @@ module SolidusPaypalCommercePlatform
     end
 
     def capture_order(order_number)
-      Response.new(post_capture(order_number), "Payment captured")
+      @client.wrap_response(post_capture(order_number), success_message: "Payment captured")
     end
 
     def authorize_order(order_number)
-      Response.new(post_authorize(order_number), "Payment authorized")
+      @client.wrap_response(post_authorize(order_number), success_message: "Payment authorized")
     end
 
     def capture_authorized_order(authorization_id)
-      Response.new(post_capture_authorized(authorization_id), "Authorization captured")
+      @client.wrap_response(post_capture_authorized(authorization_id), success_message: "Authorization captured")
     end
 
     def get_order(order_id)
@@ -105,11 +88,11 @@ module SolidusPaypalCommercePlatform
     end
 
     def refund_order(refund)
-      Response.new(post_order_refund(refund.payment.source.capture_id,refund),"Payment refunded for #{Spree::Money.new(refund.amount)}")
+      @client.wrap_response(post_order_refund(refund.payment.source.capture_id,refund), success_message: "Payment refunded for #{Spree::Money.new(refund.amount)}")
     end
 
     def void_authorization(authorization_id)
-      Response.new(post_void_authorization(authorization_id), "Payment voided")
+      @client.wrap_response(post_void_authorization(authorization_id), success_message: "Payment voided")
     end
 
     private
