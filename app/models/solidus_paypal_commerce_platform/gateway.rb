@@ -6,6 +6,8 @@ require 'solidus_paypal_commerce_platform/fetch_merchant_credentials_request'
 
 module SolidusPaypalCommercePlatform
   class Gateway
+    include PayPalCheckoutSdk::Orders
+
     class Request
       attr_accessor :path, :body, :headers, :verb
 
@@ -16,6 +18,7 @@ module SolidusPaypalCommercePlatform
         @verb = options[:verb]
       end
     end
+    include PayPalCheckoutSdk::Payments
 
     def initialize(options)
       # Cannot use kwargs because of how the Gateway is initialize by Solidus.
