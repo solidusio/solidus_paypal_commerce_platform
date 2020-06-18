@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'paypal-checkout-sdk'
 
-RSpec.describe "SolidusPaypalCommercePlatform::PaymentMethod", type: :model do
+RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
   let(:paypal_payment_method) { create(:paypal_payment_method) }
   let(:payment) { create(:payment) }
   let(:completed_payment) { create(:payment, :completed)}
@@ -30,7 +30,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::PaymentMethod", type: :model do
     allow_any_instance_of(PayPal::SandboxEnvironment).to receive(:authorizationString) { "test auth" }
   end
 
-  context "#purchase" do
+  describe "#purchase" do
     it "should send a purchase request to paypal" do
       paypal_order_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(paypal_order_id: paypal_order_id)
@@ -48,7 +48,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::PaymentMethod", type: :model do
     end
   end
 
-  context "#authorize" do
+  describe "#authorize" do
     it "should send an authorize request to paypal" do
       paypal_order_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(paypal_order_id: paypal_order_id)
@@ -66,7 +66,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::PaymentMethod", type: :model do
     end
   end
 
-  context "#capture" do
+  describe "#capture" do
     it "should send a capture request to paypal" do
       authorization_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
@@ -85,7 +85,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::PaymentMethod", type: :model do
     end
   end
 
-  context "#void" do
+  describe "#void" do
     it "should send a void request to paypal" do
       authorization_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
@@ -105,7 +105,7 @@ RSpec.describe "SolidusPaypalCommercePlatform::PaymentMethod", type: :model do
     end
   end
 
-  context "#refund" do
+  describe "#refund" do
     it "should send a refund request to paypal" do
       capture_id = SecureRandom.hex(4)
       source = paypal_payment_method.payment_source_class.create(capture_id: capture_id)
@@ -128,6 +128,26 @@ RSpec.describe "SolidusPaypalCommercePlatform::PaymentMethod", type: :model do
       expect(SolidusPaypalCommercePlatform::Gateway::Request).to receive(:new).with(request)
 
       paypal_payment_method.credit(1000,{},{originator: completed_payment.refunds.new(amount:12)})
+    end
+  end
+
+  describe '.javascript_sdk_url' do
+    subject(:url) { URI(paypal_payment_method.javascript_sdk_url(order: order)) }
+
+    context 'when checkout_steps include "confirm"' do
+      let(:order) { double("order", checkout_steps: {"confirm" => "bar"}) }
+
+      it 'sets autocommit' do
+        expect(url.query.split("&")).to include("commit=false")
+      end
+    end
+
+    context 'when checkout_steps does not include "confirm"' do
+      let(:order) { double("order", checkout_steps: {"foo" => "bar"}) }
+
+      it 'disables autocommit' do
+        expect(url.query.split("&")).to include("commit=true")
+      end
     end
   end
 end
