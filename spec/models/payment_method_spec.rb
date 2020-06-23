@@ -66,7 +66,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
     end
   end
 
-  describe "#refund" do
+  describe "#credit" do
     it "should send a refund request to paypal" do
       capture_id = SecureRandom.hex(4)
       source = paypal_payment_method.payment_source_class.create(capture_id: capture_id)
