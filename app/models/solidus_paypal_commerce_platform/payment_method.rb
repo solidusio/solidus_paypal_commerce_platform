@@ -10,6 +10,7 @@ module SolidusPaypalCommercePlatform
     preference :paypal_button_shape, :paypal_select, default: "rect"
     preference :paypal_button_layout, :paypal_select, default: "vertical"
     preference :display_on_cart, :boolean, default: true
+    preference :display_on_product_page, :boolean, default: true
 
     def partial_name
       "paypal_commerce_platform"
@@ -20,6 +21,14 @@ module SolidusPaypalCommercePlatform
     end
 
     def cart_partial_name
+      "paypal_commerce_platform"
+    end
+
+    def display_on_product_page
+      preferences[:display_on_product_page]
+    end
+
+    def product_page_partial_name
       "paypal_commerce_platform"
     end
 
@@ -50,7 +59,7 @@ module SolidusPaypalCommercePlatform
 
     def javascript_sdk_url(order: nil)
       # Both instance and class respond to checkout_steps.
-      step_names = order ? order.checkout_steps : Spree::Order.checkout_steps.keys
+      step_names = order ? order.checkout_steps : ::Spree::Order.checkout_steps.keys
 
       commit_immediately = step_names.include? "confirm"
 
