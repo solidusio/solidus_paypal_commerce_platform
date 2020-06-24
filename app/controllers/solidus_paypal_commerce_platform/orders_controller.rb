@@ -4,6 +4,24 @@ module SolidusPaypalCommercePlatform
   class OrdersController < ::Spree::Api::BaseController
     before_action :load_order, except: :create
     skip_before_action :authenticate_user
+    include ::Spree::Core::ControllerHelpers::Auth
+
+    def create
+      authorize! :create, ::Spree::Order
+
+      @order = ::Spree::Order.create!(
+        user: try_spree_current_user,
+        store: current_store
+      )
+
+      if @order.contents.update_cart order_params
+        # Overriding any existing orders
+        cookies.signed[:guest_token] = @order.guest_token
+        render json: @order, status: :ok
+      else
+        render json: @order.errors.full_messages, status: :unprocessable_entity
+      end
+    end
 
     def update_address
       authorize! :update, @order, order_token
@@ -50,6 +68,10 @@ module SolidusPaypalCommercePlatform
           ]
         ]
       )
+    end
+
+    def order_params
+      params.require(:order).permit(permitted_order_attributes)
     end
 
     def load_order
