@@ -1,10 +1,9 @@
 SolidusPaypalCommercePlatform.postOrder = function(payment_method_id) {
   return Spree.ajax({
-    url: '/solidus_paypal_commerce_platform/orders',
-    method: 'POST',
+    url: '/solidus_paypal_commerce_platform/paypal_orders/' + Spree.current_order_id,
+    method: 'GET',
     data: {
       payment_method_id: payment_method_id,
-      order_id: Spree.current_order_id,
       order_token: Spree.current_order_token
     }
   }).then(function(response) {
