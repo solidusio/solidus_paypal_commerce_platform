@@ -9,8 +9,17 @@ module SolidusPaypalCommercePlatform
     preference :paypal_button_size, :paypal_select, default: "responsive"
     preference :paypal_button_shape, :paypal_select, default: "rect"
     preference :paypal_button_layout, :paypal_select, default: "vertical"
+    preference :display_on_cart, :boolean, default: true
 
     def partial_name
+      "paypal_commerce_platform"
+    end
+
+    def display_on_cart
+      preferences[:display_on_cart]
+    end
+
+    def cart_partial_name
       "paypal_commerce_platform"
     end
 
