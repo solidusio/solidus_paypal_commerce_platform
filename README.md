@@ -101,6 +101,17 @@ SolidusPaypalCommercePlatform.partner_id = "xxxxxxxxxxKG2"
 SolidusPaypalCommercePlatform.partner_client_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxVSX"
 ```
 
+Address Phone Number Validation
+-------------------------------
+
+Since PayPal is being used as the checkout if the user checks out on the product or cart page, and PayPal doesn't collect phone numbers, this extension disables phone number required validation for `Spree::Address`. To turn phone number validation back on, you'll need to either:
+
+A) Turn off cart and product page checkout - configurable on the admin payment method page for PayPal Commerce Platform.
+-OR-
+B) Collect the users phone number seperately
+
+and then override the `Spree::Address` method `require_phone?` to return `true`.
+
 Testing
 -------
 
