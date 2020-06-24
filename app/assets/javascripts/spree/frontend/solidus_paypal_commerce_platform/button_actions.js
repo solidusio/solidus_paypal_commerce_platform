@@ -1,4 +1,4 @@
-SolidusPaypalCommercePlatform.postOrder = function(payment_method_id) {
+SolidusPaypalCommercePlatform.sendOrder = function(payment_method_id) {
   return Spree.ajax({
     url: '/solidus_paypal_commerce_platform/paypal_orders/' + Spree.current_order_id,
     method: 'GET',
@@ -9,6 +9,56 @@ SolidusPaypalCommercePlatform.postOrder = function(payment_method_id) {
   }).then(function(response) {
     return response.table.id;
   })
+}
+
+SolidusPaypalCommercePlatform.createAndSendOrder = function(payment_method_id) {
+  return SolidusPaypalCommercePlatform.createOrder().then(function(){
+    return SolidusPaypalCommercePlatform.sendOrder(payment_method_id)
+  })
+}
+
+SolidusPaypalCommercePlatform.createOrder = function() {
+  var data = {
+    order: {
+      line_items_attributes: [{
+        variant_id: SolidusPaypalCommercePlatform.getVariantId(),
+        quantity: SolidusPaypalCommercePlatform.getQuantity()
+      }]
+    }
+  }
+
+  return Spree.ajax({
+    url: "/solidus_paypal_commerce_platform/orders",
+    method: 'POST',
+    data: data,
+    error: function(response) {
+      message = response.responseJSON
+      alert('A problem has occurred while creating your order - ' + message);
+    }
+  }).then(function(response) {
+    Spree.current_order_id = response.number
+    Spree.current_order_token = response.guest_token
+  });
+}
+
+SolidusPaypalCommercePlatform.getVariantId = function() {
+  var variants = document.getElementsByName("variant_id")
+  var variant_id;
+  if(variants.length == 1){
+    variant_id = variants[0].value
+  }else{
+    var i;
+    for (i = 0; i < variants.length; i++) {
+      if (variants[i].checked) {
+        variant_id = variants[i].value
+      }
+    }
+  }
+  return variant_id
+}
+
+SolidusPaypalCommercePlatform.getQuantity = function() {
+  return document.getElementById("quantity").value
 }
 
 SolidusPaypalCommercePlatform.approveOrder = function(data, actions) {
