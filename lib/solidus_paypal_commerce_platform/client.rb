@@ -26,16 +26,6 @@ module SolidusPaypalCommercePlatform
       OpenStruct.new(status_code: nil)
     end
 
-    def wrap_response(response, success_message: nil, failure_message: nil)
-      if SUCCESS_STATUS_CODES.include? response.status_code
-        success_message ||= "Success."
-        ActiveMerchant::Billing::Response.new(true, success_message, result: response.result)
-      else
-        failure_message ||= "A problem has occurred with this payment, please try again."
-        ActiveMerchant::Billing::Response.new(false, failure_message)
-      end
-    end
-
     def execute_with_response(request, success_message: nil, failure_message: nil)
       i18n_scope = i18n_scope_for(request)
       wrap_response(
@@ -46,7 +36,19 @@ module SolidusPaypalCommercePlatform
     end
 
     def i18n_scope_for(request)
-      "solidus_paypal_commerce_platform.reponses.#{request.class.name.underscore}"
+      "solidus_paypal_commerce_platform.responses.#{request.class.name.underscore}"
+    end
+
+    private
+
+    def wrap_response(response, success_message: nil, failure_message: nil)
+      if SUCCESS_STATUS_CODES.include? response.status_code
+        success_message ||= "Success."
+        ActiveMerchant::Billing::Response.new(true, success_message, result: response.result)
+      else
+        failure_message ||= "A problem has occurred with this payment, please try again."
+        ActiveMerchant::Billing::Response.new(false, failure_message)
+      end
     end
   end
 end
