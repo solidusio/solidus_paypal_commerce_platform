@@ -5,7 +5,7 @@ RSpec.describe "creating a new payment" do
 
   scenario "should display PayPal Commerce Platform as an option" do
     visit "/admin/payment_methods/new"
-    expect(page).to have_select('payment_method_type', :options => ["Paypal Commerce Platform", "Bogus Credit Card Payments", "Check Payments", "Simple Bogus Credit Card Payments", "Store Credit Payments"])
+    expect(page).to have_select('payment_method_type', :options => ["PayPal Commerce Platform", "Bogus Credit Card Payments", "Check Payments", "Simple Bogus Credit Card Payments", "Store Credit Payments"])
   end
 
   scenario "should display the onboarding button", :js do

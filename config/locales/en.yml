@@ -1,10 +1,14 @@
 en:
+  spree:
+    payment_source: source
   activerecord:
     attributes:
       solidus_paypal_commerce_platform/payment_source:
-        paypal_order_id: ""
+        paypal_order_id: "PayPal order"
+        payment_method_id: "payment method"
     models:
-      solidus_paypal_commerce_platform/payment_method: Paypal Commerce Platform
+      solidus_paypal_commerce_platform/payment_source: PayPal Payment Source
+      solidus_paypal_commerce_platform/payment_method: PayPal Commerce Platform
   hello: Hello world
   sign_up_for_paypal: Setup PayPal Commerce Platform
   start_paying_with_paypal: Start paying with Paypal Commerce Platform
