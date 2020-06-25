@@ -15,7 +15,7 @@ module SolidusPaypalCommercePlatform
         return redirect_to spree.order_path(@order), notice: "Order is already in complete state"
       end
 
-      source = SolidusPaypalCommercePlatform::Source.new(paypal_order_id: paypal_order_id)
+      source = SolidusPaypalCommercePlatform::PaymentSource.new(paypal_order_id: paypal_order_id)
 
       source.transaction do
         if source.save!

@@ -1,5 +1,5 @@
 module SolidusPaypalCommercePlatform
-  class Source < SolidusSupport.payment_source_parent_class
+  class PaymentSource < SolidusSupport.payment_source_parent_class
     self.table_name = "paypal_commerce_platform_sources"
     validates_presence_of :paypal_order_id, :payment_method_id
 

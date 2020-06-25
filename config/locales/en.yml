@@ -1,7 +1,7 @@
 en:
   activerecord:
     attributes:
-      solidus_paypal_commerce_platform/source:
+      solidus_paypal_commerce_platform/payment_source:
         paypal_order_id: ""
     models:
       solidus_paypal_commerce_platform/payment_method: Paypal Commerce Platform
