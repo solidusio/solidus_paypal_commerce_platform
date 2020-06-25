@@ -1,0 +1,13 @@
+<div style="margin-top:20px;">
+  <script src="<%= payment_method.javascript_sdk_url %>">
+  </script>
+
+  <div id="paypal-button-container"></div>
+
+  <script>
+    SolidusPaypalCommercePlatform.checkout_url = "<%= checkout_url %>"
+    $( document ).ready(function() {
+      SolidusPaypalCommercePlatform.renderProductButton("<%= payment_method.id %>",<%= raw payment_method.button_style.to_json %>)
+    })
+  </script>
+</div>
