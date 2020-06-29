@@ -9,7 +9,15 @@ module SolidusPaypalCommercePlatform
       return {
         intent: intent,
         purchase_units: purchase_units,
-        payer: payer
+        payer: (payer if @order.bill_address)
+      }
+    end
+
+    def to_replace_json
+      return {
+        op: 'replace',
+        path: '/purchase_units/@reference_id==\'default\'',
+        value: purchase_units[0]
       }
     end
 
@@ -46,7 +54,7 @@ module SolidusPaypalCommercePlatform
         {
           amount: amount,
           items: line_items,
-          shipping: shipping_info
+          shipping: (shipping_info if @order.ship_address)
         }
       ]
     end
@@ -66,7 +74,6 @@ module SolidusPaypalCommercePlatform
         {
           name: line_item.product.name,
           unit_amount: price(line_item.price),
-          tax: price(line_item.included_tax_total / line_item.quantity),
           quantity: line_item.quantity
         }
       }
@@ -84,7 +91,7 @@ module SolidusPaypalCommercePlatform
       {
         item_total: price(@order.item_total),
         shipping: price(@order.shipment_total),
-        tax_total: price(@order.tax_total),
+        tax_total: price(@order.additional_tax_total),
         discount: price(@order.adjustments.sum(&:amount))
       }
     end
