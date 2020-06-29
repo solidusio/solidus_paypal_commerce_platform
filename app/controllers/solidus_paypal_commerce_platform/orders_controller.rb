@@ -45,11 +45,11 @@ module SolidusPaypalCommercePlatform
     end
 
     def load_order
-      @order = Spree::Order.find_by!(number: params[:order_id])
+      @order = ::Spree::Order.find_by!(number: params[:order_id])
     end
 
     def load_payment_method
-      @payment_method = Spree::PaymentMethod.find(params[:payment_method_id])
+      @payment_method = ::Spree::PaymentMethod.find(params[:payment_method_id])
     end
   end
 end

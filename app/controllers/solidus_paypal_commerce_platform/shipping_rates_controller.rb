@@ -20,7 +20,7 @@ module SolidusPaypalCommercePlatform
     private
 
     def load_order
-      @order = Spree::Order.find_by(number: params[:order_id])
+      @order = ::Spree::Order.find_by(number: params[:order_id])
     end
   end
 end

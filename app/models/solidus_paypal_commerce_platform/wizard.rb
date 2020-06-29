@@ -28,7 +28,7 @@ module SolidusPaypalCommercePlatform
     private
 
     def logo
-      ActionController::Base.helpers.image_url(Spree::Config[:admin_interface_logo])
+      ActionController::Base.helpers.image_url(::Spree::Config[:admin_interface_logo])
     end
   end
 end
