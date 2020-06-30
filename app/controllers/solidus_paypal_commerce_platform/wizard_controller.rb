@@ -36,7 +36,10 @@ module SolidusPaypalCommercePlatform
     def api_credentials
       @api_credentials ||= SolidusPaypalCommercePlatform::Gateway.new(
         client_id: params.fetch(:sharedId)
-      ).trade_tokens(params)
+      ).trade_tokens(
+        auth_code: params.fetch(:authCode),
+        nonce: params.fetch(:nonce),
+      )
     end
   end
 end

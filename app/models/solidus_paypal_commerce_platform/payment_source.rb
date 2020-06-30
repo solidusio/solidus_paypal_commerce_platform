@@ -1,5 +1,5 @@
 module SolidusPaypalCommercePlatform
-  class Source < SolidusSupport.payment_source_parent_class
+  class PaymentSource < SolidusSupport.payment_source_parent_class
     self.table_name = "paypal_commerce_platform_sources"
     validates_presence_of :paypal_order_id, :payment_method_id
 
@@ -19,14 +19,7 @@ module SolidusPaypalCommercePlatform
       payment.completed? &&
       payment.credit_allowed > 0 &&
       capture_id &&
-      request.get_order(paypal_order_id).status == "COMPLETED"
+      payment_method.gateway.get_order(paypal_order_id).status == "COMPLETED"
     end
-
-    private
-
-    def request
-      SolidusPaypalCommercePlatform::Gateway.new(payment_method.client_id, payment_method.client_secret)
-    end
-
   end
 end

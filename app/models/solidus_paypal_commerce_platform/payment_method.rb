@@ -21,7 +21,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def payment_source_class
-      Source
+      PaymentSource
     end
 
     def gateway_class

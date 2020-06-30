@@ -39,7 +39,7 @@ RSpec.describe "Checkout" do
         visit '/checkout/payment'
         choose(option: paypal_payment_method.id)
         click_button("Save and Continue")
-        expect(page).to have_content("Payments source can't be blank")
+        expect(page).to have_content("Payments source PayPal order can't be blank")
       end
     end
 

@@ -1,12 +1,29 @@
 en:
+  spree:
+    payment_source: source
   activerecord:
     attributes:
-      solidus_paypal_commerce_platform/source:
-        paypal_order_id: ""
+      solidus_paypal_commerce_platform/payment_source:
+        paypal_order_id: "PayPal order"
+        payment_method_id: "payment method"
     models:
-      solidus_paypal_commerce_platform/payment_method: Paypal Commerce Platform
+      solidus_paypal_commerce_platform/payment_source: PayPal Payment Source
+      solidus_paypal_commerce_platform/payment_method: PayPal Commerce Platform
   hello: Hello world
   sign_up_for_paypal: Setup PayPal Commerce Platform
   start_paying_with_paypal: Start paying with Paypal Commerce Platform
   paypal_order_id: PayPal Order ID
   virtual_terminal_notice_html: Backend Credit Card payments can only be accepted through PayPal via the <a href="https://www.paypal.com/merchantapps/appcenter/acceptpayments/virtualterminal">PayPal Virtual Terminal</a>.
+  solidus_paypal_commerce_platform:
+    responses:
+      pay_pal_checkout_sdk/orders/orders_capture_request:
+        success: "Payment captured"
+      pay_pal_checkout_sdk/orders/orders_authorize_request:
+        success: "Payment authorized"
+      pay_pal_checkout_sdk/orders/authorizations_capture_request":
+        success: "Authorization captured"
+      pay_pal_checkout_sdk/orders/captures_refund_request":
+        success: "Payment refunded for %{amount}"
+      pay_pal_checkout_sdk/orders/authorizations_void_request":
+        success: "Payment voided"
+
