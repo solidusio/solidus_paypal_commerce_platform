@@ -20,10 +20,10 @@ en:
         success: "Payment captured"
       pay_pal_checkout_sdk/orders/orders_authorize_request:
         success: "Payment authorized"
-      pay_pal_checkout_sdk/orders/authorizations_capture_request":
+      pay_pal_checkout_sdk/payments/authorizations_capture_request:
         success: "Authorization captured"
-      pay_pal_checkout_sdk/orders/captures_refund_request":
+      pay_pal_checkout_sdk/payments/captures_refund_request:
         success: "Payment refunded for %{amount}"
-      pay_pal_checkout_sdk/orders/authorizations_void_request":
+      pay_pal_checkout_sdk/payments/authorizations_void_request:
         success: "Payment voided"
 
