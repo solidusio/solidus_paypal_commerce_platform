@@ -13,6 +13,7 @@ en:
   sign_up_for_paypal: Setup PayPal Commerce Platform
   start_paying_with_paypal: Start paying with Paypal Commerce Platform
   paypal_order_id: PayPal Order ID
+  paypal_debug_id: PayPal Debug ID
   virtual_terminal_notice_html: Backend Credit Card payments can only be accepted through PayPal via the <a href="https://www.paypal.com/merchantapps/appcenter/acceptpayments/virtualterminal">PayPal Virtual Terminal</a>.
   solidus_paypal_commerce_platform:
     responses:

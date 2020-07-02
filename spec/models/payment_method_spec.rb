@@ -22,7 +22,10 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
             )
           )
         ]
-      )
+      ),
+      headers: {
+        "paypal-debug-id": ["123"]
+      }
     )
 
     allow_any_instance_of(PayPal::PayPalHttpClient).to receive(:execute) { response }
