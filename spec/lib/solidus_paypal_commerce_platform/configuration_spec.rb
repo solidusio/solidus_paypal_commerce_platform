@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-RSpec.describe SolidusPaypalCommercePlatform::Environment do
-  let(:subject) { Class.new.extend described_class }
+RSpec.describe SolidusPaypalCommercePlatform::Configuration do
+  let(:subject) { described_class.new }
 
   describe '#default_env' do
     it "uses ENV['PAYPAL_ENV'] when present" do

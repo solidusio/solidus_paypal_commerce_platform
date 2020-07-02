@@ -72,7 +72,7 @@ module SolidusPaypalCommercePlatform
 
       @client.execute(FetchMerchantCredentialsRequest.new(
         access_token: access_token,
-        partner_merchant_id: SolidusPaypalCommercePlatform.partner_id,
+        partner_merchant_id: SolidusPaypalCommercePlatform.config.partner_id,
       )).result
     end
 

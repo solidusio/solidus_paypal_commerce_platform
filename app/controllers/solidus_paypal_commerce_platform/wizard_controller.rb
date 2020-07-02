@@ -31,7 +31,7 @@ module SolidusPaypalCommercePlatform
         type: SolidusPaypalCommercePlatform::PaymentMethod,
         preferred_client_id: api_credentials.client_id,
         preferred_client_secret: api_credentials.client_secret,
-        preferred_test_mode: SolidusPaypalCommercePlatform.env.sandbox?
+        preferred_test_mode: SolidusPaypalCommercePlatform.config.env.sandbox?
       }
     end
 

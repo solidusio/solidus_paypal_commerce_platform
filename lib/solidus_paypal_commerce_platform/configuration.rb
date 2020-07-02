@@ -3,7 +3,7 @@
 require 'paypal-checkout-sdk'
 
 module SolidusPaypalCommercePlatform
-  module Environment
+  class Configuration
     InvalidEnvironment = Class.new(StandardError)
 
     DEFAULT_NONCE = {
@@ -70,6 +70,4 @@ module SolidusPaypalCommercePlatform
       @partner_client_id ||= ENV['PAYPAL_PARTNER_CLIENT_ID'] || DEFAULT_PARTNER_CLIENT_ID[env.to_sym]
     end
   end
-
-  extend Environment
 end
