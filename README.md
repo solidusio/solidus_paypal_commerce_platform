@@ -113,6 +113,22 @@ B) Collect the users phone number seperately
 
 and then override the `Spree::Address` method `require_phone?` to return `true`.
 
+Customization
+-------------
+
+You can customize some of the settings in this app with the `configure` 
+method in an initializer. For instance, if you'd prefer to use your own order
+simulator to simulate taxes & shipping rates from a custom address, you can set
+the order_simulator_class like this:
+
+```ruby
+# config/initializers/use_my_simulator.rb
+
+SolidusPaypalCommercePlatform.configure do |config|
+  config.order_simulator_class = "MyApp::MyOrderSimulator"
+end
+```
+
 Testing
 -------
 

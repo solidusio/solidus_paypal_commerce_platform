@@ -64,4 +64,22 @@ RSpec.describe SolidusPaypalCommercePlatform::Configuration do
       expect(subject.env_domain).to eq("www.sandbox.paypal.com")
     end
   end
+
+  describe "#order_simulator_class" do
+    before do
+      stub_const('SolidusPaypalCommercePlatform::BetterOrderSimulator', Class.new)
+    end
+
+    it "returns a class" do
+      expect(subject.order_simulator_class).to be_kind_of(Class)
+    end
+
+    it "is settable" do
+      expect(subject.order_simulator_class).to eq(SolidusPaypalCommercePlatform::OrderSimulator)
+
+      subject.order_simulator_class = "SolidusPaypalCommercePlatform::BetterOrderSimulator"
+
+      expect(subject.order_simulator_class).to eq(SolidusPaypalCommercePlatform::BetterOrderSimulator)
+    end
+  end
 end
