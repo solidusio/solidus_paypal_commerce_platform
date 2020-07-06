@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module SolidusPaypalCommercePlatform
   class OrderSimulator
-
     def initialize(order)
       @original_order = order
       @simulated_order = order.dup
@@ -19,10 +20,11 @@ module SolidusPaypalCommercePlatform
     private
 
     def update_totals
-      @simulated_order.total = @simulated_order.item_total + 
-      @simulated_order.shipment_total + 
-      @simulated_order.adjustments.sum(&:amount) +
-      @simulated_order.additional_tax_total
+      @simulated_order.total =
+        @simulated_order.item_total +
+        @simulated_order.shipment_total +
+        @simulated_order.adjustments.sum(&:amount) +
+        @simulated_order.additional_tax_total
     end
 
     def add_taxes
@@ -62,6 +64,5 @@ module SolidusPaypalCommercePlatform
         firstname: "Fake"
       )
     end
-
   end
 end

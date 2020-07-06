@@ -28,36 +28,36 @@ RSpec.describe SolidusPaypalCommercePlatform::OrderSimulator, type: :model do
       zone.shipping_methods = [shipping_method]
     end
 
-    it "should duplicate the original order" do
+    it "duplicates the original order" do
       expect(subject.number).to eq order.number
       expect(subject.id).to eq nil
     end
 
-    it "should duplicate original orders line_items" do
-      expected_line_item_array = order.line_items.map{|li| [li.quantity, li.variant_id, li.amount]}
-      expect(subject.line_items.map{ |li| [li.quantity, li.variant_id, li.amount] }).to eq expected_line_item_array
+    it "duplicates original orders line_items" do
+      expected_line_item_array = order.line_items.map { |li| [li.quantity, li.variant_id, li.amount] }
+      expect(subject.line_items.map { |li| [li.quantity, li.variant_id, li.amount] }).to eq expected_line_item_array
     end
 
-    it "should replace the shipping address in the duplicated order" do
+    it "replaces the shipping address in the duplicated order" do
       expect(subject.ship_address.state_id).to eq new_state.id
       expect(subject.ship_address.country_id).to eq new_country.id
     end
 
-    it "should create a new shipment" do
-      expect(subject.shipments.map(&:number)).to_not eq order.shipments.map(&:number)
+    it "creates a new shipment" do
+      expect(subject.shipments.map(&:number)).not_to eq order.shipments.map(&:number)
     end
 
-    it "should have the correct shipping method for the new address" do
+    it "has the correct shipping method for the new address" do
       expect(subject.shipments.first.shipping_method).to eq shipping_method
     end
 
-    it "should create taxes based on the new address" do
-      expected_tax = subject.line_items.sum{|li| li.amount * new_tax_rate.amount}
+    it "creates taxes based on the new address" do
+      expected_tax = subject.line_items.sum { |li| li.amount * new_tax_rate.amount }
       expect(subject.additional_tax_total).to eq expected_tax
       expect(subject.additional_tax_total).not_to eq order.additional_tax_total
     end
 
-    it "should display the correct total based on new shipping and taxes" do
+    it "displays the correct total based on new shipping and taxes" do
       expect(subject.total).not_to eq order.total
     end
   end

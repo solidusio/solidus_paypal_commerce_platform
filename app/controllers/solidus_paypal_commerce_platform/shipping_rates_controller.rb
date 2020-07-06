@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusPaypalCommercePlatform
   class ShippingRatesController < ::Spree::Api::BaseController
     before_action :load_order
@@ -5,8 +7,9 @@ module SolidusPaypalCommercePlatform
 
     def simulate_shipping_rates
       authorize! :show, @order, order_token
-      simulated_order = SolidusPaypalCommercePlatform::OrderSimulator.new(@order).simulate_with_address(params[:address])
-      
+      order_simulator = SolidusPaypalCommercePlatform::OrderSimulator.new(@order)
+      simulated_order = order_simulator.simulate_with_address(params[:address])
+
       if simulated_order.ship_address.valid?
         render json: SolidusPaypalCommercePlatform::PaypalOrder.new(simulated_order).to_replace_json, status: :ok
       else
@@ -19,6 +22,5 @@ module SolidusPaypalCommercePlatform
     def load_order
       @order = Spree::Order.find_by(number: params[:order_id])
     end
-
   end
 end

@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
   let(:paypal_payment_method) { create(:paypal_payment_method) }
   let(:payment) { create(:payment) }
-  let(:completed_payment) { create(:payment, :completed)}
+  let(:completed_payment) { create(:payment, :completed) }
 
   before do
     response = OpenStruct.new(
@@ -32,50 +32,50 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
   end
 
   describe "#purchase" do
-    it "should send a purchase request to paypal" do
+    it "sends a purchase request to paypal" do
       paypal_order_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(paypal_order_id: paypal_order_id)
-      expect(SolidusPaypalCommercePlatform::Gateway::OrdersCaptureRequest).to receive(:new).with(paypal_order_id)
-      paypal_payment_method.purchase(1000,source,{})
+      expect_request(:OrdersCaptureRequest).to receive(:new).with(paypal_order_id)
+      paypal_payment_method.purchase(1000, source, {})
     end
   end
 
   describe "#authorize" do
-    it "should send an authorize request to paypal" do
+    it "sends an authorize request to paypal" do
       paypal_order_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(paypal_order_id: paypal_order_id)
-      expect(SolidusPaypalCommercePlatform::Gateway::OrdersAuthorizeRequest).to receive(:new).with(paypal_order_id)
-      paypal_payment_method.authorize(1000,source,{})
+      expect_request(:OrdersAuthorizeRequest).to receive(:new).with(paypal_order_id)
+      paypal_payment_method.authorize(1000, source, {})
     end
   end
 
   describe "#capture" do
-    it "should send a capture request to paypal" do
+    it "sends a capture request to paypal" do
       authorization_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
       payment.source = source
-      expect(SolidusPaypalCommercePlatform::Gateway::AuthorizationsCaptureRequest).to receive(:new).with(authorization_id)
-      paypal_payment_method.capture(1000,{},{originator: payment})
+      expect_request(:AuthorizationsCaptureRequest).to receive(:new).with(authorization_id)
+      paypal_payment_method.capture(1000, {}, originator: payment)
     end
   end
 
   describe "#void" do
-    it "should send a void request to paypal" do
+    it "sends a void request to paypal" do
       authorization_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
       payment.source = source
-      expect(SolidusPaypalCommercePlatform::Gateway::AuthorizationsVoidRequest).to receive(:new).with(authorization_id)
-      paypal_payment_method.void(nil, {originator: payment})
+      expect_request(:AuthorizationsVoidRequest).to receive(:new).with(authorization_id)
+      paypal_payment_method.void(nil, originator: payment)
     end
   end
 
   describe "#credit" do
-    it "should send a refund request to paypal" do
+    it "sends a refund request to paypal" do
       capture_id = SecureRandom.hex(4)
       source = paypal_payment_method.payment_source_class.create(capture_id: capture_id)
       completed_payment.source = source
-      expect(SolidusPaypalCommercePlatform::Gateway::CapturesRefundRequest).to receive(:new).with(capture_id).and_call_original
-      paypal_payment_method.credit(1000, {}, {originator: completed_payment.refunds.new(amount: 12)})
+      expect_request(:CapturesRefundRequest).to receive(:new).with(capture_id).and_call_original
+      paypal_payment_method.credit(1000, {}, originator: completed_payment.refunds.new(amount: 12))
     end
   end
 
@@ -83,7 +83,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
     subject(:url) { URI(paypal_payment_method.javascript_sdk_url(order: order)) }
 
     context 'when checkout_steps include "confirm"' do
-      let(:order) { double("order", checkout_steps: {"confirm" => "bar"}) }
+      let(:order) { instance_double(Spree::Order, checkout_steps: { "confirm" => "bar" }) }
 
       it 'sets autocommit' do
         expect(url.query.split("&")).to include("commit=false")
@@ -91,11 +91,17 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
     end
 
     context 'when checkout_steps does not include "confirm"' do
-      let(:order) { double("order", checkout_steps: {"foo" => "bar"}) }
+      let(:order) { instance_double(Spree::Order, checkout_steps: { "foo" => "bar" }) }
 
       it 'disables autocommit' do
         expect(url.query.split("&")).to include("commit=true")
       end
     end
+  end
+
+  private
+
+  def expect_request(name)
+    expect(SolidusPaypalCommercePlatform::Gateway.const_get(name))
   end
 end

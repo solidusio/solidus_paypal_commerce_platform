@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusPaypalCommercePlatform
   class PaymentsController < ::Spree::Api::BaseController
     before_action :load_order
@@ -19,10 +21,10 @@ module SolidusPaypalCommercePlatform
 
       source.transaction do
         if source.save!
-          payment = @order.payments.create!({
+          @order.payments.create!(
             payment_method_id: paypal_params[:payment_method_id],
             source: source
-          })
+          )
 
           render json: {}, status: :ok
         end
@@ -38,6 +40,5 @@ module SolidusPaypalCommercePlatform
     def load_order
       @order = Spree::Order.find_by!(number: params[:order_id])
     end
-
   end
 end

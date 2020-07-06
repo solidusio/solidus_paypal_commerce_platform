@@ -4,19 +4,23 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentSource, type: :model do
   let(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:payment) }
   let(:paypal_payment_method) { create(:paypal_payment_method) }
   let(:paypal_order_id) { "foo-123" }
-  let(:payment_source) { described_class.new(
-    paypal_order_id: paypal_order_id,
-    payment_method: paypal_payment_method,
-  ) }
-  let(:payment) { order.payments.create!(
-    payment_method: paypal_payment_method,
-    source: payment_source
-  ) }
+  let(:payment_source) {
+    described_class.new(
+      paypal_order_id: paypal_order_id,
+      payment_method: paypal_payment_method,
+    )
+  }
+  let(:payment) {
+    order.payments.create!(
+      payment_method: paypal_payment_method,
+      source: payment_source
+    )
+  }
   let(:paypal_order_status) { "COMPLETED" }
 
   before do
-    allow_any_instance_of(SolidusPaypalCommercePlatform::Client).to receive(:execute) do |client, request|
-      expect(request).to be_a(SolidusPaypalCommercePlatform::Gateway::OrdersGetRequest)
+    allow_any_instance_of(SolidusPaypalCommercePlatform::Client).to receive(:execute) do |_client, request|
+      expect(request).to be_a(SolidusPaypalCommercePlatform::Gateway::OrdersGetRequest) # rubocop:disable RSpec/ExpectInHook
       OpenStruct.new(result: OpenStruct.new(status: paypal_order_status))
     end
   end

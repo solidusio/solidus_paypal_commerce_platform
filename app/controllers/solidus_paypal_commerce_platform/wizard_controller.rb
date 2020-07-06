@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusPaypalCommercePlatform
   class WizardController < ::Spree::Api::BaseController
     helper ::Spree::Core::Engine.routes.url_helpers
@@ -11,7 +13,7 @@ module SolidusPaypalCommercePlatform
         edit_url = spree.edit_admin_payment_method_url(@payment_method)
 
         render(
-          json: {redirectUrl: edit_url},
+          json: { redirectUrl: edit_url },
           status: :created,
           location: edit_url,
           notice: "The PayPal Commerce Platform payment method has been successfully created"

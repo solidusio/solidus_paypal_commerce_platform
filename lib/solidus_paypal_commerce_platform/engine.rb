@@ -11,13 +11,13 @@ module SolidusPaypalCommercePlatform
 
     engine_name 'solidus_paypal_commerce_platform'
 
-    initializer "register_solidus_paypal_commerce_platform_payment_method", after: "spree.register.payment_methods" do |app|
+    initializer "solidus_paypal_commerce_platform.add_payment_method", after: "spree.register.payment_methods" do |app|
       app.config.spree.payment_methods << SolidusPaypalCommercePlatform::PaymentMethod
       SolidusPaypalCommercePlatform::PaymentMethod.allowed_admin_form_preference_types << :paypal_select
       Spree::PermittedAttributes.source_attributes.concat [:paypal_order_id, :authorization_id]
     end
 
-    initializer "register_solidus_paypal_commerce_platform_wizard", after: "spree.register.payment_methods" do |app|
+    initializer "solidus_paypal_commerce_platform.add_wizard", after: "spree.register.payment_methods" do |app|
       # Adding the class set below - if this is ported to core, we can remove this line.
       Spree::Core::Environment.add_class_set("payment_setup_wizards")
       app.config.spree.payment_setup_wizards << "SolidusPaypalCommercePlatform::Wizard"

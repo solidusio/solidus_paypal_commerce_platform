@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'paypal-checkout-sdk'
 
 module SolidusPaypalCommercePlatform
   class Client
-    SUCCESS_STATUS_CODES = [201, 204]
+    SUCCESS_STATUS_CODES = [201, 204].freeze
 
     PARTNER_ATTRIBUTION_INJECTOR = ->(request) {
       request.headers["PayPal-Partner-Attribution-Id"] = "Solidus_PCP_SP"
-    }
+    }.freeze
 
     attr_reader :environment
 
@@ -30,8 +32,8 @@ module SolidusPaypalCommercePlatform
       i18n_scope = i18n_scope_for(request)
       wrap_response(
         execute(request),
-        success_message: I18n.t("#{i18n_scope}.success", default: nil),
-        failure_message: I18n.t("#{i18n_scope}.failure", default: nil)
+        success_message: success_message || I18n.t("#{i18n_scope}.success", default: nil),
+        failure_message: failure_message || I18n.t("#{i18n_scope}.failure", default: nil)
       )
     end
 
@@ -44,10 +46,20 @@ module SolidusPaypalCommercePlatform
     def wrap_response(response, success_message: nil, failure_message: nil)
       if SUCCESS_STATUS_CODES.include? response.status_code
         success_message ||= "Success."
-        ActiveMerchant::Billing::Response.new(true, success_message, result: response.result, paypal_debug_id: response.headers["paypal-debug-id"])
+
+        ActiveMerchant::Billing::Response.new(
+          true,
+          success_message,
+          result: response.result,
+          paypal_debug_id: response.headers["paypal-debug-id"]
+        )
       else
         failure_message ||= "A problem has occurred with this payment, please try again."
-        ActiveMerchant::Billing::Response.new(false, failure_message)
+
+        ActiveMerchant::Billing::Response.new(
+          false,
+          failure_message
+        )
       end
     end
   end

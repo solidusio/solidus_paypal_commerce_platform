@@ -9,12 +9,10 @@ RSpec.describe SolidusPaypalCommercePlatform::Client do
     let(:paypal_response) { double(:response, status_code: status_code, result: nil, headers: {}) }
     let(:status_code) { 201 }
 
-    before do
+    it 'forwards to the upstream client adding i18n response messages' do
       expect_any_instance_of(PayPal::PayPalHttpClient)
         .to receive(:execute).with(paypal_request).and_return(paypal_response)
-    end
 
-    it 'it forwards to the upstream client adding i18n response messages' do
       response = subject.execute_with_response(paypal_request)
 
       expect(response.message).to eq("Payment captured")

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Deface::Override.new(
   name: "payment_methods/index/insert_setup_wizards#list",
   virtual_path: "spree/admin/payment_methods/index",
