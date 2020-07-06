@@ -10,6 +10,35 @@ AllCops:
 Metrics/LineLength:
   Max: 120
 
+# We use this extensively, the alternatives are not viable or desirable.
+RSpec/AnyInstance:
+  Enabled: false
+
+# Feature specs are not describing any class or module.
+RSpec/DescribeClass:
+  Exclude:
+    - spec/features/**/*
+
+# No need to make the code more complex for no real gain.
+RSpec/MessageSpies:
+  Enabled: false
+
+# Let's consider legitimate to have multiple expectations within an example.
+RSpec/MultipleExpectations:
+  Enabled: false
+
+# Allow to use subject as is, no big deal.
+RSpec/NamedSubject:
+  Enabled: false
+
+# Let's set this to some really exagerate value.
+RSpec/NestedGroups:
+  Max: 8
+
+RSpec/VerifiedDoubles:
+  # Sometimes you really need an "anything" double
+  IgnoreSymbolicNames: true
+
 Style/FrozenStringLiteralComment:
   Exclude:
     - spec/**/*

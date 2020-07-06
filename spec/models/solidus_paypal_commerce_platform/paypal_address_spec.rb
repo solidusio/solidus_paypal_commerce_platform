@@ -8,7 +8,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalAddress, type: :model do
   describe "#update_address" do
     subject{ order.ship_address }
 
-    it "should format PayPal addresses correctly" do
+    it "formats PayPal addresses correctly" do
       paypal_address = {
         admin_area_1: address.state.abbr,
         admin_area_2: address.city,
@@ -18,7 +18,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalAddress, type: :model do
         country_code: address.country.iso
       }
 
-      SolidusPaypalCommercePlatform::PaypalAddress.new(order).update(paypal_address)
+      described_class.new(order).update(paypal_address)
 
       expect(subject.state).to eq address.state
       expect(subject.city).to eq address.city

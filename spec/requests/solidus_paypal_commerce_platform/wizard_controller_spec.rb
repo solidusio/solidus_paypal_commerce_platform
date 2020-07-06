@@ -13,7 +13,7 @@ RSpec.describe SolidusPaypalCommercePlatform::WizardController, type: :request d
     }
 
     it "creates a new payment method from data received from PayPal" do
-      expect_any_instance_of(SolidusPaypalCommercePlatform::Client).to receive(:execute) do |client, request|
+      expect_any_instance_of(SolidusPaypalCommercePlatform::Client).to receive(:execute) do |_client, request|
         case request
         when SolidusPaypalCommercePlatform::AccessTokenAuthorizationRequest
           OpenStruct.new(result: OpenStruct.new(access_token: "ACCESS-TOKEN"))

@@ -19,8 +19,8 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentSource, type: :model do
   let(:paypal_order_status) { "COMPLETED" }
 
   before do
-    allow_any_instance_of(SolidusPaypalCommercePlatform::Client).to receive(:execute) do |client, request|
-      expect(request).to be_a(SolidusPaypalCommercePlatform::Gateway::OrdersGetRequest)
+    allow_any_instance_of(SolidusPaypalCommercePlatform::Client).to receive(:execute) do |_client, request|
+      expect(request).to be_a(SolidusPaypalCommercePlatform::Gateway::OrdersGetRequest) # rubocop:disable RSpec/ExpectInHook
       OpenStruct.new(result: OpenStruct.new(status: paypal_order_status))
     end
   end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe "Checkout" do
-  context "paypal payment method" do
+  describe "paypal payment method" do
     let(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:payment) }
     let(:paypal_payment_method) { create(:paypal_payment_method) }
 
@@ -21,13 +21,13 @@ RSpec.describe "Checkout" do
       script_tag_url.query.split('&')
     end
 
-    it "should generate a js file with the correct credentials and intent attached" do
+    it "generates a js file with the correct credentials and intent attached" do
       visit '/checkout/payment'
       expect(paypal_script_options).to include("client-id=#{paypal_payment_method.preferences[:client_id]}")
     end
 
     context "when auto-capture is set to true" do
-      it "should generate a js file with intent capture" do
+      it "generates a js file with intent capture" do
         paypal_payment_method.update(auto_capture: true)
         visit '/checkout/payment'
         expect(paypal_script_options).to include("client-id=#{paypal_payment_method.preferences[:client_id]}")
@@ -35,8 +35,8 @@ RSpec.describe "Checkout" do
       end
     end
 
-    context "if no payment has been made" do
-      it "should fail to process" do
+    context "when no payment has been made" do
+      it "fails to process" do
         visit '/checkout/payment'
         choose(option: paypal_payment_method.id)
         click_button("Save and Continue")
@@ -44,8 +44,8 @@ RSpec.describe "Checkout" do
       end
     end
 
-    context "if payment has been made" do
-      it "should proceed to the next step" do
+    context "when a payment has been made" do
+      it "proceeds to the next step" do
         visit '/checkout/payment'
         choose(option: paypal_payment_method.id)
         find(:xpath, "//input[@id='payments_source_paypal_order_id']", visible: false).set SecureRandom.hex(8)

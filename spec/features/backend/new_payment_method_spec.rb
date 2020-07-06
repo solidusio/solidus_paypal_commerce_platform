@@ -3,18 +3,18 @@ require 'spec_helper'
 RSpec.describe "creating a new payment" do
   stub_authorization!
 
-  scenario "should display PayPal Commerce Platform as an option" do
+  it "displays PayPal Commerce Platform as an option" do
     visit "/admin/payment_methods/new"
     expect(page).to have_select('payment_method_type', options: [
       "PayPal Commerce Platform",
       "Bogus Credit Card Payments",
       "Check Payments",
       "Simple Bogus Credit Card Payments",
-      "Store Credit Payments"
+      "Store Credit Payments",
     ])
   end
 
-  scenario "should display the onboarding button", :js do
+  it "displays the onboarding button", :js do
     visit "/admin/payment_methods"
 
     # main_window = current_window
