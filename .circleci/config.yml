@@ -5,7 +5,7 @@ orbs:
   # run specs against Solidus supported versions only without the need
   # to change this configuration every time a Solidus version is released
   # or goes EOL.
-  solidusio_extensions: solidusio/extensions@volatile
+  solidusio_extensions: solidusio/extensions@dev:f246fae
 
 jobs:
   run-specs-with-postgres:
@@ -19,38 +19,7 @@ jobs:
   lint-code:
     executor: solidusio_extensions/sqlite-memory
     steps:
-      - checkout
-      - run:
-          name: 'Solidus master: Generate Gemfile.lock'
-          command: bundle lock
-          environment:
-            SOLIDUS_BRANCH: master
-          when: always
-      - restore_cache:
-          name: 'Solidus master: Restore Bundler cache'
-          keys:
-            - gems-v3-ruby-v2-5-6-solidus-master-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gems-v3-ruby-v2-5-6-solidus-master-
-          when: always
-      - run:
-          name: 'Solidus master:  Install gems'
-          command: bundle install --path=vendor/bundle
-          environment:
-            SOLIDUS_BRANCH: master
-          when: always
-      - save_cache:
-          name: 'Solidus master: Save Bundler cache'
-          key: gems-v3-ruby-v2-5-6-solidus-master-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-          when: always
-      - run:
-          name: 'Runs RuboCop on Solidus master'
-          command: bundle exec rubocop -ESP
-          environment:
-            SOLIDUS_BRANCH: master
-            TEST_RESULTS_PATH: test-results/gems-v3-ruby-v2-5-6-solidus-master/results.xml
-          when: always
+      - solidusio_extensions/lint-code
 
 workflows:
   "Run specs on supported Solidus versions":
