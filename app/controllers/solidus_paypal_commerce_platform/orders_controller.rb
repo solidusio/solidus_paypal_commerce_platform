@@ -25,7 +25,14 @@ module SolidusPaypalCommercePlatform
     private
 
     def paypal_address_params
-      params.require(:address).permit(:address_line_1, :address_line_2, :admin_area_1, :admin_area_2, :postal_code, :country_code)
+      params.require(:address).permit(
+        :address_line_1,
+        :address_line_2,
+        :admin_area_1,
+        :admin_area_2,
+        :postal_code,
+        :country_code,
+      )
     end
 
     def load_order

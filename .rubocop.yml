@@ -7,6 +7,9 @@ AllCops:
     - spec/dummy/**/*
     - vendor/bundle/**/*
 
+Metrics/LineLength:
+  Max: 120
+
 Style/FrozenStringLiteralComment:
   Exclude:
     - spec/**/*

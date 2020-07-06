@@ -11,7 +11,9 @@ RSpec.describe "Checkout" do
       order.recalculate
 
       paypal_payment_method
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(current_order: order, try_spree_current_user: user)
+      allow_any_instance_of(Spree::CheckoutController).to receive_messages(
+        current_order: order, try_spree_current_user: user
+      )
     end
 
     def paypal_script_options

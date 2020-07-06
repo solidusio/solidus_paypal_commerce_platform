@@ -35,7 +35,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
     it "should send a purchase request to paypal" do
       paypal_order_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(paypal_order_id: paypal_order_id)
-      expect(SolidusPaypalCommercePlatform::Gateway::OrdersCaptureRequest).to receive(:new).with(paypal_order_id)
+      expect_request(:OrdersCaptureRequest).to receive(:new).with(paypal_order_id)
       paypal_payment_method.purchase(1000,source,{})
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
     it "should send an authorize request to paypal" do
       paypal_order_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(paypal_order_id: paypal_order_id)
-      expect(SolidusPaypalCommercePlatform::Gateway::OrdersAuthorizeRequest).to receive(:new).with(paypal_order_id)
+      expect_request(:OrdersAuthorizeRequest).to receive(:new).with(paypal_order_id)
       paypal_payment_method.authorize(1000,source,{})
     end
   end
@@ -54,7 +54,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
       authorization_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
       payment.source = source
-      expect(SolidusPaypalCommercePlatform::Gateway::AuthorizationsCaptureRequest).to receive(:new).with(authorization_id)
+      expect_request(:AuthorizationsCaptureRequest).to receive(:new).with(authorization_id)
       paypal_payment_method.capture(1000,{},{originator: payment})
     end
   end
@@ -64,7 +64,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
       authorization_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
       payment.source = source
-      expect(SolidusPaypalCommercePlatform::Gateway::AuthorizationsVoidRequest).to receive(:new).with(authorization_id)
+      expect_request(:AuthorizationsVoidRequest).to receive(:new).with(authorization_id)
       paypal_payment_method.void(nil, {originator: payment})
     end
   end
@@ -74,7 +74,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
       capture_id = SecureRandom.hex(4)
       source = paypal_payment_method.payment_source_class.create(capture_id: capture_id)
       completed_payment.source = source
-      expect(SolidusPaypalCommercePlatform::Gateway::CapturesRefundRequest).to receive(:new).with(capture_id).and_call_original
+      expect_request(:CapturesRefundRequest).to receive(:new).with(capture_id).and_call_original
       paypal_payment_method.credit(1000, {}, {originator: completed_payment.refunds.new(amount: 12)})
     end
   end
@@ -97,5 +97,11 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
         expect(url.query.split("&")).to include("commit=true")
       end
     end
+  end
+
+  private
+
+  def expect_request(name)
+    expect(SolidusPaypalCommercePlatform::Gateway.const_get(name))
   end
 end
