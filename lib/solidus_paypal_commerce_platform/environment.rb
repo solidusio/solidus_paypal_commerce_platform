@@ -9,17 +9,17 @@ module SolidusPaypalCommercePlatform
     DEFAULT_NONCE = {
       sandbox: "0fb0e3e75e3deb58de8fb4e8dc27eb25ab2cbcabdb84",
       live: "5RNMN2F8cBpVd9ek2F060WB03WWzjs64pYCUxhsJFg0d",
-    }
+    }.freeze
 
     DEFAULT_PARTNER_ID = {
       sandbox: "5LQZV7RJDGKG2",
       live: "TBD",
-    }
+    }.freeze
 
     DEFAULT_PARTNER_CLIENT_ID = {
       sandbox: "ATDpQjHzjCz_C_qbbJ76Ca0IjcmwlS4FztD6YfuRFZXDCmcWWw8-8QWcF3YIkbC85ixTUuuSEvrBMVSX",
       live: "TBD",
-    }
+    }.freeze
 
     def env=(value)
       unless %w[live sandbox].include? value

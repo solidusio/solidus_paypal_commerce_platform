@@ -4,11 +4,11 @@ require 'paypal-checkout-sdk'
 
 module SolidusPaypalCommercePlatform
   class Client
-    SUCCESS_STATUS_CODES = [201, 204]
+    SUCCESS_STATUS_CODES = [201, 204].freeze
 
     PARTNER_ATTRIBUTION_INJECTOR = ->(request) {
       request.headers["PayPal-Partner-Attribution-Id"] = "Solidus_PCP_SP"
-    }
+    }.freeze
 
     attr_reader :environment
 
