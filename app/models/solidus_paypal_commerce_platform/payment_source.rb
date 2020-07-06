@@ -3,7 +3,7 @@
 module SolidusPaypalCommercePlatform
   class PaymentSource < SolidusSupport.payment_source_parent_class
     self.table_name = "paypal_commerce_platform_sources"
-    validates_presence_of :paypal_order_id, :payment_method_id
+    validates :paypal_order_id, :payment_method_id, presence: true
 
     def actions
       %w(capture void credit)
