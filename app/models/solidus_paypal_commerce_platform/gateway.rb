@@ -19,21 +19,21 @@ module SolidusPaypalCommercePlatform
       @options = options
     end
 
-    def purchase(money, source, options)
+    def purchase(_money, source, _options)
       response = @client.execute_with_response(OrdersCaptureRequest.new(source.paypal_order_id))
       capture_id = response.params["result"].purchase_units[0].payments.captures[0].id
       source.update(capture_id: capture_id) if response.success?
       response
     end
 
-    def authorize(money, source, options)
+    def authorize(_money, source, _options)
       response = @client.execute_with_response(OrdersAuthorizeRequest.new(source.paypal_order_id))
       authorization_id = response.params["result"].purchase_units.first.payments.authorizations.first.id
       source.update(authorization_id: authorization_id) if response.success?
       response
     end
 
-    def capture(money, response_code, options)
+    def capture(_money, _response_code, options)
       authorization_id = options[:originator].source.authorization_id
       response = @client.execute_with_response(AuthorizationsCaptureRequest.new(authorization_id))
       capture_id = response.params["result"].id
@@ -51,7 +51,7 @@ module SolidusPaypalCommercePlatform
       @client.execute_with_response(request, success_message: message)
     end
 
-    def void(response_code, options)
+    def void(_response_code, options)
       authorization_id = options[:originator].source.authorization_id
 
       @client.execute_with_response(AuthorizationsVoidRequest.new(authorization_id))

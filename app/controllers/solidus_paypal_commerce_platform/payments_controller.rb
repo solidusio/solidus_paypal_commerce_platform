@@ -21,10 +21,10 @@ module SolidusPaypalCommercePlatform
 
       source.transaction do
         if source.save!
-          payment = @order.payments.create!({
+          @order.payments.create!(
             payment_method_id: paypal_params[:payment_method_id],
             source: source
-          })
+          )
 
           render json: {}, status: :ok
         end

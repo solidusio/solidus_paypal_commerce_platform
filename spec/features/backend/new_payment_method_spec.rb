@@ -17,7 +17,7 @@ RSpec.describe "creating a new payment" do
   scenario "should display the onboarding button", :js do
     visit "/admin/payment_methods"
 
-    main_window = current_window
+    # main_window = current_window
 
     within ".setup-wizard" do
       paypal_button = page.find("button")
