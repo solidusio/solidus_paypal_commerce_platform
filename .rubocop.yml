@@ -7,6 +7,12 @@ AllCops:
     - spec/dummy/**/*
     - vendor/bundle/**/*
 
+Layout/IndentFirstArgument:
+  EnforcedStyle: consistent
+
+Layout/IndentFirstArrayElement:
+  EnforcedStyle: consistent
+
 Metrics/LineLength:
   Max: 120
 
@@ -45,8 +51,3 @@ Style/FrozenStringLiteralComment:
     - db/migrate/**/*
     - bin/**/*
 
-Layout/IndentFirstArgument:
-  EnforcedStyle: consistent
-
-Layout/IndentFirstArrayElement:
-  EnforcedStyle: consistent
