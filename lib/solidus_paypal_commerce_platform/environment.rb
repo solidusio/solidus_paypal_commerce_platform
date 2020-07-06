@@ -67,7 +67,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def partner_client_id
-      @partner_id ||= ENV['PAYPAL_PARTNER_CLIENT_ID'] || DEFAULT_PARTNER_CLIENT_ID[env.to_sym]
+      @partner_client_id ||= ENV['PAYPAL_PARTNER_CLIENT_ID'] || DEFAULT_PARTNER_CLIENT_ID[env.to_sym]
     end
   end
 
