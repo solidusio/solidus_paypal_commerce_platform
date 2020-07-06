@@ -5,6 +5,7 @@ AllCops:
   Exclude:
     - sandbox/**/*
     - spec/dummy/**/*
+    - vendor/bundle/**/*
 
 Style/FrozenStringLiteralComment:
   Exclude:
