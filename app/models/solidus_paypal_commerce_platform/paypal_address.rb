@@ -2,11 +2,10 @@
 
 module SolidusPaypalCommercePlatform
   class PaypalAddress
-    attr_accessor :errors
+    attr_reader :errors
 
     def initialize(order)
       @order = order
-      @errors
     end
 
     def update(paypal_address)
