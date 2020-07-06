@@ -7,7 +7,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def to_json(intent)
-      return {
+      {
         intent: intent,
         purchase_units: purchase_units,
         payer: (payer if @order.bill_address)
@@ -15,7 +15,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def to_replace_json
-      return {
+      {
         op: 'replace',
         path: '/purchase_units/@reference_id==\'default\'',
         value: purchase_units[0]

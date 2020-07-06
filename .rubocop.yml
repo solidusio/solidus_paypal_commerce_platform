@@ -15,3 +15,9 @@ Style/FrozenStringLiteralComment:
     - spec/**/*
     - db/migrate/**/*
     - bin/**/*
+
+Layout/IndentFirstArgument:
+  EnforcedStyle: consistent
+
+Layout/IndentFirstArrayElement:
+  EnforcedStyle: consistent

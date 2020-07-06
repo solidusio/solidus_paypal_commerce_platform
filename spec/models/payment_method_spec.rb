@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
   let(:paypal_payment_method) { create(:paypal_payment_method) }
   let(:payment) { create(:payment) }
-  let(:completed_payment) { create(:payment, :completed)}
+  let(:completed_payment) { create(:payment, :completed) }
 
   before do
     response = OpenStruct.new(

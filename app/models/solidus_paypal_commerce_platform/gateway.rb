@@ -45,7 +45,7 @@ module SolidusPaypalCommercePlatform
       refund = options[:originator]
       capture_id = refund.payment.source.capture_id
       request = CapturesRefundRequest.new(capture_id)
-      request.request_body(amount: {currency_code: refund.currency, value: refund.amount})
+      request.request_body(amount: { currency_code: refund.currency, value: refund.amount })
       message = I18n.t('success', scope: @client.i18n_scope_for(request), amount: refund.amount)
 
       @client.execute_with_response(request, success_message: message)
