@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe "Checkout" do
-
   context "paypal payment method" do
     let(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:payment) }
     let(:paypal_payment_method) { create(:paypal_payment_method) }
@@ -52,6 +51,5 @@ RSpec.describe "Checkout" do
         expect(page).to have_css(".current", text: "Confirm")
       end
     end
-
   end
 end

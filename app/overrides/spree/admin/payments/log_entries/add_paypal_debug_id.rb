@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Deface::Override.new(
   name: "payments/log_entries/add_paypal_debug_id",
   virtual_path: "spree/admin/payments/_log_entries",

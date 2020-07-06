@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusPaypalCommercePlatform
   class PaymentMethod < SolidusSupport.payment_method_parent_class
     include SolidusPaypalCommercePlatform::ButtonOptionsHelper
@@ -51,6 +53,5 @@ module SolidusPaypalCommercePlatform
 
       "https://www.paypal.com/sdk/js?#{parameters.to_query}"
     end
-
   end
 end

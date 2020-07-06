@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusPaypalCommercePlatform
   class PaypalAddress
     attr_accessor :errors
@@ -17,7 +19,7 @@ module SolidusPaypalCommercePlatform
       else
         @errors = new_address.errors
       end
-      
+
       new_address
     end
 
@@ -35,6 +37,5 @@ module SolidusPaypalCommercePlatform
         zipcode: address[:postal_code]
       }
     end
-
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusPaypalCommercePlatform
   class OrdersController < ::Spree::Api::BaseController
     before_action :load_order
@@ -33,6 +35,5 @@ module SolidusPaypalCommercePlatform
     def load_payment_method
       @payment_method = Spree::PaymentMethod.find(params[:payment_method_id])
     end
-
   end
 end

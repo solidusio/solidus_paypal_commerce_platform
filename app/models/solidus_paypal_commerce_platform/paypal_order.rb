@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module SolidusPaypalCommercePlatform
   class PaypalOrder
-
     def initialize(order)
       @order = order
     end
@@ -102,6 +103,5 @@ module SolidusPaypalCommercePlatform
         value: amount
       }
     end
-
   end
 end

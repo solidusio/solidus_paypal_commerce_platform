@@ -14,7 +14,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalAddress, type: :model do
         admin_area_2: address.city,
         address_line_1: address.address1,
         address_line_2: address.address2,
-        postal_code: address.zipcode, 
+        postal_code: address.zipcode,
         country_code: address.country.iso
       }
 

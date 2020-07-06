@@ -5,3 +5,9 @@ AllCops:
   Exclude:
     - sandbox/**/*
     - spec/dummy/**/*
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - spec/**/*
+    - db/migrate/**/*
+    - bin/**/*

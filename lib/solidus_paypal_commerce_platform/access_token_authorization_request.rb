@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusPaypalCommercePlatform
   class AccessTokenAuthorizationRequest
     attr_accessor :verb, :path, :headers, :body

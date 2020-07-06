@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusPaypalCommercePlatform
   class Wizard
     def name
@@ -28,6 +30,5 @@ module SolidusPaypalCommercePlatform
     def logo
       ActionController::Base.helpers.image_url(Spree::Config[:admin_interface_logo])
     end
-
   end
 end

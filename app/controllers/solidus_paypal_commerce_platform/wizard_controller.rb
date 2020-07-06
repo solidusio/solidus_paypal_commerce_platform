@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusPaypalCommercePlatform
   class WizardController < ::Spree::Api::BaseController
     helper ::Spree::Core::Engine.routes.url_helpers

@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module SolidusPaypalCommercePlatform
   module ButtonOptionsHelper
-
     def preferred_paypal_button_color_options
       [["Gold","gold"],["Blue","blue"],["Silver","silver"],["White","white"],["Black","black"]]
     end
@@ -16,6 +17,5 @@ module SolidusPaypalCommercePlatform
     def preferred_paypal_button_layout_options
       [["Vertical","vertical"],["Horizontal","horizontal"]]
     end
-
   end
 end

@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module SolidusPaypalCommercePlatform
   class OrderSimulator
-
     def initialize(order)
       @original_order = order
       @simulated_order = order.dup
@@ -62,6 +63,5 @@ module SolidusPaypalCommercePlatform
         firstname: "Fake"
       )
     end
-
   end
 end

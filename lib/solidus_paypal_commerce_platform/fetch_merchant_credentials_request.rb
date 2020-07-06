@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusPaypalCommercePlatform
   # https://developer.paypal.com/docs/api/partner-referrals/v1/#merchant-integration_credentials
   class FetchMerchantCredentialsRequest

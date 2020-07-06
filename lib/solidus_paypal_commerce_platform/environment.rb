@@ -73,4 +73,3 @@ module SolidusPaypalCommercePlatform
 
   extend Environment
 end
-
