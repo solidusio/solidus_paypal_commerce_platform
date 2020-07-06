@@ -12,6 +12,15 @@ RSpec.describe "creating a new payment" do
       "Simple Bogus Credit Card Payments",
       "Store Credit Payments",
     ])
+    select "PayPal Commerce Platform", from: 'payment_method_type'
+    fill_in "Name", with: "PayPal!"
+    click_on "Create"
+    expect(page).to have_text("Payment Method has been successfully created!")
+
+    fill_in "Client", with: "cli-123"
+    fill_in "Client secret", with: "cli-sec-123"
+    click_on "Update"
+    expect(page).to have_text("Payment Method has been successfully updated!")
   end
 
   it "displays the onboarding button", :js do
