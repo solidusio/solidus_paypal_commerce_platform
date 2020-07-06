@@ -26,8 +26,9 @@ module SolidusPaypalCommercePlatform
 
     def format_address(address)
       country = ::Spree::Country.find_by(iso: address[:country_code])
-      state = country.states.find_by(abbr: address[:admin_area_1]) ||
-        country.states.find_by(name: address[:admin_area_1])
+      state = country.states.where(abbr: address[:admin_area_1]).or(
+        country.states.where(name: address[:admin_area_1])
+      ).first
 
       {
         address1: address[:address_line_1],
