@@ -5,9 +5,9 @@ module SolidusPaypalCommercePlatform
     helper ::Spree::Core::Engine.routes.url_helpers
 
     def create
-      authorize! :create, Spree::PaymentMethod
+      authorize! :create, ::Spree::PaymentMethod
 
-      @payment_method = Spree::PaymentMethod.new(payment_method_params)
+      @payment_method = ::Spree::PaymentMethod.new(payment_method_params)
 
       if @payment_method.save
         edit_url = spree.edit_admin_payment_method_url(@payment_method)

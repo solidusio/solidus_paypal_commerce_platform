@@ -1,0 +1,15 @@
+<div style="margin-left:auto;margin-right:auto;width:50%;margin-top:20px;">
+  <script src="<%= payment_method.javascript_sdk_url(order: @order) %>">
+  </script>
+
+  <div id="paypal-button-container"></div>
+
+  <script>
+    Spree.current_order_id = "<%= @order.number %>"
+    Spree.current_order_token = "<%= @order.guest_token %>"
+    SolidusPaypalCommercePlatform.checkout_url = "<%= checkout_url %>"
+    $( document ).ready(function() {
+      SolidusPaypalCommercePlatform.renderCartButton("<%= payment_method.id %>",<%= raw payment_method.button_style.to_json %>)
+    })
+  </script>
+</div>

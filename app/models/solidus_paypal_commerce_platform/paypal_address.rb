@@ -10,11 +10,15 @@ module SolidusPaypalCommercePlatform
 
     def update(paypal_address)
       formatted_address = format_address(paypal_address)
-      new_address = @order.ship_address.dup
+      new_address = @order.ship_address.dup || ::Spree::Address.new
       new_address.assign_attributes(formatted_address)
+
+      add_email_to_order(paypal_address[:recipient]) unless @order.email
 
       if new_address.save
         @order.update(ship_address_id: new_address.id)
+        # Also setting billing address if it doesn't already exist
+        @order.update(bill_address_id: new_address.id) unless @order.bill_address
       else
         @errors = new_address.errors
       end
@@ -24,7 +28,13 @@ module SolidusPaypalCommercePlatform
 
     private
 
-    def format_address(address)
+    def add_email_to_order(recipient)
+      @order.update(email: recipient[:email_address])
+    end
+
+    def format_address(paypal_address)
+      address = paypal_address[:updated_address]
+      recipient = paypal_address[:recipient]
       country = ::Spree::Country.find_by(iso: address[:country_code])
       state = country.states.where(abbr: address[:admin_area_1]).or(
         country.states.where(name: address[:admin_area_1])
@@ -37,7 +47,9 @@ module SolidusPaypalCommercePlatform
         state_name: address[:admin_area_1],
         city: address[:admin_area_2],
         country: country,
-        zipcode: address[:postal_code]
+        zipcode: address[:postal_code],
+        firstname: recipient[:name][:given_name],
+        lastname: recipient[:name][:surname]
       }
     end
   end
