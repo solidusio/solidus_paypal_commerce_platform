@@ -44,7 +44,7 @@ module SolidusPaypalCommercePlatform
     def wrap_response(response, success_message: nil, failure_message: nil)
       if SUCCESS_STATUS_CODES.include? response.status_code
         success_message ||= "Success."
-        ActiveMerchant::Billing::Response.new(true, success_message, result: response.result)
+        ActiveMerchant::Billing::Response.new(true, success_message, result: response.result, paypal_debug_id: response.headers["paypal-debug-id"])
       else
         failure_message ||= "A problem has occurred with this payment, please try again."
         ActiveMerchant::Billing::Response.new(false, failure_message)

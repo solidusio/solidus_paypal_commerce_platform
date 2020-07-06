@@ -6,7 +6,7 @@ RSpec.describe SolidusPaypalCommercePlatform::Client do
   describe '#execute_with_response' do
     let(:request_class) { SolidusPaypalCommercePlatform::Gateway::OrdersCaptureRequest }
     let(:paypal_request) { double(:request, class: request_class) }
-    let(:paypal_response) { double(:response, status_code: status_code, result: nil) }
+    let(:paypal_response) { double(:response, status_code: status_code, result: nil, headers: {}) }
     let(:status_code) { 201 }
 
     before do
