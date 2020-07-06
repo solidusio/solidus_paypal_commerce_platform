@@ -44,7 +44,7 @@ module SolidusPaypalCommercePlatform
       when 'test', 'development'
         return 'sandbox'
       else
-        raise InvalidEnvironment, 'Unable to guess the PayPal env, please set #{self}.env= explicitly.'
+        raise InvalidEnvironment, "Unable to guess the PayPal env, please set #{self}.env= explicitly."
       end
     end
 
