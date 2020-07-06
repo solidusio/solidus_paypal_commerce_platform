@@ -7,7 +7,7 @@ module SolidusPaypalCommercePlatform
 
     def initialize(partner_merchant_id:, access_token:)
       @verb = "GET"
-      @path = "/v1/customer/partners/#{partner_merchant_id}/merchant-integrations/credentials",
+      @path = "/v1/customer/partners/#{partner_merchant_id}/merchant-integrations/credentials"
       @headers = {
         "Content-Type" => "application/json",
         "Authorization" => "Bearer #{access_token}"
