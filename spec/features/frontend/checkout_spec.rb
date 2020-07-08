@@ -52,6 +52,15 @@ RSpec.describe "Checkout" do
         click_button("Save and Continue")
         expect(page).to have_css(".current", text: "Confirm")
       end
+
+      it "records the paypal email address" do
+        visit '/checkout/payment'
+        choose(option: paypal_payment_method.id)
+        find(:xpath, "//input[@id='payments_source_paypal_order_id']", visible: false).set SecureRandom.hex(8)
+        find(:xpath, "//input[@id='payments_source_paypal_email']", visible: false).set "fake@email.com"
+        click_button("Save and Continue")
+        expect(Spree::Payment.last.source.paypal_email).to eq "fake@email.com"
+      end
     end
   end
 end

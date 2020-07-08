@@ -16,6 +16,7 @@ SolidusPaypalCommercePlatform.approveOrder = function(data, actions) {
   actions.order.get().then(function(response){
     SolidusPaypalCommercePlatform.updateAddress(response).then(function() {
       $("#payments_source_paypal_order_id").val(data.orderID)
+      $("#payments_source_paypal_email").val(response.payer.email_address)
       $("#checkout_form_payment").submit()
     })
   })
@@ -44,7 +45,7 @@ SolidusPaypalCommercePlatform.finalizeOrder = function(payment_method_id, data, 
   actions.order.get().then(function(response){
     SolidusPaypalCommercePlatform.updateAddress(response).then(function() {
       var paypal_amount = response.purchase_units[0].amount.value
-      SolidusPaypalCommercePlatform.addPayment(paypal_amount, payment_method_id, data).then(function() {
+      SolidusPaypalCommercePlatform.addPayment(paypal_amount, payment_method_id, data, response.payer.email_address).then(function() {
         SolidusPaypalCommercePlatform.advanceOrder().then(function(response) {
           window.location.href = SolidusPaypalCommercePlatform.checkout_url
         })
@@ -66,7 +67,7 @@ SolidusPaypalCommercePlatform.advanceOrder = function() {
   })
 }
 
-SolidusPaypalCommercePlatform.addPayment = function(paypal_amount, payment_method_id, data) {
+SolidusPaypalCommercePlatform.addPayment = function(paypal_amount, payment_method_id, data, email) {
   return Spree.ajax({
     url: '/api/checkouts/' + Spree.current_order_id + '/payments',
     method: 'POST',
@@ -76,7 +77,8 @@ SolidusPaypalCommercePlatform.addPayment = function(paypal_amount, payment_metho
         amount: paypal_amount,
         payment_method_id: payment_method_id,
         source_attributes: {
-          paypal_order_id: data.orderID
+          paypal_order_id: data.orderID,
+          paypal_email: email
         }
       }
     },
