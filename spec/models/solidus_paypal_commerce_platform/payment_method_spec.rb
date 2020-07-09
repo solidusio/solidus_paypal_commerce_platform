@@ -35,7 +35,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
     it "sends a purchase request to paypal" do
       paypal_order_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(paypal_order_id: paypal_order_id)
-      expect_request(:OrdersCaptureRequest).to receive(:new).with(paypal_order_id)
+      expect_request(:OrdersCaptureRequest).to receive(:new).with(paypal_order_id).and_call_original
       paypal_payment_method.purchase(1000, source, {})
     end
   end
@@ -54,7 +54,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
       authorization_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
       payment.source = source
-      expect_request(:AuthorizationsCaptureRequest).to receive(:new).with(authorization_id)
+      expect_request(:AuthorizationsCaptureRequest).to receive(:new).with(authorization_id).and_call_original
       paypal_payment_method.capture(1000, {}, originator: payment)
     end
   end

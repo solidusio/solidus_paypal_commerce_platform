@@ -19,8 +19,10 @@ module SolidusPaypalCommercePlatform
       @options = options
     end
 
-    def purchase(_money, source, _options)
-      response = @client.execute_with_response(OrdersCaptureRequest.new(source.paypal_order_id))
+    def purchase(money, source, options)
+      request = OrdersCaptureRequest.new(source.paypal_order_id)
+      request.request_body(amount: { currency_code: options[:currency], value: Money.new(money).dollars })
+      response = @client.execute_with_response(request)
       capture_id = response.params["result"].purchase_units[0].payments.captures[0].id
       source.update(capture_id: capture_id) if response.success?
       response
@@ -33,11 +35,15 @@ module SolidusPaypalCommercePlatform
       response
     end
 
-    def capture(_money, _response_code, options)
+    def capture(money, _response_code, options)
       authorization_id = options[:originator].source.authorization_id
-      response = @client.execute_with_response(AuthorizationsCaptureRequest.new(authorization_id))
-      capture_id = response.params["result"].id
-      options[:originator].source.update(capture_id: capture_id) if response.success?
+      request = AuthorizationsCaptureRequest.new(authorization_id)
+      request.request_body(amount: { currency_code: options[:currency], value: Money.new(money).dollars })
+      response = @client.execute_with_response(request)
+      if response.success?
+        capture_id = response.params["result"].id
+        options[:originator].source.update(capture_id: capture_id)
+      end
       response
     end
 
