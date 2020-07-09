@@ -15,9 +15,11 @@ SolidusPaypalCommercePlatform.postOrder = function(payment_method_id) {
 SolidusPaypalCommercePlatform.approveOrder = function(data, actions) {
   actions.order.get().then(function(response){
     SolidusPaypalCommercePlatform.updateAddress(response).then(function() {
-      $("#payments_source_paypal_order_id").val(data.orderID)
-      $("#payments_source_paypal_email").val(response.payer.email_address)
-      $("#checkout_form_payment").submit()
+      SolidusPaypalCommercePlatform.verifyTotal(response.purchase_units[0].amount.value).then(function(){
+        $("#payments_source_paypal_order_id").val(data.orderID)
+        $("#payments_source_paypal_email").val(response.payer.email_address)
+        $("#checkout_form_payment").submit()
+      })
     })
   })
 }
@@ -41,13 +43,30 @@ SolidusPaypalCommercePlatform.shippingChange = function(data, actions) {
   });
 }
 
+SolidusPaypalCommercePlatform.verifyTotal = function(paypal_total) {
+  return Spree.ajax({
+    url: '/solidus_paypal_commerce_platform/verify_total',
+    method: 'GET',
+    data: {
+      order_id: Spree.current_order_id,
+      order_token: Spree.current_order_token,
+      paypal_total: paypal_total
+    },
+    error: function(response) {
+      alert('There were some problems with your payment - ' + response.responseJSON.errors.expected_total);
+    }
+  })
+}
+
 SolidusPaypalCommercePlatform.finalizeOrder = function(payment_method_id, data, actions) {
   actions.order.get().then(function(response){
     SolidusPaypalCommercePlatform.updateAddress(response).then(function() {
       var paypal_amount = response.purchase_units[0].amount.value
-      SolidusPaypalCommercePlatform.addPayment(paypal_amount, payment_method_id, data, response.payer.email_address).then(function() {
-        SolidusPaypalCommercePlatform.advanceOrder().then(function(response) {
-          window.location.href = SolidusPaypalCommercePlatform.checkout_url
+      SolidusPaypalCommercePlatform.advanceOrder().then(function() {
+        SolidusPaypalCommercePlatform.verifyTotal(paypal_amount).then(function(){
+          SolidusPaypalCommercePlatform.addPayment(paypal_amount, payment_method_id, data, response.payer.email_address).then(function() {
+            window.location.href = SolidusPaypalCommercePlatform.checkout_url
+          })
         })
       })
     })

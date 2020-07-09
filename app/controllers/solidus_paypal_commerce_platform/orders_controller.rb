@@ -22,7 +22,21 @@ module SolidusPaypalCommercePlatform
       end
     end
 
+    def verify_total
+      authorize! :show, @order, order_token
+
+      if total_is_correct?(params[:paypal_total])
+        render json: {}, status: :ok
+      else
+        respond_with(@order, default_template: 'spree/api/orders/expected_total_mismatch', status: 400)
+      end
+    end
+
     private
+
+    def total_is_correct?(paypal_total)
+      @order.outstanding_balance == BigDecimal(paypal_total)
+    end
 
     def paypal_address_params
       params.require(:address).permit(
