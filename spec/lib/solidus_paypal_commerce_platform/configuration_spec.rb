@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-RSpec.describe SolidusPaypalCommercePlatform::Environment do
-  let(:subject) { Class.new.extend described_class }
+RSpec.describe SolidusPaypalCommercePlatform::Configuration do
+  let(:subject) { described_class.new }
 
   describe '#default_env' do
     it "uses ENV['PAYPAL_ENV'] when present" do
@@ -62,6 +62,24 @@ RSpec.describe SolidusPaypalCommercePlatform::Environment do
 
       subject.env = "sandbox"
       expect(subject.env_domain).to eq("www.sandbox.paypal.com")
+    end
+  end
+
+  describe "#order_simulator_class" do
+    before do
+      stub_const('SolidusPaypalCommercePlatform::BetterOrderSimulator', Class.new)
+    end
+
+    it "returns a class" do
+      expect(subject.order_simulator_class).to be_kind_of(Class)
+    end
+
+    it "is settable" do
+      expect(subject.order_simulator_class).to eq(SolidusPaypalCommercePlatform::OrderSimulator)
+
+      subject.order_simulator_class = "SolidusPaypalCommercePlatform::BetterOrderSimulator"
+
+      expect(subject.order_simulator_class).to eq(SolidusPaypalCommercePlatform::BetterOrderSimulator)
     end
   end
 end

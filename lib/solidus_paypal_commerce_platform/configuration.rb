@@ -3,7 +3,8 @@
 require 'paypal-checkout-sdk'
 
 module SolidusPaypalCommercePlatform
-  module Environment
+  class Configuration
+    attr_writer :order_simulator_class
     InvalidEnvironment = Class.new(StandardError)
 
     DEFAULT_NONCE = {
@@ -20,6 +21,12 @@ module SolidusPaypalCommercePlatform
       sandbox: "ATDpQjHzjCz_C_qbbJ76Ca0IjcmwlS4FztD6YfuRFZXDCmcWWw8-8QWcF3YIkbC85ixTUuuSEvrBMVSX",
       live: "TBD",
     }.freeze
+
+    def order_simulator_class
+      self.order_simulator_class = "SolidusPaypalCommercePlatform::OrderSimulator" unless @order_simulator_class
+
+      @order_simulator_class.constantize
+    end
 
     def env=(value)
       unless %w[live sandbox].include? value
@@ -70,6 +77,4 @@ module SolidusPaypalCommercePlatform
       @partner_client_id ||= ENV['PAYPAL_PARTNER_CLIENT_ID'] || DEFAULT_PARTNER_CLIENT_ID[env.to_sym]
     end
   end
-
-  extend Environment
 end

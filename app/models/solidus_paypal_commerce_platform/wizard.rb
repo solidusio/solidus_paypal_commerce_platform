@@ -13,16 +13,16 @@ module SolidusPaypalCommercePlatform
     def button_url
       parameters = {
         product: "addipmt",
-        partnerId: SolidusPaypalCommercePlatform.partner_id,
-        partnerClientId: SolidusPaypalCommercePlatform.partner_client_id,
+        partnerId: SolidusPaypalCommercePlatform.config.partner_id,
+        partnerClientId: SolidusPaypalCommercePlatform.config.partner_client_id,
         features: "PAYMENT,REFUND",
         partnerLogoUrl: logo,
         integrationType: "FO",
         displayMode: "minibrowser",
-        sellerNonce: SolidusPaypalCommercePlatform.nonce
+        sellerNonce: SolidusPaypalCommercePlatform.config.nonce
       }
 
-      URI("https://#{SolidusPaypalCommercePlatform.env_domain}/bizsignup/partner/entry?#{parameters.to_query}")
+      URI("https://#{SolidusPaypalCommercePlatform.config.env_domain}/bizsignup/partner/entry?#{parameters.to_query}")
     end
 
     private

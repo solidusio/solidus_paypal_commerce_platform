@@ -7,7 +7,7 @@ module SolidusPaypalCommercePlatform
 
     def simulate_shipping_rates
       authorize! :show, @order, order_token
-      order_simulator = SolidusPaypalCommercePlatform::OrderSimulator.new(@order)
+      order_simulator = SolidusPaypalCommercePlatform.config.order_simulator_class.new(@order)
       simulated_order = order_simulator.simulate_with_address(params[:address])
 
       if simulated_order.ship_address.valid?

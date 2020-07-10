@@ -13,7 +13,7 @@ module SolidusPaypalCommercePlatform
     attr_reader :environment
 
     def initialize(test_mode: nil, client_id:, client_secret: "")
-      test_mode = SolidusPaypalCommercePlatform.env.sandbox? if test_mode.nil?
+      test_mode = SolidusPaypalCommercePlatform.config.env.sandbox? if test_mode.nil?
       env_class = test_mode ? PayPal::SandboxEnvironment : PayPal::LiveEnvironment
 
       @environment = env_class.new(client_id, client_secret)

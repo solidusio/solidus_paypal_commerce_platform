@@ -8,9 +8,9 @@
     <%= t('sign_up_for_paypal') %>
   </button>
 </a>
-<script id="paypal-js" src="https://<%= SolidusPaypalCommercePlatform.env_domain %>/webapps/merchantboarding/js/lib/lightbox/partner.js"></script>
+<script id="paypal-js" src="https://<%= SolidusPaypalCommercePlatform.config.env_domain %>/webapps/merchantboarding/js/lib/lightbox/partner.js"></script>
 
 <script>
-  window.SolidusPaypalCommercePlatform.nonce = "<%= SolidusPaypalCommercePlatform.nonce %>"
+  window.SolidusPaypalCommercePlatform.nonce = "<%= SolidusPaypalCommercePlatform.config.nonce %>"
   window.SolidusPaypalCommercePlatform_onboardCallback = SolidusPaypalCommercePlatform.onboardCallback
 </script>
