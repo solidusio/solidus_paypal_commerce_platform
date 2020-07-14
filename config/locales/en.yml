@@ -1,5 +1,8 @@
 en:
   spree:
+    hints:
+      solidus_paypal_commerce_platform/payment_method:
+        available_to_users: You must verify that your email is confirmed with PayPal before allowing users to check out.
     payment_source: source
   activerecord:
     attributes:

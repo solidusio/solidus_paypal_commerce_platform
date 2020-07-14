@@ -1,0 +1,6 @@
+<% if @payment_method.type == "SolidusPaypalCommercePlatform::PaymentMethod" && !@payment_method.preferences[:paypal_email_confirmed] %>
+  <%= f.check_box :available_to_users, disabled: true %>
+  <%= f.field_hint :available_to_users %>
+<% else %>
+  <%= f.check_box :available_to_users %>
+<% end %>
