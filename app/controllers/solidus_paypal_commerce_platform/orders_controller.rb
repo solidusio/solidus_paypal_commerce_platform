@@ -2,13 +2,25 @@
 
 module SolidusPaypalCommercePlatform
   class OrdersController < ::Spree::Api::BaseController
-    before_action :load_order
-    before_action :load_payment_method, only: :create
+    before_action :load_order, except: :create
     skip_before_action :authenticate_user
+    include ::Spree::Core::ControllerHelpers::Auth
 
     def create
-      authorize! :update, @order, order_token
-      render json: @payment_method.gateway.create_order(@order, @payment_method.auto_capture), status: :ok
+      authorize! :create, ::Spree::Order
+
+      @order = ::Spree::Order.create!(
+        user: try_spree_current_user,
+        store: current_store
+      )
+
+      if @order.contents.update_cart order_params
+        # Overriding any existing orders
+        cookies.signed[:guest_token] = @order.guest_token
+        render json: @order, status: :ok
+      else
+        render json: @order.errors.full_messages, status: :unprocessable_entity
+      end
     end
 
     def update_address
@@ -58,12 +70,12 @@ module SolidusPaypalCommercePlatform
       )
     end
 
-    def load_order
-      @order = ::Spree::Order.find_by!(number: params[:order_id])
+    def order_params
+      params.require(:order).permit(permitted_order_attributes)
     end
 
-    def load_payment_method
-      @payment_method = ::Spree::PaymentMethod.find(params[:payment_method_id])
+    def load_order
+      @order = ::Spree::Order.find_by!(number: params[:order_id])
     end
   end
 end
