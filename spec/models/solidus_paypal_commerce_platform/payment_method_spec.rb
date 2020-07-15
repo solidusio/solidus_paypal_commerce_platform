@@ -4,34 +4,21 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
   let(:paypal_payment_method) { create(:paypal_payment_method) }
   let(:payment) { create(:payment) }
   let(:completed_payment) { create(:payment, :completed) }
+  let(:response) { Struct(status_code: status_code, result: result, headers: headers) }
+  let(:status_code) { 201 }
+  let(:result) { nil }
+  let(:headers) { {} }
 
-  before do
-    response = OpenStruct.new(
-      status_code: 201,
-      result: OpenStruct.new(
-        id: SecureRandom.hex(4),
-        purchase_units: [
-          OpenStruct.new(
-            payments: OpenStruct.new(
-              authorizations: [
-                OpenStruct.new(id: SecureRandom.hex(4))
-              ],
-              captures: [
-                OpenStruct.new(id: SecureRandom.hex(4))
-              ]
-            )
-          )
-        ]
-      ),
-      headers: {
-        "paypal-debug-id": ["123"]
-      }
-    )
-
-    allow_any_instance_of(PayPal::PayPalHttpClient).to receive(:execute) { response }
+  def Struct(data) # rubocop:disable Naming/MethodName
+    Struct.new(*data.keys, keyword_init: true).new(data)
   end
 
+  before { allow_any_instance_of(PayPal::PayPalHttpClient).to receive(:execute) { response } }
+
   describe "#purchase" do
+    let(:result) { Struct(purchase_units: [Struct(payments: payments)]) }
+    let(:payments) { Struct(captures: [Struct(id: SecureRandom.hex(4))]) }
+
     it "sends a purchase request to paypal" do
       paypal_order_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(paypal_order_id: paypal_order_id)
@@ -41,6 +28,9 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
   end
 
   describe "#authorize" do
+    let(:result) { Struct(purchase_units: [Struct(payments: payments)]) }
+    let(:payments) { Struct(authorizations: [Struct(id: SecureRandom.hex(4))]) }
+
     it "sends an authorize request to paypal" do
       paypal_order_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(paypal_order_id: paypal_order_id)
@@ -50,6 +40,8 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
   end
 
   describe "#capture" do
+    let(:result) { Struct(id: SecureRandom.hex(4)) }
+
     it "sends a capture request to paypal" do
       authorization_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
