@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'deface'
 require 'spree/core'
 require 'solidus_paypal_commerce_platform'
 
