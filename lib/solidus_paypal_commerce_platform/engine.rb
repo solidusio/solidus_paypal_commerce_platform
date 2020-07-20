@@ -24,6 +24,12 @@ module SolidusPaypalCommercePlatform
       app.config.spree.payment_setup_wizards << "SolidusPaypalCommercePlatform::Wizard"
     end
 
+    initializer "solidus_paypal_commerce_platform.set_pricing_options_class" do
+      def (Spree::Config).pricing_options_class
+        SolidusPaypalCommercePlatform::PricingOptions
+      end
+    end
+
     # use rspec for tests
     config.generators do |g|
       g.test_framework :rspec
