@@ -18,7 +18,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def display_on_cart
-      preferences[:display_on_cart]
+      options[:display_on_cart] || false
     end
 
     def cart_partial_name
@@ -26,7 +26,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def display_on_product_page
-      preferences[:display_on_product_page]
+      options[:display_on_product_page] || false
     end
 
     def product_page_partial_name
@@ -34,11 +34,11 @@ module SolidusPaypalCommercePlatform
     end
 
     def client_id
-      preferences[:client_id]
+      options[:client_id]
     end
 
     def client_secret
-      preferences[:client_secret]
+      options[:client_secret]
     end
 
     def payment_source_class
@@ -51,10 +51,10 @@ module SolidusPaypalCommercePlatform
 
     def button_style
       {
-        color: preferences[:paypal_button_color],
-        size: preferences[:paypal_button_size],
-        shape: preferences[:paypal_button_shape],
-        layout: preferences[:paypal_button_layout]
+        color: options[:paypal_button_color] || "gold",
+        size: options[:paypal_button_size] || "responsive",
+        shape: options[:paypal_button_shape] || "rect",
+        layout: options[:paypal_button_layout] || "vertical"
       }
     end
 
