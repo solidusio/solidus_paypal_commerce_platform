@@ -24,6 +24,9 @@ Spree::Config.configure do |config|
       test_mode: !Rails.env.production?,
       client_id: ENV['PAYPAL_CLIENT_ID'],
       client_secret: ENV['PAYPAL_CLIENT_SECRET'],
+      paypal_email_confirmed: true,
+      display_on_product_page: true,
+      display_on_cart: true,
     }
   )
 end
@@ -38,15 +41,16 @@ When you return to your app, your payment method should be set up and ready to g
 
 ### Email Confirmation
 
-A confirmed email is required to get paid by PayPal, please make sure that you've confirmed your email before going
-live with this payment method.
+A confirmed email is required to get paid by PayPal. You'll need to check `Paypal Email Confirmed` on your new
+payment method before being able to select `Available To Users`.
 
 Wizards
 -------
 
 This gem adds support for payment method wizards to be set up. Payment wizards can be used to automatically set up
 payment methods by directing the user to a sign-in page for whatever service they're connecting. In this gem, the
-user is directed to sign up/in for PayPal, and then give us access to their credentials, which we store in preferences.
+user is directed to sign up/in for PayPal, and then give their app access to their credentials, which is store in 
+preferences.
 
 To add a payment wizard, add the class where your wizard is stored on initialization:
 
@@ -76,7 +80,7 @@ bundle exec rails g solidus_paypal_commerce_platform:install
 
 ### PayPal Sandbox/Live Environment
 
-This extension will automatically selecte a PayPal environment based on Rails environment so that "production" will be mapped to the "live" PayPal environment, and everything else will be routed to the "sandbox" PayPal environment.
+This extension will automatically select a PayPal environment based on Rails environment so that "production" will be mapped to the "live" PayPal environment, and everything else will be routed to the "sandbox" PayPal environment.
 
 If you want to override these values you can either set `SolidusPaypalCommercePlatform.config.env` to `"live"` or `"sandbox"` inside an initializer. Or, alternatively, you can set the `PAYPAL_ENV` environment variable to one of the same two values.
 
