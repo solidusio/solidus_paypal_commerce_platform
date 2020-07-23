@@ -32,7 +32,6 @@ module SolidusPaypalCommercePlatform
         preferred_client_id: api_credentials.client_id,
         preferred_client_secret: api_credentials.client_secret,
         preferred_test_mode: SolidusPaypalCommercePlatform.config.env.sandbox?,
-        available_to_users: false,
         available_to_admin: false
       }
     end

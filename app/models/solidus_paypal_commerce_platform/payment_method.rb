@@ -11,7 +11,6 @@ module SolidusPaypalCommercePlatform
     preference :paypal_button_layout, :paypal_select, default: "vertical"
     preference :display_on_cart, :boolean, default: true
     preference :display_on_product_page, :boolean, default: true
-    preference :paypal_email_confirmed, :boolean, default: false
 
     def partial_name
       "paypal_commerce_platform"
