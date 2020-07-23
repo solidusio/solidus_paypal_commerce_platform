@@ -24,8 +24,10 @@ en:
     responses:
       pay_pal_checkout_sdk/orders/orders_capture_request:
         success: "Payment captured"
+        failure: "Your payment was declined - please try again using a different payment method."
       pay_pal_checkout_sdk/orders/orders_authorize_request:
         success: "Payment authorized"
+        failure: "Your payment was declined - please try again using a different payment method."
       pay_pal_checkout_sdk/payments/authorizations_capture_request:
         success: "Authorization captured"
       pay_pal_checkout_sdk/payments/captures_refund_request:

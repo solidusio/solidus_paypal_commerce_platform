@@ -23,15 +23,19 @@ module SolidusPaypalCommercePlatform
       request = OrdersCaptureRequest.new(source.paypal_order_id)
       request.request_body(amount: { currency_code: options[:currency], value: Money.new(money).dollars })
       response = @client.execute_with_response(request)
-      capture_id = response.params["result"].purchase_units[0].payments.captures[0].id
-      source.update(capture_id: capture_id) if response.success?
+      if response.success?
+        capture_id = response.params["result"].purchase_units[0].payments.captures[0].id
+        source.update(capture_id: capture_id)
+      end
       response
     end
 
     def authorize(_money, source, _options)
       response = @client.execute_with_response(OrdersAuthorizeRequest.new(source.paypal_order_id))
-      authorization_id = response.params["result"].purchase_units.first.payments.authorizations.first.id
-      source.update(authorization_id: authorization_id) if response.success?
+      if response.success?
+        authorization_id = response.params["result"].purchase_units.first.payments.authorizations.first.id
+        source.update(authorization_id: authorization_id)
+      end
       response
     end
 
