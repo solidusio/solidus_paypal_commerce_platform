@@ -133,6 +133,11 @@ SolidusPaypalCommercePlatform.configure do |config|
 end
 ```
 
+Backend Payments
+----------------
+
+PayPals API does not allow for admin-side payments. Instead, backend users taking payments for customers will need to use the PayPal Virtual Terminal to take payments. [More info is available on the PayPal website.](https://www.paypal.com/merchantapps/appcenter/acceptpayments/virtualterminal?locale.x=en_US)
+
 Testing
 -------
 
