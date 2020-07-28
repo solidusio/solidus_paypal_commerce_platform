@@ -56,12 +56,15 @@ module SolidusPaypalCommercePlatform
 
     def credit(_money_cents, _transaction_id, options)
       refund = options[:originator]
-      capture_id = refund.payment.source.capture_id
+      source = refund.payment.source
+      capture_id = source.capture_id
       request = CapturesRefundRequest.new(capture_id)
       request.request_body(amount: { currency_code: refund.currency, value: refund.amount })
       message = I18n.t('success', scope: @client.i18n_scope_for(request), amount: refund.amount)
 
-      @client.execute_with_response(request, success_message: message)
+      response = @client.execute_with_response(request, success_message: message)
+      source.update(refund_id: response.params["result"].id) if response.success?
+      response
     end
 
     def void(_response_code, options)
