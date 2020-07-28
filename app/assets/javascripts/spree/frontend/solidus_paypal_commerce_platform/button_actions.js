@@ -1,3 +1,11 @@
+SolidusPaypalCommercePlatform.showOverlay = function() {
+  document.getElementById("paypal_commerce_platform_overlay").style.display = "block";
+}
+
+SolidusPaypalCommercePlatform.hideOverlay = function() {
+  document.getElementById("paypal_commerce_platform_overlay").style.display = "none";
+}
+
 SolidusPaypalCommercePlatform.sendOrder = function(payment_method_id) {
   return Spree.ajax({
     url: '/solidus_paypal_commerce_platform/paypal_orders/' + Spree.current_order_id,
@@ -62,6 +70,7 @@ SolidusPaypalCommercePlatform.getQuantity = function() {
 }
 
 SolidusPaypalCommercePlatform.approveOrder = function(data, actions) {
+  SolidusPaypalCommercePlatform.showOverlay()
   actions.order.get().then(function(response){
     SolidusPaypalCommercePlatform.updateAddress(response).then(function() {
       SolidusPaypalCommercePlatform.verifyTotal(response.purchase_units[0].amount.value).then(function(){
@@ -102,12 +111,14 @@ SolidusPaypalCommercePlatform.verifyTotal = function(paypal_total) {
       paypal_total: paypal_total
     },
     error: function(response) {
+      SolidusPaypalCommercePlatform.hideOverlay()
       alert('There were some problems with your payment - ' + response.responseJSON.errors.expected_total);
     }
   })
 }
 
 SolidusPaypalCommercePlatform.finalizeOrder = function(payment_method_id, data, actions) {
+  SolidusPaypalCommercePlatform.showOverlay()
   actions.order.get().then(function(response){
     SolidusPaypalCommercePlatform.updateAddress(response).then(function() {
       var paypal_amount = response.purchase_units[0].amount.value
@@ -130,6 +141,7 @@ SolidusPaypalCommercePlatform.advanceOrder = function() {
       order_token: Spree.current_order_token
     },
     error: function(response) {
+      SolidusPaypalCommercePlatform.hideOverlay()
       alert('There were some problems with your order');
     }
   })
@@ -151,6 +163,7 @@ SolidusPaypalCommercePlatform.addPayment = function(paypal_amount, payment_metho
       }
     },
     error: function(response) {
+      SolidusPaypalCommercePlatform.hideOverlay()
       alert('There were some problems with your payment');
     }
   })
@@ -170,6 +183,7 @@ SolidusPaypalCommercePlatform.updateAddress = function(response) {
       order_token: Spree.current_order_token
     },
     error: function(response) {
+      SolidusPaypalCommercePlatform.hideOverlay()
       message = response.responseJSON;
       alert('There were some problems with your payment address - ' + message);
     }
