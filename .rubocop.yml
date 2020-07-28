@@ -51,3 +51,6 @@ Style/FrozenStringLiteralComment:
     - db/migrate/**/*
     - bin/**/*
 
+Security/YAMLLoad:
+  Exclude:
+    - spec/**/*
