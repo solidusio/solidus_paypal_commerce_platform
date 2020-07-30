@@ -13,12 +13,12 @@ module SolidusPaypalCommercePlatform
 
     DEFAULT_PARTNER_ID = {
       sandbox: "5LQZV7RJDGKG2",
-      live: "TBD",
+      live: "NBKVLAA7K2V5S",
     }.freeze
 
     DEFAULT_PARTNER_CLIENT_ID = {
       sandbox: "ATDpQjHzjCz_C_qbbJ76Ca0IjcmwlS4FztD6YfuRFZXDCmcWWw8-8QWcF3YIkbC85ixTUuuSEvrBMVSX",
-      live: "TBD",
+      live: "ASOxaUMkeX5bv7PbXnWUDnqb3SVYkzRSosApmLGFih-eAhB_OS_Wo6juijE5t8NCmWDgpN2ugHMmQFWA",
     }.freeze
 
     def env=(value)
