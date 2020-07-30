@@ -6,12 +6,12 @@ ENV['RAILS_ENV'] = 'test'
 # Run Coverage report
 require 'solidus_dev_support/rspec/coverage'
 
-File.expand_path('dummy/config/environment.rb', __dir__).tap { |dummy_app|
-  # Create the dummy app if it's still missing.
-  system 'bin/rake extension:test_app' unless File.exist? dummy_app
+# Create the dummy app if it's still missing.
+dummy_app_environment = File.expand_path('dummy/config/environment.rb', __dir__).tap do |file|
+  system 'bin/rake extension:test_app' unless File.exist? file
+end
 
-  require dummy_app
-}
+require dummy_app_environment
 
 # Requires factories and other useful helpers defined in spree_core.
 require 'solidus_dev_support/rspec/feature_helper'
