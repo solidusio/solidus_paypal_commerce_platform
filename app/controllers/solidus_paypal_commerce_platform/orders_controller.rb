@@ -47,7 +47,7 @@ module SolidusPaypalCommercePlatform
     private
 
     def total_is_correct?(paypal_total)
-      @order.outstanding_balance == BigDecimal(paypal_total)
+      @order.total == BigDecimal(paypal_total)
     end
 
     def paypal_address_params
