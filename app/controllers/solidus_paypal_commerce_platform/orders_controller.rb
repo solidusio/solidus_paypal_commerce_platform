@@ -28,6 +28,8 @@ module SolidusPaypalCommercePlatform
       paypal_address = SolidusPaypalCommercePlatform::PaypalAddress.new(@order)
 
       if paypal_address.update(paypal_address_params).valid?
+        @order.ensure_updated_shipments
+        @order.contents.advance
         render json: {}, status: :ok
       else
         render json: paypal_address.errors.full_messages, status: :unprocessable_entity

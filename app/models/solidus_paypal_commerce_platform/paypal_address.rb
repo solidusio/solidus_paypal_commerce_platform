@@ -8,6 +8,13 @@ module SolidusPaypalCommercePlatform
       @order = order
     end
 
+    def simulate_update(paypal_address)
+      @order.update(ship_address: format_simulated_address(paypal_address))
+      @order.ensure_updated_shipments
+      @order.email = "info@solidus.io" unless @order.email
+      @order.contents.advance
+    end
+
     def update(paypal_address)
       formatted_address = format_address(paypal_address)
       new_address = @order.ship_address.dup || ::Spree::Address.new
@@ -30,6 +37,21 @@ module SolidusPaypalCommercePlatform
 
     def add_email_to_order(recipient)
       @order.update(email: recipient[:email_address])
+    end
+
+    def format_simulated_address(paypal_address)
+      country = ::Spree::Country.find_by(iso: paypal_address[:country_code])
+      # Also adds fake information for a few fields, so validations can run
+      ::Spree::Address.new(
+        city: paypal_address[:city],
+        state: country.states.find_by(abbr: paypal_address[:state]),
+        state_name: paypal_address[:state],
+        zipcode: paypal_address[:postal_code],
+        country: country,
+        address1: "123 Fake St.",
+        phone: "123456789",
+        firstname: "Fake"
+      )
     end
 
     def format_address(paypal_address)

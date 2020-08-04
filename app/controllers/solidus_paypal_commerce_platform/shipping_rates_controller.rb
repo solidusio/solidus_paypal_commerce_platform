@@ -7,14 +7,14 @@ module SolidusPaypalCommercePlatform
 
     def simulate_shipping_rates
       authorize! :show, @order, order_token
-      order_simulator = SolidusPaypalCommercePlatform.config.order_simulator_class.new(@order)
-      simulated_order = order_simulator.simulate_with_address(params[:address])
 
-      if simulated_order.ship_address.valid?
-        render json: SolidusPaypalCommercePlatform::PaypalOrder.new(simulated_order).to_replace_json, status: :ok
-      else
-        render json: simulated_order.ship_address.errors.full_messages, status: :unprocessable_entity
+      @order.transaction do
+        SolidusPaypalCommercePlatform::PaypalAddress.new(@order).simulate_update(params[:address])
+        @paypal_order = SolidusPaypalCommercePlatform::PaypalOrder.new(@order).to_replace_json
+        raise ActiveRecord::Rollback
       end
+
+      render json: @paypal_order, status: :ok
     end
 
     private

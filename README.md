@@ -112,21 +112,6 @@ end
 
 The instances of your wizard class should respond to `#name` and `#partial_name`, where `partial_name` will return the path to the partial you'd like to display on the wizard setup section. In our case, we just display a button to direct the user to PayPal.
 
-## Customization
-
-You can customize some of the settings in this app with the `configure`
-method in an initializer. For instance, if you'd prefer to use your own order
-simulator to simulate taxes & shipping rates from a custom address, you can set
-the order_simulator_class like this:
-
-```ruby
-# config/initializers/use_my_simulator.rb
-
-SolidusPaypalCommercePlatform.configure do |config|
-  config.order_simulator_class = "MyApp::MyOrderSimulator"
-end
-```
-
 ## Backend Payments
 
 PayPals API does not allow for admin-side payments. Instead, backend users taking payments for customers will need to use the PayPal Virtual Terminal to take payments. [More info is available on the PayPal website.](https://www.paypal.com/merchantapps/appcenter/acceptpayments/virtualterminal?locale.x=en_US)
