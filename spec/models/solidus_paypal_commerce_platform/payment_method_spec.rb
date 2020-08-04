@@ -62,12 +62,15 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
   end
 
   describe "#credit" do
+    let(:result) { Struct(id: SecureRandom.hex(4)) }
+
     it "sends a refund request to paypal" do
       capture_id = SecureRandom.hex(4)
       source = paypal_payment_method.payment_source_class.create(capture_id: capture_id)
       completed_payment.source = source
       expect_request(:CapturesRefundRequest).to receive(:new).with(capture_id).and_call_original
       paypal_payment_method.credit(1000, {}, originator: completed_payment.refunds.new(amount: 12))
+      expect(source.refund_id).not_to be_blank
     end
   end
 

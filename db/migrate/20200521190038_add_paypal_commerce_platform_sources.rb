@@ -6,6 +6,7 @@ class AddPaypalCommercePlatformSources < ActiveRecord::Migration[5.2]
       t.string :capture_id
       t.string :paypal_email
       t.string :paypal_order_id
+      t.string :refund_id
       t.timestamps
     end
   end
