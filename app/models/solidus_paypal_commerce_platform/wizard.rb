@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'securerandom'
+
 module SolidusPaypalCommercePlatform
   class Wizard
     def name
@@ -19,10 +21,14 @@ module SolidusPaypalCommercePlatform
         partnerLogoUrl: logo,
         integrationType: "FO",
         displayMode: "minibrowser",
-        sellerNonce: SolidusPaypalCommercePlatform.config.nonce
+        sellerNonce: nonce,
       }
 
       URI("https://#{SolidusPaypalCommercePlatform.config.env_domain}/bizsignup/partner/entry?#{parameters.to_query}")
+    end
+
+    def nonce
+      @nonce ||= SecureRandom.alphanumeric(128)
     end
 
     private

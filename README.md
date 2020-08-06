@@ -26,7 +26,7 @@ This extension will automatically select a PayPal environment based on Rails env
 
 If you want to override these values you can either set `SolidusPaypalCommercePlatform.config.env` to `"live"` or `"sandbox"` inside an initializer. Or, alternatively, you can set the `PAYPAL_ENV` environment variable to one of the same two values.
 
-### Custom PartnerID, PartnerClientID, and Nonce
+### Custom PartnerID & PartnerClientID
 
 You can declare your PayPal Partner-ID and Partner-Client-ID as environment
 variables or set their values directly on `SolidusPaypalCommercePlatform.config`
@@ -35,7 +35,6 @@ or by using the configuration method detailed in the Customization section.
 #### Use ENV variables
 
 ```shell
-export PAYPAL_NONCE="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxbdb84"
 export PAYPAL_PARTNER_ID="xxxxxxxxxxKG2"
 export PAYPAL_PARTNER_CLIENT_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxVSX"
 ```
@@ -43,7 +42,6 @@ export PAYPAL_PARTNER_CLIENT_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #### Set them directly
 
 ```ruby
-SolidusPaypalCommercePlatform.config.nonce = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxbdb84"
 SolidusPaypalCommercePlatform.config.partner_id = "xxxxxxxxxxKG2"
 SolidusPaypalCommercePlatform.config.partner_client_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxVSX"
 ```

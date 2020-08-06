@@ -6,11 +6,6 @@ module SolidusPaypalCommercePlatform
   class Configuration
     InvalidEnvironment = Class.new(StandardError)
 
-    DEFAULT_NONCE = {
-      sandbox: "0fb0e3e75e3deb58de8fb4e8dc27eb25ab2cbcabdb84",
-      live: "5RNMN2F8cBpVd9ek2F060WB03WWzjs64pYCUxhsJFg0d",
-    }.freeze
-
     DEFAULT_PARTNER_ID = {
       sandbox: "5LQZV7RJDGKG2",
       live: "NBKVLAA7K2V5S",
@@ -56,11 +51,7 @@ module SolidusPaypalCommercePlatform
       env.live? ? "www.paypal.com" : "www.sandbox.paypal.com"
     end
 
-    attr_writer :partner_id, :partner_client_id, :nonce
-
-    def nonce
-      @nonce ||= ENV['PAYPAL_NONCE'] || DEFAULT_NONCE[env.to_sym]
-    end
+    attr_writer :partner_id, :partner_client_id
 
     def partner_id
       @partner_id ||= ENV['PAYPAL_PARTNER_ID'] || DEFAULT_PARTNER_ID[env.to_sym]
