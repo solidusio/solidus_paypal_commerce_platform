@@ -10,6 +10,9 @@ module SolidusPaypalCommercePlatform
 
     def simulate_update(paypal_address)
       @order.update(ship_address: format_simulated_address(paypal_address))
+
+      return unless @order.ship_address.valid?
+
       @order.ensure_updated_shipments
       @order.email = "info@solidus.io" unless @order.email
       @order.contents.advance

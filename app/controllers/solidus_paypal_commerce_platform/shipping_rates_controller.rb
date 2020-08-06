@@ -10,11 +10,16 @@ module SolidusPaypalCommercePlatform
 
       @order.transaction do
         SolidusPaypalCommercePlatform::PaypalAddress.new(@order).simulate_update(params[:address])
+        @errors = @order.ship_address.errors.dup
         @paypal_order = SolidusPaypalCommercePlatform::PaypalOrder.new(@order).to_replace_json
         raise ActiveRecord::Rollback
       end
 
-      render json: @paypal_order, status: :ok
+      if @errors.none?
+        render json: @paypal_order, status: :ok
+      else
+        render json: @errors.full_messages, status: :unprocessable_entity
+      end
     end
 
     private
