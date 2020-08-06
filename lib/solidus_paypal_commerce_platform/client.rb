@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'solidus_paypal_commerce_platform/access_token_authorization_request'
+require 'solidus_paypal_commerce_platform/fetch_merchant_credentials_request'
+
 require 'paypal-checkout-sdk'
 
 module SolidusPaypalCommercePlatform
@@ -39,6 +42,21 @@ module SolidusPaypalCommercePlatform
 
     def i18n_scope_for(request)
       "solidus_paypal_commerce_platform.responses.#{request.class.name.underscore}"
+    end
+
+    def self.fetch_api_credentials(auth_code:, client_id:, nonce:)
+      client = new(client_id: client_id)
+
+      access_token = client.execute(AccessTokenAuthorizationRequest.new(
+        environment: client.environment,
+        auth_code: auth_code,
+        nonce: nonce,
+      )).result.access_token
+
+      client.execute(FetchMerchantCredentialsRequest.new(
+        access_token: access_token,
+        partner_merchant_id: SolidusPaypalCommercePlatform.config.partner_id,
+      )).result
     end
 
     private

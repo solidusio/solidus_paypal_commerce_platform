@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'paypal-checkout-sdk'
-require 'solidus_paypal_commerce_platform/access_token_authorization_request'
-require 'solidus_paypal_commerce_platform/fetch_merchant_credentials_request'
 
 module SolidusPaypalCommercePlatform
   class Gateway
@@ -14,7 +12,7 @@ module SolidusPaypalCommercePlatform
       @client = Client.new(
         test_mode: options.fetch(:test_mode, nil),
         client_id: options.fetch(:client_id),
-        client_secret: options.fetch(:client_secret, ""),
+        client_secret: options.fetch(:client_secret),
       )
       @options = options
     end
@@ -72,19 +70,6 @@ module SolidusPaypalCommercePlatform
       request = AuthorizationsVoidRequest.new(authorization_id)
 
       @client.execute_with_response(request)
-    end
-
-    def trade_tokens(auth_code:, nonce:)
-      access_token = @client.execute(AccessTokenAuthorizationRequest.new(
-        environment: @client.environment,
-        auth_code: auth_code,
-        nonce: nonce,
-      )).result.access_token
-
-      @client.execute(FetchMerchantCredentialsRequest.new(
-        access_token: access_token,
-        partner_merchant_id: SolidusPaypalCommercePlatform.config.partner_id,
-      )).result
     end
 
     def create_order(order, auto_capture)
