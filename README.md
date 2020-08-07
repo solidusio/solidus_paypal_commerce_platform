@@ -112,6 +112,10 @@ end
 
 The instances of your wizard class should respond to `#name` and `#partial_name`, where `partial_name` will return the path to the partial you'd like to display on the wizard setup section. In our case, we just display a button to direct the user to PayPal.
 
+## Custom Checkout Steps
+
+With product and cart page checkout, the user is directed to the checkout confirmation step when they return from PayPal. If you've removed the confirmation step, you'll need to override the `SolidusPaypalCommercePlatform.finalizeOrder` JavaScript method to instead complete the order.
+
 ## Backend Payments
 
 PayPals API does not allow for admin-side payments. Instead, backend users taking payments for customers will need to use the PayPal Virtual Terminal to take payments. [More info is available on the PayPal website.](https://www.paypal.com/merchantapps/appcenter/acceptpayments/virtualterminal?locale.x=en_US)
