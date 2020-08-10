@@ -77,8 +77,7 @@ module SolidusPaypalCommercePlatform
       request = OrdersCreateRequest.new
       paypal_order = SolidusPaypalCommercePlatform::PaypalOrder.new(order)
       request.request_body paypal_order.to_json(intent)
-
-      @client.execute(request).result
+      @client.execute(request)
     end
 
     def get_order(order_id)
