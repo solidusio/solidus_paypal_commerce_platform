@@ -3,12 +3,14 @@ require 'spec_helper'
 RSpec.describe SolidusPaypalCommercePlatform::WizardController, type: :request do
   stub_authorization!
 
+  let(:wizard) { SolidusPaypalCommercePlatform::Wizard.new }
+
   describe "POST /solidus_paypal_commerce_platform/wizard" do
     let(:params) {
       {
         authCode: "PFc4d2vp4DVfHqcnEHbGAA12C_H29U39NM_vmQrZBPzdLcxA12Br-GzjbliqXGu3AG6Gfwo5G9GTal6REkcKGMREc9fPsR_wv",
         sharedId: "awj45zMAy1XonxWfgIhjjGHZGAPStkZFzXp4bfe1QmNWA-9DL6HkpklD0skHig4vVF7zVZD8Uwy5Qop4",
-        nonce: "0fb0e3e75e3deb58de8fb4e8dc27eb25ab2cbcabdb84"
+        nonce: wizard.nonce,
       }
     }
 

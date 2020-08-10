@@ -32,15 +32,14 @@ module SolidusPaypalCommercePlatform
         preferred_client_id: api_credentials.client_id,
         preferred_client_secret: api_credentials.client_secret,
         preferred_test_mode: SolidusPaypalCommercePlatform.config.env.sandbox?,
-        available_to_admin: false
+        available_to_admin: false,
       }
     end
 
     def api_credentials
-      @api_credentials ||= SolidusPaypalCommercePlatform::Gateway.new(
-        client_id: params.fetch(:sharedId)
-      ).trade_tokens(
+      @api_credentials ||= SolidusPaypalCommercePlatform::Client.fetch_api_credentials(
         auth_code: params.fetch(:authCode),
+        client_id: params.fetch(:sharedId),
         nonce: params.fetch(:nonce),
       )
     end
