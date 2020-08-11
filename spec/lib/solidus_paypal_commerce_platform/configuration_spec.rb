@@ -64,4 +64,22 @@ RSpec.describe SolidusPaypalCommercePlatform::Configuration do
       expect(subject.env_domain).to eq("www.sandbox.paypal.com")
     end
   end
+
+  describe "#state_guesser_class" do
+    before do
+      stub_const('SolidusPaypalCommercePlatform::BetterStateGuesser', Class.new)
+    end
+
+    it "returns a class" do
+      expect(subject.state_guesser_class).to be_kind_of(Class)
+    end
+
+    it "is settable" do
+      expect(subject.state_guesser_class).to eq(SolidusPaypalCommercePlatform::StateGuesser)
+
+      subject.state_guesser_class = "SolidusPaypalCommercePlatform::BetterStateGuesser"
+
+      expect(subject.state_guesser_class).to eq(SolidusPaypalCommercePlatform::BetterStateGuesser)
+    end
+  end
 end
