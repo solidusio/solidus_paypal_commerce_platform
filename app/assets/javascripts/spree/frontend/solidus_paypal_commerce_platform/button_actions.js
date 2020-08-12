@@ -6,6 +6,12 @@ SolidusPaypalCommercePlatform.hideOverlay = function() {
   document.getElementById("paypal_commerce_platform_overlay").style.display = "none";
 }
 
+SolidusPaypalCommercePlatform.handleError = function(error) {
+  console.log(error.name, error.message)
+  console.log("PayPal Debug ID: " + error.debug_id)
+  alert("There was a problem connecting with PayPal.")
+}
+
 SolidusPaypalCommercePlatform.sendOrder = function(payment_method_id) {
   return Spree.ajax({
     url: '/solidus_paypal_commerce_platform/paypal_orders/' + Spree.current_order_id,
@@ -14,8 +20,10 @@ SolidusPaypalCommercePlatform.sendOrder = function(payment_method_id) {
       payment_method_id: payment_method_id,
       order_token: Spree.current_order_token
     }
-  }).then(function(response) {
-    return response.table.id;
+  }).then(function(success_response) {
+    return success_response.table.result.table.id
+  }, function(failure_response) {
+    return failure_response.responseJSON.table.error.table
   })
 }
 
@@ -97,8 +105,10 @@ SolidusPaypalCommercePlatform.shippingChange = function(data, actions) {
       actions.reject()
     }
   }).then(function(response) {
-    actions.order.patch([response]);
-  });
+    actions.order.patch([response]).catch(function() {
+      actions.reject()
+    })
+  })
 }
 
 SolidusPaypalCommercePlatform.verifyTotal = function(paypal_total) {

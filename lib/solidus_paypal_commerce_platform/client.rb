@@ -27,8 +27,9 @@ module SolidusPaypalCommercePlatform
 
     def execute(request)
       @paypal_client.execute(request)
-    rescue PayPalHttp::HttpError
-      OpenStruct.new(status_code: nil)
+    rescue PayPalHttp::HttpError => e
+      Rails.logger.error e.result
+      OpenStruct.new(status_code: 422, error: e.result)
     end
 
     def execute_with_response(request, success_message: nil, failure_message: nil)
