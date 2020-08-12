@@ -4,6 +4,7 @@ require 'paypal-checkout-sdk'
 
 module SolidusPaypalCommercePlatform
   class Configuration
+    attr_writer :state_guesser_class
     InvalidEnvironment = Class.new(StandardError)
 
     DEFAULT_PARTNER_ID = {
@@ -15,6 +16,12 @@ module SolidusPaypalCommercePlatform
       sandbox: "ATDpQjHzjCz_C_qbbJ76Ca0IjcmwlS4FztD6YfuRFZXDCmcWWw8-8QWcF3YIkbC85ixTUuuSEvrBMVSX",
       live: "ASOxaUMkeX5bv7PbXnWUDnqb3SVYkzRSosApmLGFih-eAhB_OS_Wo6juijE5t8NCmWDgpN2ugHMmQFWA",
     }.freeze
+
+    def state_guesser_class
+      self.state_guesser_class = "SolidusPaypalCommercePlatform::StateGuesser" unless @state_guesser_class
+
+      @state_guesser_class.constantize
+    end
 
     def env=(value)
       unless %w[live sandbox].include? value

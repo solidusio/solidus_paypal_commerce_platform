@@ -42,12 +42,20 @@ module SolidusPaypalCommercePlatform
       @order.update(email: recipient[:email_address])
     end
 
+    def find_state(state_name, country)
+      if state = country.states.find_by(abbr: state_name) || country.states.find_by(name: state_name)
+        state
+      else
+        SolidusPaypalCommercePlatform.config.state_guesser_class.new(state_name, country).guess
+      end
+    end
+
     def format_simulated_address(paypal_address)
       country = ::Spree::Country.find_by(iso: paypal_address[:country_code])
       # Also adds fake information for a few fields, so validations can run
       ::Spree::Address.new(
         city: paypal_address[:city],
-        state: country.states.find_by(abbr: paypal_address[:state]),
+        state: find_state(paypal_address[:state], country),
         state_name: paypal_address[:state],
         zipcode: paypal_address[:postal_code],
         country: country,
@@ -61,14 +69,11 @@ module SolidusPaypalCommercePlatform
       address = paypal_address[:updated_address]
       recipient = paypal_address[:recipient]
       country = ::Spree::Country.find_by(iso: address[:country_code])
-      state = country.states.where(abbr: address[:admin_area_1]).or(
-        country.states.where(name: address[:admin_area_1])
-      ).first
 
       {
         address1: address[:address_line_1],
         address2: address[:address_line_2],
-        state: state,
+        state: find_state(address[:admin_area_1], country),
         state_name: address[:admin_area_1],
         city: address[:admin_area_2],
         country: country,

@@ -110,6 +110,26 @@ end
 
 The instances of your wizard class should respond to `#name` and `#partial_name`, where `partial_name` will return the path to the partial you'd like to display on the wizard setup section. In our case, we just display a button to direct the user to PayPal.
 
+## State Guesser
+PayPal users can change their shipping address directly on PayPal, which will
+update their address on Solidus as well. However, in some instances, Solidus
+uses the incorrect subregion level for states, which causes validation problems
+with the addresses that PayPal sends to us.
+
+For instance, if your user lives in Pescara, Italy, then PayPal will return
+"Pescara" as the state. However on older version of Solidus, the region
+"Abruzzo" is used, so the address will not be able to validate. To solve this
+issue, we've implented a class that attempts to guess the state of the user
+using Carmen subregions if the state cannot be initially found. You can, of
+course, implement your own state guesser and set it like this:
+
+```ruby
+# config/initializers/use_my_guesser.rb
+SolidusPaypalCommercePlatform.configure do |config|
+  config.state_guesser_class = "MyApp::MyStateGuesser"
+end
+```
+
 ## Custom Checkout Steps
 
 With product and cart page checkout, the user is directed to the checkout confirmation step when they return from PayPal. If you've removed the confirmation step, you'll need to override the `SolidusPaypalCommercePlatform.finalizeOrder` JavaScript method to instead complete the order.
