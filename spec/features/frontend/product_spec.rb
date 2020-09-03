@@ -48,12 +48,14 @@ RSpec.describe "Product page", js: true do
 
       it "creates an order successfully" do
         page.evaluate_script("SolidusPaypalCommercePlatform.createOrder()")
+        page.driver.wait_for_network_idle
 
         expect(Spree::Order.last).not_to be nil
       end
 
       it "sets the Spree number and token variables" do
         page.evaluate_script("SolidusPaypalCommercePlatform.createOrder()")
+        page.driver.wait_for_network_idle
 
         expect(page.evaluate_script("Spree.current_order_id")).to eq Spree::Order.last.number
         expect(page.evaluate_script("Spree.current_order_token")).to eq Spree::Order.last.guest_token
@@ -64,6 +66,7 @@ RSpec.describe "Product page", js: true do
         fill_in('quantity', with: quantity)
 
         page.evaluate_script("SolidusPaypalCommercePlatform.createOrder()")
+        page.driver.wait_for_network_idle
 
         expect(Spree::Order.last.line_items.first.quantity).to eq quantity
       end
@@ -71,6 +74,7 @@ RSpec.describe "Product page", js: true do
       it "uses the selected variant" do
         page.choose("variant_id_#{variant_two.id}")
         page.evaluate_script("SolidusPaypalCommercePlatform.createOrder()")
+        page.driver.wait_for_network_idle
 
         expect(Spree::Order.last.line_items.first.variant_id).to eq variant_two.id
       end
