@@ -43,9 +43,9 @@ module SolidusPaypalCommercePlatform
 
       case Rails.env
       when 'production'
-        return 'live'
+        'live'
       when 'test', 'development'
-        return 'sandbox'
+        'sandbox'
       else
         raise InvalidEnvironment, "Unable to guess the PayPal env, please set #{self}.env= explicitly."
       end
