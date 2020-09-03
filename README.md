@@ -1,4 +1,4 @@
-# SolidusPaypalCommercePlatform
+# Solidus Paypal Commerce Platform
 
 [![CircleCI](https://circleci.com/gh/solidusio-contrib/solidus_paypal_commerce_platform.svg?style=shield)](https://circleci.com/gh/solidusio-contrib/solidus_paypal_commerce_platform)
 [![codecov](https://codecov.io/gh/solidusio-contrib/solidus_paypal_commerce_platform/branch/master/graph/badge.svg)](https://codecov.io/gh/solidusio-contrib/solidus_paypal_commerce_platform)
@@ -185,7 +185,7 @@ Use Ctrl-C to stop
 Your new extension version can be released using `gem-release` like this:
 
 ```shell
-bundle exec gem bump -v VERSION --tag --push --remote upstream && gem release
+bundle exec gem bump -v VERSION --tag --push --remote origin && gem release
 ```
 
 ## License

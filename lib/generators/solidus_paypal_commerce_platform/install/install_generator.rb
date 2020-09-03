@@ -6,13 +6,13 @@ module SolidusPaypalCommercePlatform
       class_option :auto_run_migrations, type: :boolean, default: false
 
       def add_javascripts
-        append_file 'vendor/assets/javascripts/spree/frontend/all.js', "//= require spree/frontend/solidus_paypal_commerce_platform\n" # rubocop:disable Metrics/LineLength
-        append_file 'vendor/assets/javascripts/spree/backend/all.js', "//= require spree/backend/solidus_paypal_commerce_platform\n" # rubocop:disable Metrics/LineLength
+        append_file 'vendor/assets/javascripts/spree/frontend/all.js', "//= require spree/frontend/solidus_paypal_commerce_platform\n"
+        append_file 'vendor/assets/javascripts/spree/backend/all.js', "//= require spree/backend/solidus_paypal_commerce_platform\n"
       end
 
       def add_stylesheets
-        inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require spree/frontend/solidus_paypal_commerce_platform\n", before: %r{\*/}, verbose: true # rubocop:disable Metrics/LineLength
-        inject_into_file 'vendor/assets/stylesheets/spree/backend/all.css', " *= require spree/backend/solidus_paypal_commerce_platform\n", before: %r{\*/}, verbose: true # rubocop:disable Metrics/LineLength
+        inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require spree/frontend/solidus_paypal_commerce_platform\n", before: %r{\*/}, verbose: true # rubocop:disable Layout/LineLength
+        inject_into_file 'vendor/assets/stylesheets/spree/backend/all.css', " *= require spree/backend/solidus_paypal_commerce_platform\n", before: %r{\*/}, verbose: true # rubocop:disable Layout/LineLength
       end
 
       def add_migrations
@@ -26,7 +26,7 @@ module SolidusPaypalCommercePlatform
       end
 
       def run_migrations
-        run_migrations = options[:auto_run_migrations] || ['', 'y', 'Y'].include?(ask('Would you like to run the migrations now? [Y/n]')) # rubocop:disable Metrics/LineLength
+        run_migrations = options[:auto_run_migrations] || ['', 'y', 'Y'].include?(ask('Would you like to run the migrations now? [Y/n]')) # rubocop:disable Layout/LineLength
         if run_migrations
           run 'bin/rails db:migrate'
         else
