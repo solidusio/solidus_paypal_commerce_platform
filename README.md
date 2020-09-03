@@ -188,6 +188,10 @@ Your new extension version can be released using `gem-release` like this:
 bundle exec gem bump -v VERSION --tag --push --remote origin && gem release
 ```
 
+## Referral Fee
+
+By using this extension, you are giving back to Solidus. PayPal will pay a fee to the maintainers ([Nebulab](https://nebulab.it)) for each order made through the payment gateway.
+
 ## License
 
 Copyright (c) 2020 Nebulab srls, released under the New BSD License
