@@ -7,14 +7,11 @@ AllCops:
     - spec/dummy/**/*
     - vendor/bundle/**/*
 
-Layout/IndentFirstArgument:
+Layout/FirstArgumentIndentation:
   EnforcedStyle: consistent
 
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
-
-Metrics/LineLength:
-  Max: 120
 
 # We use this extensively, the alternatives are not viable or desirable.
 RSpec/AnyInstance:
@@ -54,3 +51,28 @@ Style/FrozenStringLiteralComment:
 Security/YAMLLoad:
   Exclude:
     - spec/**/*
+
+RSpec/MultipleMemoizedHelpers:
+  Exclude:
+    - spec/jobs/solidus_paypal_commerce_platform/webhook_job_spec.rb
+    - spec/models/solidus_paypal_commerce_platform/payment_method_spec.rb
+    - spec/models/solidus_paypal_commerce_platform/payment_source_spec.rb
+
+Rails/Inquiry:
+  Enabled: true
+  Exclude:
+    - spec/lib/solidus_paypal_commerce_platform/configuration_spec.rb
+
+# New cops (2020-09-03)
+
+Rails/ActiveRecordCallbacksOrder: {Enabled: true}
+Rails/FindById: {Enabled: true}
+Rails/MailerName: {Enabled: true}
+Rails/MatchRoute: {Enabled: true}
+Rails/NegateInclude: {Enabled: true}
+Rails/Pluck: {Enabled: true}
+Rails/PluckInWhere: {Enabled: true}
+Rails/RenderInline: {Enabled: true}
+Rails/RenderPlainText: {Enabled: true}
+Rails/ShortI18n: {Enabled: true}
+Rails/WhereExists: {Enabled: true}

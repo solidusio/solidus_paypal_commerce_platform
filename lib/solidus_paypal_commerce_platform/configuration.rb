@@ -4,7 +4,8 @@ require 'paypal-checkout-sdk'
 
 module SolidusPaypalCommercePlatform
   class Configuration
-    attr_writer :state_guesser_class
+    attr_writer :state_guesser_class, :partner_id, :partner_client_id
+
     InvalidEnvironment = Class.new(StandardError)
 
     DEFAULT_PARTNER_ID = {
@@ -42,9 +43,9 @@ module SolidusPaypalCommercePlatform
 
       case Rails.env
       when 'production'
-        return 'live'
+        'live'
       when 'test', 'development'
-        return 'sandbox'
+        'sandbox'
       else
         raise InvalidEnvironment, "Unable to guess the PayPal env, please set #{self}.env= explicitly."
       end
@@ -57,8 +58,6 @@ module SolidusPaypalCommercePlatform
     def env_domain
       env.live? ? "www.paypal.com" : "www.sandbox.paypal.com"
     end
-
-    attr_writer :partner_id, :partner_client_id
 
     def partner_id
       @partner_id ||= ENV['PAYPAL_PARTNER_ID'] || DEFAULT_PARTNER_ID[env.to_sym]
