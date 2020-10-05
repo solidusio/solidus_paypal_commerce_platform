@@ -6,6 +6,12 @@ module SolidusPaypalCommercePlatform
       class_option :auto_run_migrations, type: :boolean, default: false
       class_option :skip_migrations, type: :boolean, default: false
 
+      source_root File.expand_path('templates', __dir__)
+
+      def copy_initializer
+        template 'initializer.rb', 'config/initializers/solidus_paypal_commerce_platform.rb'
+      end
+
       def add_javascripts
         append_file 'vendor/assets/javascripts/spree/frontend/all.js', "//= require spree/frontend/solidus_paypal_commerce_platform\n" # rubocop:disable Layout/LineLength
         append_file 'vendor/assets/javascripts/spree/backend/all.js', "//= require spree/backend/solidus_paypal_commerce_platform\n" # rubocop:disable Layout/LineLength

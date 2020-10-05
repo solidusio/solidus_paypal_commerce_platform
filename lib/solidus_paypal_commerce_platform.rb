@@ -3,19 +3,21 @@
 require 'solidus_core'
 require 'solidus_support'
 
-require 'solidus_paypal_commerce_platform/version'
-require 'solidus_paypal_commerce_platform/configuration'
 require 'solidus_paypal_commerce_platform/client'
+require 'solidus_paypal_commerce_platform/configuration'
+require 'solidus_paypal_commerce_platform/version'
 require 'solidus_paypal_commerce_platform/engine'
 
 module SolidusPaypalCommercePlatform
   class << self
-    def config
-      @config ||= Configuration.new
+    def configuration
+      @configuration ||= Configuration.new
     end
 
+    alias config configuration
+
     def configure
-      yield config
+      yield configuration
     end
   end
 end

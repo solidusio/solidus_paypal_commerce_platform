@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.license = 'BSD-3-Clause'
 
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['source_code_uri'] = 'https://github.com/solidusio-contrib/solidus_paypal_commerce_platform#readme'
+  spec.metadata['source_code_uri'] = 'https://github.com/solidusio-contrib/solidus_paypal_commerce_platform'
   spec.metadata['changelog_uri'] = 'https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/releases'
 
   spec.required_ruby_version = Gem::Requirement.new('~> 2.5')
@@ -36,5 +36,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'paypal-checkout-sdk'
 
   spec.add_development_dependency 'cuprite'
-  spec.add_development_dependency 'solidus_dev_support'
+  spec.add_development_dependency 'solidus_dev_support', '~> 2.1'
 end

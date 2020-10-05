@@ -2,6 +2,7 @@ require:
   - solidus_dev_support/rubocop
 
 AllCops:
+  NewCops: enable
   Exclude:
     - sandbox/**/*
     - spec/dummy/**/*
@@ -62,17 +63,3 @@ Rails/Inquiry:
   Enabled: true
   Exclude:
     - spec/lib/solidus_paypal_commerce_platform/configuration_spec.rb
-
-# New cops (2020-09-03)
-
-Rails/ActiveRecordCallbacksOrder: {Enabled: true}
-Rails/FindById: {Enabled: true}
-Rails/MailerName: {Enabled: true}
-Rails/MatchRoute: {Enabled: true}
-Rails/NegateInclude: {Enabled: true}
-Rails/Pluck: {Enabled: true}
-Rails/PluckInWhere: {Enabled: true}
-Rails/RenderInline: {Enabled: true}
-Rails/RenderPlainText: {Enabled: true}
-Rails/ShortI18n: {Enabled: true}
-Rails/WhereExists: {Enabled: true}
