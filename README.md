@@ -72,7 +72,6 @@ Spree::Config.configure do |config|
       test_mode: !Rails.env.production?,
       client_id: ENV['PAYPAL_CLIENT_ID'],
       client_secret: ENV['PAYPAL_CLIENT_SECRET'],
-      paypal_email_confirmed: true,
       display_on_product_page: true,
       display_on_cart: true,
     }
