@@ -25,26 +25,6 @@ This extension will automatically select a PayPal environment based on Rails env
 
 If you want to override these values you can either set `SolidusPaypalCommercePlatform.config.env` to `"live"` or `"sandbox"` inside an initializer. Or, alternatively, you can set the `PAYPAL_ENV` environment variable to one of the same two values.
 
-### Custom PartnerID & PartnerClientID
-
-You can declare your PayPal Partner-ID and Partner-Client-ID as environment
-variables or set their values directly on `SolidusPaypalCommercePlatform.config`
-or by using the configuration method detailed in the Customization section.
-
-#### Use ENV variables
-
-```shell
-export PAYPAL_PARTNER_ID="xxxxxxxxxxKG2"
-export PAYPAL_PARTNER_CLIENT_ID="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxVSX"
-```
-
-#### Set them directly
-
-```ruby
-SolidusPaypalCommercePlatform.config.partner_id = "xxxxxxxxxxKG2"
-SolidusPaypalCommercePlatform.config.partner_client_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxVSX"
-```
-
 ## Address Phone Number Validation
 
 Since PayPal is being used as the checkout if the user checks out on the product or cart page, and PayPal doesn't collect phone numbers, this extension disables phone number required validation for `Spree::Address`. To turn phone number validation back on, you'll need to either:
@@ -72,7 +52,6 @@ Spree::Config.configure do |config|
       test_mode: !Rails.env.production?,
       client_id: ENV['PAYPAL_CLIENT_ID'],
       client_secret: ENV['PAYPAL_CLIENT_SECRET'],
-      paypal_email_confirmed: true,
       display_on_product_page: true,
       display_on_cart: true,
     }
