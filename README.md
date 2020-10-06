@@ -16,8 +16,7 @@ gem 'solidus_paypal_commerce_platform'
 Bundle your dependencies and run the installation generator:
 
 ```shell
-bundle
-bundle exec rails g solidus_paypal_commerce_platform:install
+bin/rails generate solidus_paypal_commerce_platform:install
 ```
 
 ### PayPal Sandbox/Live Environment
@@ -172,7 +171,7 @@ the sandbox app is `./sandbox` and `bin/rails` will forward any Rails commands t
 
 Here's an example:
 
-```shell
+```
 $ bin/rails server
 => Booting Puma
 => Rails 6.0.2.1 application starting in development
@@ -180,12 +179,27 @@ $ bin/rails server
 Use Ctrl-C to stop
 ```
 
+### Updating the changelog
+
+Before and after releases the changelog should be updated to reflect the up-to-date status of
+the project:
+
+```shell
+bin/rake changelog
+git add CHANGELOG.md
+git commit -m "Update the changelog"
+```
+
 ### Releasing new versions
 
 Your new extension version can be released using `gem-release` like this:
 
 ```shell
-bundle exec gem bump -v VERSION --tag --push --remote origin && gem release
+bundle exec gem bump -v 1.6.0
+bin/rake changelog
+git commit -a --amend
+git push
+bundle exec gem release
 ```
 
 ## Referral Fee

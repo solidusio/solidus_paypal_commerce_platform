@@ -64,10 +64,12 @@ module SolidusPaypalCommercePlatform
         ],
         recipient: [
           :email_address,
-          name: [
-            :given_name,
-            :surname,
-          ]
+          {
+            name: [
+              :given_name,
+              :surname,
+            ]
+          }
         ]
       )
     end

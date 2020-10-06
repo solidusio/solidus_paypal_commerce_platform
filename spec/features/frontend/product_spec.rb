@@ -18,14 +18,14 @@ RSpec.describe "Product page", js: true do
     end
 
     it "generates a js file with the correct credentials and intent attached" do
-      visit '/products/' + product.slug
+      visit "/products/#{product.slug}"
       expect(paypal_script_options).to include("client-id=#{paypal_payment_method.preferences[:client_id]}")
     end
 
     context "when auto-capture is set to true" do
       it "generates a js file with intent capture" do
         paypal_payment_method.update(auto_capture: true)
-        visit '/products/' + product.slug
+        visit "/products/#{product.slug}"
         expect(paypal_script_options).to include("client-id=#{paypal_payment_method.preferences[:client_id]}")
         expect(paypal_script_options).to include("intent=capture")
       end
@@ -34,7 +34,7 @@ RSpec.describe "Product page", js: true do
     describe "order creation" do
       before do
         allow_any_instance_of(Spree::Core::ControllerHelpers::Store).to receive(:current_store) { store }
-        visit '/products/' + product.slug
+        visit "/products/#{product.slug}"
 
         # Stubbing out paypal methods since their JS doesn't load in correctly on tests
         page.execute_script("paypal = {}")
