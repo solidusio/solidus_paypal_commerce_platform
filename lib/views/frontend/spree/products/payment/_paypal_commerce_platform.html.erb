@@ -4,6 +4,8 @@
 
   <div id="paypal-button-container"></div>
 
+  <div data-pp-message data-pp-placement="product" data-pp-amount="<%= @product.price %>"></div>
+
   <script>
     SolidusPaypalCommercePlatform.checkout_url = "<%= checkout_url %>"
     $( document ).ready(function() {

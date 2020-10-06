@@ -4,6 +4,8 @@
 
   <div id="paypal-button-container"></div>
 
+  <div data-pp-message data-pp-placement="cart" data-pp-amount="<%= @order.total %>"></div>
+
   <script>
     Spree.current_order_id = "<%= @order.number %>"
     Spree.current_order_token = "<%= @order.guest_token %>"
