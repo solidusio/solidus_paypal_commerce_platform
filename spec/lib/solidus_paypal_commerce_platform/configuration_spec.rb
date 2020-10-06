@@ -82,4 +82,10 @@ RSpec.describe SolidusPaypalCommercePlatform::Configuration do
       expect(subject.state_guesser_class).to eq(SolidusPaypalCommercePlatform::BetterStateGuesser)
     end
   end
+
+  describe "#partner_code" do
+    it "returns the correct code" do
+      expect(subject.partner_code).to eq("Solidus_PCP_SP")
+    end
+  end
 end

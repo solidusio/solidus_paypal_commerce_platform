@@ -16,22 +16,24 @@ RSpec.describe "Cart page" do
       )
     end
 
-    def paypal_script_options
-      script_tag_url = URI(page.find('script[src*="sdk/js?"]', visible: false)[:src])
-      script_tag_url.query.split('&')
-    end
-
-    it "generate a js file with the correct credentials and intent attached" do
-      visit '/cart'
-      expect(paypal_script_options).to include("client-id=#{paypal_payment_method.preferences[:client_id]}")
-    end
-
-    context "when auto-capture is set to true" do
-      it "generate a js file with intent capture" do
-        paypal_payment_method.update(auto_capture: true)
+    context "when generating a script tag" do
+      it "generates a url with the correct credentials attached" do
         visit '/cart'
-        expect(paypal_script_options).to include("client-id=#{paypal_payment_method.preferences[:client_id]}")
-        expect(paypal_script_options).to include("intent=capture")
+        expect(js_sdk_script_query).to include("client-id=#{paypal_payment_method.preferences[:client_id]}")
+      end
+
+      it "generates a partner_id attribute with the correct partner code attached" do
+        visit '/cart'
+        expect(js_sdk_script_partner_id).to eq("Solidus_PCP_SP")
+      end
+
+      context "when auto-capture is set to true" do
+        it "generates a url with intent capture" do
+          paypal_payment_method.update(auto_capture: true)
+          visit '/cart'
+          expect(js_sdk_script_query).to include("client-id=#{paypal_payment_method.preferences[:client_id]}")
+          expect(js_sdk_script_query).to include("intent=capture")
+        end
       end
     end
   end

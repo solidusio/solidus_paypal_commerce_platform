@@ -1,6 +1,5 @@
 <div style="margin-left:auto;margin-right:auto;width:50%;margin-top:20px;">
-  <script src="<%= payment_method.javascript_sdk_url(order: @order) %>">
-  </script>
+  <%= render partial: "solidus_paypal_commerce_platform/shared/javascript_sdk_tag", locals: {payment_method: payment_method} %>
 
   <div id="paypal-button-container"></div>
 
