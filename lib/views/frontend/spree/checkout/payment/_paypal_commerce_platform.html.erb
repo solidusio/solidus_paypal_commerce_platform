@@ -5,6 +5,8 @@
 <input type="hidden" name="payment_source[<%= payment_method.id %>][paypal_email]" id="payments_source_paypal_email">
 
 <script>
+  Spree.current_order_id = "<%= @order.number %>"
+  Spree.current_order_token = "<%= @order.guest_token %>"
   $( document ).ready(function() {
     SolidusPaypalCommercePlatform.renderButton("<%= payment_method.id %>",<%= raw payment_method.button_style.to_json %>)
   })
