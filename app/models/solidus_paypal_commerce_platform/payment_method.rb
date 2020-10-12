@@ -11,6 +11,7 @@ module SolidusPaypalCommercePlatform
     preference :paypal_button_layout, :paypal_select, default: "vertical"
     preference :display_on_cart, :boolean, default: true
     preference :display_on_product_page, :boolean, default: true
+    preference :display_credit_messaging, :boolean, default: true
 
     def partial_name
       "paypal_commerce_platform"
@@ -67,6 +68,7 @@ module SolidusPaypalCommercePlatform
         'client-id': client_id,
         intent: auto_capture ? "capture" : "authorize",
         commit: commit_immediately ? "false" : "true",
+        components: options[:display_credit_messaging] ? "buttons,messages" : "buttons",
       }
 
       "https://www.paypal.com/sdk/js?#{parameters.to_query}"

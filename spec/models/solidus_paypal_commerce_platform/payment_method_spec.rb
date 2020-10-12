@@ -92,6 +92,25 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
         expect(url.query.split("&")).to include("commit=true")
       end
     end
+
+    context 'when messaging is turned on' do
+      let(:order) { instance_double(Spree::Order, checkout_steps: { "foo" => "bar" }) }
+
+      it 'includes messaging component' do
+        paypal_payment_method.preferences.update(display_credit_messaging: true)
+        expect(url.query.split("&")).to include("components=buttons%2Cmessages")
+      end
+    end
+
+    context 'when messaging is turned off' do
+      let(:order) { instance_double(Spree::Order, checkout_steps: { "foo" => "bar" }) }
+
+      it 'only includes buttons components' do
+        paypal_payment_method.preferences.update(display_credit_messaging: false)
+        expect(url.query.split("&")).not_to include("messages")
+        expect(url.query.split("&")).to include("components=buttons")
+      end
+    end
   end
 
   private

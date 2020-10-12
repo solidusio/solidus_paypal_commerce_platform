@@ -1,6 +1,9 @@
 <script src="<%= payment_method.javascript_sdk_url(order: @order) %>"></script>
 
 <div id="paypal-button-container"></div>
+
+<div data-pp-message data-pp-placement="payment" data-pp-amount="<%= @order.total %>"></div>
+
 <input type="hidden" name="payment_source[<%= payment_method.id %>][paypal_order_id]" id="payments_source_paypal_order_id">
 <input type="hidden" name="payment_source[<%= payment_method.id %>][paypal_email]" id="payments_source_paypal_email">
 
