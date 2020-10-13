@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/tree/HEAD)
+## [v0.2.0](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/tree/v0.2.0) (2020-10-13)
 
-[Full Changelog](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/compare/v0.1.0...HEAD)
+[Full Changelog](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/compare/v0.1.0...v0.2.0)
 
 **Merged pull requests:**
 
