@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = 'contact@solidus.io'
 
   spec.summary = 'Integrate Solidus with Paypal Commerce Platform'
-  spec.homepage = 'https://github.com/solidusio-contrib/solidus_paypal_commerce_platform#readme'
+  spec.homepage = 'https://github.com/solidusio-contrib/solidus_paypal_commerce_platform'
   spec.license = 'BSD-3-Clause'
 
   spec.metadata['homepage_uri'] = spec.homepage
