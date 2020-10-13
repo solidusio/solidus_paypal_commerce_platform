@@ -66,5 +66,9 @@ module SolidusPaypalCommercePlatform
     def partner_client_id
       @partner_client_id ||= ENV['PAYPAL_PARTNER_CLIENT_ID'] || DEFAULT_PARTNER_CLIENT_ID[env.to_sym]
     end
+
+    def partner_code
+      "Solidus_PCP_SP"
+    end
   end
 end
