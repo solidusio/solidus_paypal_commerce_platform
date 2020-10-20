@@ -18,7 +18,7 @@ module SolidusPaypalCommercePlatform
       {
         op: 'replace',
         path: '/purchase_units/@reference_id==\'default\'',
-        value: purchase_units[0]
+        value: purchase_units(include_shipping_address: false)[0]
       }
     end
 
@@ -50,12 +50,12 @@ module SolidusPaypalCommercePlatform
       }
     end
 
-    def purchase_units
+    def purchase_units(include_shipping_address: true)
       [
         {
           amount: amount,
           items: line_items,
-          shipping: (shipping_info if @order.ship_address)
+          shipping: (shipping_info if @order.ship_address && include_shipping_address)
         }
       ]
     end
