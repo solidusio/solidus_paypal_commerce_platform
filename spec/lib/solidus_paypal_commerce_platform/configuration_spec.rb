@@ -12,16 +12,16 @@ RSpec.describe SolidusPaypalCommercePlatform::Configuration do
     it "falls back to Rails.env if ENV['PAYPAL_ENV'] is not set" do
       expect(ENV).to receive(:[]).with("PAYPAL_ENV").and_return(nil).at_least(:once)
 
-      expect(Rails).to receive(:env).and_return("development".inquiry)
+      allow(Rails).to receive(:env).and_return("development".inquiry)
       expect(subject.default_env).to eq("sandbox")
 
-      expect(Rails).to receive(:env).and_return("test".inquiry)
+      allow(Rails).to receive(:env).and_return("test".inquiry)
       expect(subject.default_env).to eq("sandbox")
 
-      expect(Rails).to receive(:env).and_return("production".inquiry)
+      allow(Rails).to receive(:env).and_return("production".inquiry)
       expect(subject.default_env).to eq("live")
 
-      expect(Rails).to receive(:env).and_return("staging".inquiry)
+      allow(Rails).to receive(:env).and_return("staging".inquiry)
       expect{ subject.default_env }.to raise_error(described_class::InvalidEnvironment)
     end
   end
