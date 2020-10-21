@@ -23,9 +23,9 @@ RSpec.describe SolidusPaypalCommercePlatform::ShippingRatesController, type: :re
       }
     end
 
-    it "returns a paypal_order with the new address" do
-      expect(response.body).to include new_address.state.abbr
-      expect(response.body).not_to include order.ship_address.state.abbr
+    it "returns a paypal_order without the simulated address" do
+      expect(response.body).not_to include "admin_area_1\":\"#{new_address.state.abbr}\""
+      expect(response.body).not_to include "admin_area_1\":\"#{order.ship_address.state.abbr}\""
     end
 
     it "does not modify original address" do
