@@ -58,7 +58,7 @@ module SolidusPaypalCommercePlatform
       }
     end
 
-    def javascript_sdk_url(order: nil)
+    def javascript_sdk_url(order: nil, currency: nil)
       # Both instance and class respond to checkout_steps.
       step_names = order ? order.checkout_steps : ::Spree::Order.checkout_steps.keys
 
@@ -69,6 +69,7 @@ module SolidusPaypalCommercePlatform
         intent: auto_capture ? "capture" : "authorize",
         commit: commit_immediately ? "false" : "true",
         components: options[:display_credit_messaging] ? "buttons,messages" : "buttons",
+        currency: currency
       }
 
       "https://www.paypal.com/sdk/js?#{parameters.to_query}"
