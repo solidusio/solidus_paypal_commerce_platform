@@ -14,7 +14,7 @@ SolidusPaypalCommercePlatform.handleError = function(error) {
 
 SolidusPaypalCommercePlatform.sendOrder = function(payment_method_id) {
   return Spree.ajax({
-    url: '/solidus_paypal_commerce_platform/paypal_orders/' + Spree.current_order_id,
+    url: Spree.pathFor('solidus_paypal_commerce_platform/paypal_orders/' + Spree.current_order_id),
     method: 'GET',
     data: {
       payment_method_id: payment_method_id,
@@ -44,7 +44,7 @@ SolidusPaypalCommercePlatform.createOrder = function() {
   }
 
   return Spree.ajax({
-    url: "/solidus_paypal_commerce_platform/orders",
+    url: Spree.pathFor("solidus_paypal_commerce_platform/orders"),
     method: 'POST',
     data: data,
     error: function(response) {
@@ -92,7 +92,7 @@ SolidusPaypalCommercePlatform.approveOrder = function(data, actions) {
 
 SolidusPaypalCommercePlatform.shippingChange = function(data, actions) {
   Spree.ajax({
-    url: '/solidus_paypal_commerce_platform/shipping_rates',
+    url: Spree.pathFor('solidus_paypal_commerce_platform/shipping_rates'),
     method: 'GET',
     data: {
       order_id: Spree.current_order_id,
@@ -113,7 +113,7 @@ SolidusPaypalCommercePlatform.shippingChange = function(data, actions) {
 
 SolidusPaypalCommercePlatform.verifyTotal = function(paypal_total) {
   return Spree.ajax({
-    url: '/solidus_paypal_commerce_platform/verify_total',
+    url: Spree.pathFor('solidus_paypal_commerce_platform/verify_total'),
     method: 'GET',
     data: {
       order_id: Spree.current_order_id,
@@ -145,7 +145,7 @@ SolidusPaypalCommercePlatform.finalizeOrder = function(payment_method_id, data, 
 
 SolidusPaypalCommercePlatform.advanceOrder = function() {
   return Spree.ajax({
-    url: '/api/checkouts/' + Spree.current_order_id + '/advance',
+    url: Spree.pathFor('api/checkouts/' + Spree.current_order_id + '/advance'),
     method: 'PUT',
     data: {
       order_token: Spree.current_order_token
@@ -159,7 +159,7 @@ SolidusPaypalCommercePlatform.advanceOrder = function() {
 
 SolidusPaypalCommercePlatform.addPayment = function(paypal_amount, payment_method_id, data, email) {
   return Spree.ajax({
-    url: '/api/checkouts/' + Spree.current_order_id + '/payments',
+    url: Spree.pathFor('api/checkouts/' + Spree.current_order_id + '/payments'),
     method: 'POST',
     data: {
       order_token: Spree.current_order_token,
@@ -179,10 +179,10 @@ SolidusPaypalCommercePlatform.addPayment = function(paypal_amount, payment_metho
   })
 }
 
-SolidusPaypalCommercePlatform.updateAddress = function(response) { 
+SolidusPaypalCommercePlatform.updateAddress = function(response) {
   var updated_address = response.purchase_units[0].shipping.address
   return Spree.ajax({
-    url: '/solidus_paypal_commerce_platform/update_address',
+    url: Spree.pathFor('solidus_paypal_commerce_platform/update_address'),
     method: 'POST',
     data: {
       address: {
