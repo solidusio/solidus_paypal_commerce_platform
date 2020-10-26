@@ -1,4 +1,6 @@
+<% currency = @order ? @order.currency : current_pricing_options.currency %>
+
 <script 
-  src="<%= payment_method.javascript_sdk_url(order: @order) %>" 
+  src="<%= payment_method.javascript_sdk_url(order: @order, currency: currency) %>" 
   data-partner-attribution-id="<%= SolidusPaypalCommercePlatform.config.partner_code %>">
 </script>

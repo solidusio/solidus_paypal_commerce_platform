@@ -23,6 +23,12 @@ RSpec.describe "Product page", js: true do
         expect(js_sdk_script_partner_id).to eq("Solidus_PCP_SP")
       end
 
+      it "generates a URL with the correct currency" do
+        allow_any_instance_of(SolidusPaypalCommercePlatform::PricingOptions).to receive(:currency).and_return "EUR"
+        visit "/products/#{product.slug}"
+        expect(js_sdk_script_query).to include("currency=EUR")
+      end
+
       context "when auto-capture is set to true" do
         it "generates a url with intent capture" do
           paypal_payment_method.update(auto_capture: true)
