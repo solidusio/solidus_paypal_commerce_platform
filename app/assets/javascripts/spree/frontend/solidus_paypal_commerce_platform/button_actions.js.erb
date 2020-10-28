@@ -1,3 +1,5 @@
+SolidusPaypalCommercePlatform.basic_auth = "<%= ENV['BASIC_AUTH'] %>"
+
 SolidusPaypalCommercePlatform.showOverlay = function() {
   document.getElementById("paypal_commerce_platform_overlay").style.display = "block";
 }
@@ -16,6 +18,11 @@ SolidusPaypalCommercePlatform.sendOrder = function(payment_method_id) {
   return Spree.ajax({
     url: Spree.pathFor('solidus_paypal_commerce_platform/paypal_orders/' + Spree.current_order_id),
     method: 'GET',
+    beforeSend: function (xhr) {
+      if (SolidusPaypalCommercePlatform.basic_auth) {
+        xhr.setRequestHeader('Authorization', 'Basic ' + btoa(SolidusPaypalCommercePlatform.basic_auth));
+      }
+    },
     data: {
       payment_method_id: payment_method_id,
       order_token: Spree.current_order_token
@@ -46,6 +53,11 @@ SolidusPaypalCommercePlatform.createOrder = function() {
   return Spree.ajax({
     url: Spree.pathFor("solidus_paypal_commerce_platform/orders"),
     method: 'POST',
+    beforeSend: function (xhr) {
+      if (SolidusPaypalCommercePlatform.basic_auth) {
+        xhr.setRequestHeader('Authorization', 'Basic ' + btoa(SolidusPaypalCommercePlatform.basic_auth));
+      }
+    },
     data: data,
     error: function(response) {
       message = response.responseJSON
@@ -94,6 +106,11 @@ SolidusPaypalCommercePlatform.shippingChange = function(data, actions) {
   Spree.ajax({
     url: Spree.pathFor('solidus_paypal_commerce_platform/shipping_rates'),
     method: 'GET',
+    beforeSend: function (xhr) {
+      if (SolidusPaypalCommercePlatform.basic_auth) {
+        xhr.setRequestHeader('Authorization', 'Basic ' + btoa(SolidusPaypalCommercePlatform.basic_auth));
+      }
+    },
     data: {
       order_id: Spree.current_order_id,
       order_token: Spree.current_order_token,
@@ -115,6 +132,11 @@ SolidusPaypalCommercePlatform.verifyTotal = function(paypal_total) {
   return Spree.ajax({
     url: Spree.pathFor('solidus_paypal_commerce_platform/verify_total'),
     method: 'GET',
+    beforeSend: function (xhr) {
+      if (SolidusPaypalCommercePlatform.basic_auth) {
+        xhr.setRequestHeader('Authorization', 'Basic ' + btoa(SolidusPaypalCommercePlatform.basic_auth));
+      }
+    },
     data: {
       order_id: Spree.current_order_id,
       order_token: Spree.current_order_token,
@@ -147,6 +169,11 @@ SolidusPaypalCommercePlatform.advanceOrder = function() {
   return Spree.ajax({
     url: Spree.pathFor('api/checkouts/' + Spree.current_order_id + '/advance'),
     method: 'PUT',
+    beforeSend: function (xhr) {
+      if (SolidusPaypalCommercePlatform.basic_auth) {
+        xhr.setRequestHeader('Authorization', 'Basic ' + btoa(SolidusPaypalCommercePlatform.basic_auth));
+      }
+    },
     data: {
       order_token: Spree.current_order_token
     },
@@ -161,6 +188,11 @@ SolidusPaypalCommercePlatform.addPayment = function(paypal_amount, payment_metho
   return Spree.ajax({
     url: Spree.pathFor('api/checkouts/' + Spree.current_order_id + '/payments'),
     method: 'POST',
+    beforeSend: function (xhr) {
+      if (SolidusPaypalCommercePlatform.basic_auth) {
+        xhr.setRequestHeader('Authorization', 'Basic ' + btoa(SolidusPaypalCommercePlatform.basic_auth));
+      }
+    },
     data: {
       order_token: Spree.current_order_token,
       payment: {
@@ -184,6 +216,11 @@ SolidusPaypalCommercePlatform.updateAddress = function(response) {
   return Spree.ajax({
     url: Spree.pathFor('solidus_paypal_commerce_platform/update_address'),
     method: 'POST',
+    beforeSend: function (xhr) {
+      if (SolidusPaypalCommercePlatform.basic_auth) {
+        xhr.setRequestHeader('Authorization', 'Basic ' + btoa(SolidusPaypalCommercePlatform.basic_auth));
+      }
+    },
     data: {
       address: {
         updated_address: updated_address,
