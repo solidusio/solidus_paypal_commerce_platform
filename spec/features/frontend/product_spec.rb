@@ -2,11 +2,9 @@ require 'spec_helper'
 
 RSpec.describe "Product page", js: true do
   before do
-    if ENV['BASIC_AUTH'].present?
-      name, password = ENV['BASIC_AUTH'].split(':')
-      page.driver.basic_authorize(name, password)
-    end
+    http_login_if_needed_js
   end
+
   describe "paypal button" do
     let(:paypal_payment_method) { create(:paypal_payment_method) }
     let(:product) { create(:product, variants: [variant, variant_two]) }

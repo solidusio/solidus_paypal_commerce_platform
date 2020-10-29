@@ -14,16 +14,13 @@ RSpec.describe SolidusPaypalCommercePlatform::ShippingRatesController, type: :re
       postal_code: new_address.zipcode
     }
   }
-  let(:auth_headers) {
-    ENV['BASIC_AUTH'].present? ? { 'HTTP_AUTHORIZATION' => ActionController::HttpAuthentication::Basic.encode_credentials(ENV['BASIC_AUTH'].split(':')[0], ENV['BASIC_AUTH'].split(':')[1]) } : {}
-  }
 
   describe "GET /simulate_shipping_rates" do
     before do
       get solidus_paypal_commerce_platform.shipping_rates_path, params: {
         order_id: order.number,
         address: paypal_address
-      }, headers: auth_headers
+      }, headers: basic_auth_header
     end
 
     it "returns a paypal_order without the simulated address" do

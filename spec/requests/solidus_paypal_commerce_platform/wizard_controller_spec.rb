@@ -5,10 +5,6 @@ RSpec.describe SolidusPaypalCommercePlatform::WizardController, type: :request d
 
   let(:wizard) { SolidusPaypalCommercePlatform::Wizard.new }
 
-  let(:auth_headers) {
-    ENV['BASIC_AUTH'].present? ? { 'HTTP_AUTHORIZATION' => ActionController::HttpAuthentication::Basic.encode_credentials(ENV['BASIC_AUTH'].split(':')[0], ENV['BASIC_AUTH'].split(':')[1]) } : {}
-  }
-
   describe "POST /solidus_paypal_commerce_platform/wizard" do
     let(:params) {
       {
@@ -35,7 +31,7 @@ RSpec.describe SolidusPaypalCommercePlatform::WizardController, type: :request d
       end.twice
 
       expect {
-        post solidus_paypal_commerce_platform.wizard_index_path, params: params, headers: auth_headers
+        post solidus_paypal_commerce_platform.wizard_index_path, params: params, headers: basic_auth_header
       }.to change(SolidusPaypalCommercePlatform::PaymentMethod, :count).from(0).to(1)
 
       payment_method = SolidusPaypalCommercePlatform::PaymentMethod.last
