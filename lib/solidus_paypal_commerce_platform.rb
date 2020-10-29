@@ -7,6 +7,7 @@ require 'solidus_paypal_commerce_platform/client'
 require 'solidus_paypal_commerce_platform/configuration'
 require 'solidus_paypal_commerce_platform/version'
 require 'solidus_paypal_commerce_platform/engine'
+require 'solidus_paypal_commerce_platform/basic_auth' if Rails.env == 'test'
 
 module SolidusPaypalCommercePlatform
   class << self
