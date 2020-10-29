@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe "Cart page" do
+  before do
+    if ENV['BASIC_AUTH'].present?
+      name, password = ENV['BASIC_AUTH'].split(':')
+      page.driver.browser.authorize(name, password)
+    end
+  end
   describe "paypal payment method" do
     let(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:address) }
     let(:paypal_payment_method) { create(:paypal_payment_method) }

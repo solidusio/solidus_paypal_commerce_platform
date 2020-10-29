@@ -4,6 +4,10 @@ RSpec.describe "creating a new payment" do
   stub_authorization!
 
   it "displays PayPal Commerce Platform as an option" do
+    if ENV['BASIC_AUTH'].present?
+      name, password = ENV['BASIC_AUTH'].split(':')
+      page.driver.browser.authorize(name, password)
+    end
     visit "/admin/payment_methods/new"
     expect(page).to have_select('payment_method_type', options: [
       "PayPal Commerce Platform",
@@ -24,6 +28,10 @@ RSpec.describe "creating a new payment" do
   end
 
   it "displays the onboarding button", :js do
+    if ENV['BASIC_AUTH'].present?
+      name, password = ENV['BASIC_AUTH'].split(':')
+      page.driver.basic_authorize(name, password)
+    end
     visit "/admin/payment_methods"
 
     # main_window = current_window
