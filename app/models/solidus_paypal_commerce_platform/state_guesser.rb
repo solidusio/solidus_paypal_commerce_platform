@@ -22,7 +22,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def spree_state(name)
-      Spree::State.find_by(name: name)
+      ::Spree::State.find_by(name: name)
     end
   end
 end
