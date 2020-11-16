@@ -71,6 +71,10 @@ When you return to your app, your payment method should be set up and ready to g
 A confirmed email is required to get paid by PayPal. You'll need to check `Paypal Email Confirmed` on your new
 payment method before being able to select `Available To Users`.
 
+### Messaging Component
+
+PayPal offers a messaging component that displays credit messaging to the user. You can find more information [here.](https://www.paypal.com/us/webapps/mpp/on-site-messaging) This messaging is enabled by default on all pages that use the paypal payment buttons, but can be disabled via preferences. PayPal recommends that this messaging be displayed near product or order totals, so please keep that in mind during implementation.
+
 ## Wizards
 
 This gem adds support for payment method wizards to be set up. Payment wizards can be used to automatically set up
