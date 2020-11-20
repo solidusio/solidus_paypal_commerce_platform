@@ -1,5 +1,20 @@
 # Changelog
 
+## [v0.2.2](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/tree/v0.2.2) (2020-11-20)
+
+[Full Changelog](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/compare/v0.2.1...v0.2.2)
+
+**Closed issues:**
+
+- Make the PayPal messaging component a bit more modular [\#112](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/112)
+- Implement and QA Paypal credit solutions [\#99](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/99)
+- Simulated Address Info in Live Order [\#104](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/104)
+
+**Merged pull requests:**
+
+- Relax SolidusWebhooks dependency [\#114](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/114) ([kennyadsl](https://github.com/kennyadsl))
+- Add information about paypal credit messaging to readme [\#113](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/113) ([seand7565](https://github.com/seand7565))
+
 ## [v0.2.1](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/tree/v0.2.1) (2020-11-09)
 
 [Full Changelog](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/compare/v0.2.0...v0.2.1)
