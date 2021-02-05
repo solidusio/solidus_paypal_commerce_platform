@@ -19,7 +19,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def update(paypal_address)
-      formatted_address = format_address(paypal_address)
+      formatted_address = address_attributes(paypal_address[:updated_address], paypal_address[:recipient])
       new_address = @order.ship_address.dup || ::Spree::Address.new
       new_address.assign_attributes(formatted_address)
 
@@ -51,36 +51,35 @@ module SolidusPaypalCommercePlatform
     end
 
     def format_simulated_address(paypal_address)
-      country = ::Spree::Country.find_by(iso: paypal_address[:country_code])
-      # Also adds fake information for a few fields, so validations can run
+      # Adds fake information for a few fields, so validations can run
+      paypal_address[:address_line_1] = "123 Fake St."
+
       ::Spree::Address.new(
-        city: paypal_address[:city],
-        state: find_state(paypal_address[:state], country),
-        state_name: paypal_address[:state],
-        zipcode: paypal_address[:postal_code],
-        country: country,
-        address1: "123 Fake St.",
-        phone: "123456789",
-        firstname: "Fake"
+        address_attributes(paypal_address, { name: { given_name: "Fake" } })
       )
     end
 
-    def format_address(paypal_address)
-      address = paypal_address[:updated_address]
-      recipient = paypal_address[:recipient]
+    def address_attributes(address, recipient)
       country = ::Spree::Country.find_by(iso: address[:country_code])
 
-      {
+      attributes = {
         address1: address[:address_line_1],
         address2: address[:address_line_2],
-        state: find_state(address[:admin_area_1], country),
-        state_name: address[:admin_area_1],
-        city: address[:admin_area_2],
+        state: find_state(address[:admin_area_1] || address[:state], country),
+        state_name: address[:admin_area_1] || address[:state],
+        city: address[:admin_area_2] || address[:city],
         country: country,
         zipcode: address[:postal_code],
-        firstname: recipient[:name][:given_name],
-        lastname: recipient[:name][:surname]
       }
+
+      if SolidusSupport.combined_first_and_last_name_in_address?
+        attributes[:name] = "#{recipient[:name][:given_name]} #{recipient[:name][:surname]}"
+      else
+        attributes[:firstname] = recipient[:name][:given_name]
+        attributes[:lastname] = recipient[:name][:surname]
+      end
+
+      attributes
     end
   end
 end

@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'deface', '~> 1.5'
   spec.add_dependency 'solidus_core', ['>= 2.0.0', '< 3']
-  spec.add_dependency 'solidus_support', [">= 0.5.1", "< 1"]
+  spec.add_dependency 'solidus_support', [">= 0.8.0", "< 1"]
   spec.add_dependency 'solidus_webhooks', '~> 0.2'
 
   spec.add_dependency 'paypal-checkout-sdk'
