@@ -38,7 +38,7 @@ RSpec.describe SolidusPaypalCommercePlatform::WizardController, type: :request d
 
       expect(payment_method.preferred_client_id).to eq("CLIENT-ID")
       expect(payment_method.preferred_client_secret).to eq("CLIENT-SECRET")
-      expect(response).to have_http_status(201)
+      expect(response).to have_http_status(:created)
     end
   end
 end
