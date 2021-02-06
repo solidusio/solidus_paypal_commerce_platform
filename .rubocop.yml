@@ -43,6 +43,10 @@ RSpec/VerifiedDoubles:
   # Sometimes you really need an "anything" double
   IgnoreSymbolicNames: true
 
+Rspec/Naming/VariableNumber:
+  # PayPal uses snake_case, we use normal_case ¯\_(ツ)_/¯
+  Enabled: false
+
 Style/FrozenStringLiteralComment:
   Exclude:
     - spec/**/*

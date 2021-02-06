@@ -15,7 +15,7 @@ RSpec.describe SolidusPaypalCommercePlatform::OrdersController, type: :request d
 
         get solidus_paypal_commerce_platform.verify_total_path, params: params
 
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
     end
 
@@ -29,7 +29,7 @@ RSpec.describe SolidusPaypalCommercePlatform::OrdersController, type: :request d
 
         get solidus_paypal_commerce_platform.verify_total_path, params: params
 
-        expect(response).to have_http_status(400)
+        expect(response).to have_http_status(:bad_request)
       end
     end
   end

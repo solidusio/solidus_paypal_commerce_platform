@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe SolidusPaypalCommercePlatform::PaypalAddress, type: :model do
   let(:order) { create(:order) }
   let(:original_address) { create(:address) }
-  let(:address) { create(:address) }
+  let(:address) { create(:address, name_attributes) }
   let(:params) {
     {
       updated_address: {
@@ -16,8 +16,8 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalAddress, type: :model do
       },
       recipient: {
         name: {
-          given_name: address.firstname,
-          surname: address.lastname
+          given_name: "Alexander",
+          surname: "Hamilton"
         }
       }
     }
@@ -37,8 +37,12 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalAddress, type: :model do
       expect(subject.address2).to eq address.address2
       expect(subject.zipcode).to eq address.zipcode
       expect(subject.country).to eq address.country
-      expect(subject.firstname).to eq address.firstname
-      expect(subject.lastname).to eq address.lastname
+      if SolidusSupport.combined_first_and_last_name_in_address?
+        expect(subject.name).to eq address.name
+      else
+        expect(subject.firstname).to eq address.firstname
+        expect(subject.lastname).to eq address.lastname
+      end
       expect(subject.phone).to eq original_address.phone
     end
 
@@ -50,6 +54,14 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalAddress, type: :model do
 
         expect(subject).to be_present
       end
+    end
+  end
+
+  def name_attributes
+    if SolidusSupport.combined_first_and_last_name_in_address?
+      { name: "Alexander Hamilton" }
+    else
+      { firstname: "Alexander", lastname: "Hamilton" }
     end
   end
 end
