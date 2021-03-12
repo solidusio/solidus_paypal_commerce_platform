@@ -20,7 +20,7 @@ require 'spree/testing_support/order_walkthrough'
 Dir["#{__dir__}/support/**/*.rb"].sort.each { |f| require f }
 
 # Requires factories defined in lib/solidus_paypal_commerce_platform/testing_support/factories.rb
-require 'solidus_paypal_commerce_platform/testing_support/factories'
+SolidusDevSupport::TestingSupport::Factories.load_for(SolidusPaypalCommercePlatform::Engine)
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
