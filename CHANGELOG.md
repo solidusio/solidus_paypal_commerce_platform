@@ -1,13 +1,29 @@
 # Changelog
 
+## [v0.3.0](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/tree/v0.3.0) (2021-03-16)
+
+[Full Changelog](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/compare/v0.2.2...v0.3.0)
+
+**Closed issues:**
+
+- Prepare Solidus Paypal Commerce Platform for Solidus 3.0 [\#115](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/115)
+
+**Merged pull requests:**
+
+- Use new factories loading method [\#118](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/118) ([kennyadsl](https://github.com/kennyadsl))
+- Update extension for Solidus 3.0 [\#117](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/117) ([seand7565](https://github.com/seand7565))
+
 ## [v0.2.2](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/tree/v0.2.2) (2020-11-20)
 
 [Full Changelog](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/compare/v0.2.1...v0.2.2)
 
-**Closed issues:**
+**Implemented enhancements:**
 
 - Make the PayPal messaging component a bit more modular [\#112](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/112)
 - Implement and QA Paypal credit solutions [\#99](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/99)
+
+**Closed issues:**
+
 - Simulated Address Info in Live Order [\#104](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/104)
 
 **Merged pull requests:**
@@ -59,7 +75,6 @@
 **Merged pull requests:**
 
 - Temporarily switch from apparition to cuprite [\#92](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/92) ([elia](https://github.com/elia))
-- Update links after moving the repo to solidusio-contrib [\#91](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/91) ([elia](https://github.com/elia))
 - Add a configurable state\_guesser class to guess states [\#90](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/90) ([seand7565](https://github.com/seand7565))
 - Add better error handling to button\_actions.js [\#89](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/89) ([seand7565](https://github.com/seand7565))
 
@@ -113,6 +128,7 @@
 
 **Merged pull requests:**
 
+- Update links after moving the repo to solidusio-contrib [\#91](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/91) ([elia](https://github.com/elia))
 - Use live partner ids [\#85](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/85) ([elia](https://github.com/elia))
 - Update README to account for checkouts without a confirmation step [\#84](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/84) ([seand7565](https://github.com/seand7565))
 - Replace order simulator with something simpler [\#82](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/82) ([seand7565](https://github.com/seand7565))
