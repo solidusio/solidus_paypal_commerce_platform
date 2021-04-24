@@ -72,6 +72,8 @@ module SolidusPaypalCommercePlatform
         currency: currency
       }
 
+      parameters[:shipping_preference] = 'NO_SHIPPING' if step_names.exclude? 'delivery'
+
       "https://www.paypal.com/sdk/js?#{parameters.to_query}"
     end
   end
