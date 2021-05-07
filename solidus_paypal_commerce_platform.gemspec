@@ -36,5 +36,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'paypal-checkout-sdk'
 
   spec.add_development_dependency 'cuprite'
-  spec.add_development_dependency 'solidus_dev_support', '~> 2.1'
+  spec.add_development_dependency 'solidus_dev_support', '~> 2.5'
 end
