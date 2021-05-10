@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 require 'deface'
-require 'spree/core'
+require 'solidus_core'
 require 'solidus_paypal_commerce_platform'
 require 'solidus_webhooks'
+require 'solidus_support'
 
 module SolidusPaypalCommercePlatform
   class Engine < Rails::Engine
