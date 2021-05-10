@@ -37,6 +37,8 @@ and then override the `Spree::Address` method `require_phone?` to return `true`.
 
 ## Usage
 
+
+
 ### I already have API credentials
 
 If you already have API credentials, then you'll need to store them somewhere. You can do this directly in the
