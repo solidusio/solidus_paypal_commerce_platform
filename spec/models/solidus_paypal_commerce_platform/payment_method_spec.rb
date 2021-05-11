@@ -93,6 +93,14 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
       end
     end
 
+    context 'when checkout_steps does not include "delivery"' do
+      let(:order) { instance_double(Spree::Order, checkout_steps: { "foo" => "bar" }) }
+
+      it 'disables autocommit' do
+        expect(url.query.split("&")).to include("shipping_preference=NO_SHIPPING")
+      end
+    end
+
     context 'when messaging is turned on' do
       let(:order) { instance_double(Spree::Order, checkout_steps: { "foo" => "bar" }) }
 
