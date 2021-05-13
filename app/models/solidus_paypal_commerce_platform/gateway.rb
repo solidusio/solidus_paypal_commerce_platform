@@ -80,6 +80,13 @@ module SolidusPaypalCommercePlatform
       @client.execute(request)
     end
 
+    def update_order(order, source)
+      request = OrdersPatchRequest.new(source.paypal_order_id)
+      paypal_order = SolidusPaypalCommercePlatform::PaypalOrder.new(order)
+      request.request_body [paypal_order.to_replace_json]
+      @client.execute(request)
+    end
+
     def get_order(order_id)
       @client.execute(OrdersGetRequest.new(order_id)).result
     end

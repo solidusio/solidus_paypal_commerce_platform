@@ -12,6 +12,13 @@ module SolidusPaypalCommercePlatform
       render json: order_request, status: order_request.status_code
     end
 
+    def update
+      authorize! :update, @order, order_token
+      order_request = @payment_method.gateway.update_order(@order, @payment_method.source)
+
+      render json: order_request, status: order_request.status_code
+    end
+
     private
 
     def load_payment_method

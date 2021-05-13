@@ -199,3 +199,21 @@ SolidusPaypalCommercePlatform.updateAddress = function(response) {
     }
   })
 }
+
+SolidusPaypalCommercePlatform.updateOrder = function(payment_method_id) {
+  return Spree.ajax({
+    url: '/solidus_paypal_commerce_platform/paypal_orders/' + order_id,
+    method: 'PUT',
+    data: {
+      payment_method_id: payment_method_id,
+      order_token: order_token
+    },
+    success: function(response) {
+      return response;
+    },
+    error: function(response) {
+      message = response.responseJSON;
+      alert('A problem has occurred while updating your order - ' + message);
+    }
+  })
+}
