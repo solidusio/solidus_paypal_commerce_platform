@@ -61,12 +61,16 @@ module SolidusPaypalCommercePlatform
 
     def address_attributes(address, recipient)
       country = ::Spree::Country.find_by(iso: address[:country_code])
+      state = find_state(
+        address[:admin_area_1] || address[:admin_area_2] || address[:state],
+        country,
+      )
 
       attributes = {
         address1: address[:address_line_1],
         address2: address[:address_line_2],
-        state: find_state(address[:admin_area_1] || address[:state], country),
-        state_name: address[:admin_area_1] || address[:state],
+        state_id: state.try(:id),
+        state_name: state.try(:name),
         city: address[:admin_area_2] || address[:city],
         country: country,
         zipcode: address[:postal_code],
