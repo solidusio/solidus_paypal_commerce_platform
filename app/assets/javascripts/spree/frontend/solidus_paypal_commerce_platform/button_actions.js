@@ -181,8 +181,11 @@ SolidusPaypalCommercePlatform.addPayment = function(paypal_amount, payment_metho
   })
 }
 
-SolidusPaypalCommercePlatform.updateAddress = function(response) { 
-  var updated_address = response.purchase_units[0].shipping.address
+SolidusPaypalCommercePlatform.updateAddress = function(response) {
+  var shipping = response.purchase_units[0].shipping;
+  if (!shipping) return Promise.resolve({});
+
+  var updated_address = shipping.address;
   return Spree.ajax({
     url: '/solidus_paypal_commerce_platform/update_address',
     method: 'POST',
