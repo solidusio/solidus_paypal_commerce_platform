@@ -20,6 +20,16 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalOrder, type: :model do
         payer: hash_including(name: { given_name: 'Johnny', surname: 'Vonny Doey' })
       )
     end
+
+    context 'when checkout_steps does not include "delivery"' do
+      let(:order) { instance_double(Spree::Order, checkout_steps: { "foo" => "bar" }) }
+
+      it 'disable shipping requirements' do
+        expect(to_json).to match hash_including(
+          application_context: hash_including(shipping_preference: 'NO_SHIPPING')
+        )
+      end
+    end
   end
 
   private

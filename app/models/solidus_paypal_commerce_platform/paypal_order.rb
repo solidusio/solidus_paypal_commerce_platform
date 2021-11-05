@@ -10,7 +10,8 @@ module SolidusPaypalCommercePlatform
       {
         intent: intent,
         purchase_units: purchase_units,
-        payer: (payer if @order.bill_address)
+        payer: (payer if @order.bill_address),
+        application_context: application_context
       }
     end
 
@@ -108,6 +109,18 @@ module SolidusPaypalCommercePlatform
         currency_code: @order.currency,
         value: amount
       }
+    end
+
+    def application_context
+      {
+        shipping_preference: require_shipping? ? 'SET_PROVIDED_ADDRESS' : 'NO_SHIPPING'
+      }
+    end
+
+    def require_shipping?
+      step_names = @order ? @order.checkout_steps : ::Spree::Order.checkout_steps.keys
+
+      step_names.include? 'delivery'
     end
   end
 end

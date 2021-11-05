@@ -127,13 +127,6 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
       end
     end
 
-    context 'when checkout_steps does not include "delivery"' do
-      it 'disables autocommit' do
-        allow(order).to receive(:checkout_steps).and_return([:address, :confirm, :payment])
-        expect(url.query.split("&")).to include("shipping_preference=NO_SHIPPING")
-      end
-    end
-
     context 'when messaging is turned on' do
       it 'includes messaging component' do
         paypal_payment_method.preferences.update(display_credit_messaging: true)
