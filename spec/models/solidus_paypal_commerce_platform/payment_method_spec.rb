@@ -113,6 +113,30 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
         expect(url.query.split("&")).to include("components=buttons")
       end
     end
+
+    context 'when enable_venmo is false' do
+      before { paypal_payment_method.preferences.update(enable_venmo: false) }
+
+      it 'does not include "enable-funding=venmo" as a parameter' do
+        expect(url.query.split('&')).not_to include('enable-funding=venmo')
+      end
+
+      it 'includes "disable-funding=venmo" as a parameter' do
+        expect(url.query.split('&')).to include('disable-funding=venmo')
+      end
+    end
+
+    context 'when enable_venmo is true' do
+      before { paypal_payment_method.preferences.update(enable_venmo: true) }
+
+      it 'includes "enable-funding=venmo" as a parameter' do
+        expect(url.query.split('&')).to include('enable-funding=venmo')
+      end
+
+      it 'does not include "disable-funding=venmo" as a parameter' do
+        expect(url.query.split('&')).not_to include('disable-funding=venmo')
+      end
+    end
   end
 
   private

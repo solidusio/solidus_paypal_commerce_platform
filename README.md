@@ -120,6 +120,18 @@ With product and cart page checkout, the user is directed to the checkout confir
 
 PayPals API does not allow for admin-side payments. Instead, backend users taking payments for customers will need to use the PayPal Virtual Terminal to take payments. [More info is available on the PayPal website.](https://www.paypal.com/merchantapps/appcenter/acceptpayments/virtualterminal?locale.x=en_US)
 
+## Venmo
+Venmo is currently available to US merchants and buyers. There are also other [prequisites](https://developer.paypal.com/docs/business/checkout/pay-with-venmo/#eligibility).
+
+If the transaction supports Venmo then a button should appear for it on checkout, cart and product page, depending on your `Payment Method` preferences.
+
+If you wish to disable Venmo, then set your `Payment Methods`'s `enable_venmo` preference to `false`. See more about preferences([Configuration](#configuration)) below.
+
+## Configuration
+The easiest way to change the `Payment Method`'s preferences is through admin: `Settings > Payments > "PayPal Commerce Platform" > Edit`.
+
+See more about preferences [here](https://guides.solidus.io/developers/preferences/add-model-preferences.html#access-your-preferences)/
+
 ## Development
 
 ### Testing the extension
