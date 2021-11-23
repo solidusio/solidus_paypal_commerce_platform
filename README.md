@@ -127,6 +127,8 @@ If the transaction supports Venmo then a button should appear for it on checkout
 
 If you wish to disable Venmo, then set your `Payment Methods`'s `enable_venmo` preference to `false`. See more about preferences([Configuration](#configuration)) below.
 
+[_As Venmo is only available in the US, you may want to mock your location for testing_](#mocking-your-buyer-country)
+
 ## Configuration
 The easiest way to change the `Payment Method`'s preferences is through admin: `Settings > Payments > "PayPal Commerce Platform" > Edit`.
 
@@ -173,6 +175,12 @@ $ bin/rails server
 * Listening on tcp://127.0.0.1:3000
 Use Ctrl-C to stop
 ```
+
+### Mocking your buyer country
+PayPal normally looks at your IP geolocation to see where you are located to determine what funding sources are available to you. For example, Venmo is currently only available to US buyers.
+Because of this, you may want to pretend you are from US check that that Venmo is correctly integrated for these customers. To do this, set the payment method's preference of `force_buyer_country` to "US". See more information about preferences above.
+
+This preference has no effect on production.
 
 ### Updating the changelog
 

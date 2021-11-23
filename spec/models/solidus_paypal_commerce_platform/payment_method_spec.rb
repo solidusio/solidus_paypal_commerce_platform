@@ -137,6 +137,31 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
         expect(url.query.split('&')).not_to include('disable-funding=venmo')
       end
     end
+
+    context 'when force_buyer_country is an empty string' do
+      it 'does not include the "buyer-country" parameter' do
+        expect(url.query.split('&')).not_to include(match 'buyer-country')
+      end
+    end
+
+    context 'when force_buyer_country is "US"' do
+      before { paypal_payment_method.preferences.update(force_buyer_country: 'US') }
+
+      it 'includes "buyer-country=US" as a parameter' do
+        expect(url.query.split('&')).to include('buyer-country=US')
+      end
+    end
+
+    context 'when force_buyer_country is "US" but the environment is production' do
+      before {
+        allow(Rails.env).to receive(:production?).and_return(true)
+        paypal_payment_method.preferences.update(force_buyer_country: 'US')
+      }
+
+      it 'includes "buyer-country=US" as a parameter' do
+        expect(url.query.split('&')).not_to include(match 'buyer-country')
+      end
+    end
   end
 
   private
