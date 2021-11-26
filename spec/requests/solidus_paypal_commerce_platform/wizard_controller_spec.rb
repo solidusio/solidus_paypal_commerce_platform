@@ -18,13 +18,23 @@ RSpec.describe SolidusPaypalCommercePlatform::WizardController, type: :request d
       expect_any_instance_of(SolidusPaypalCommercePlatform::Client).to receive(:execute) do |_client, request|
         case request
         when SolidusPaypalCommercePlatform::AccessTokenAuthorizationRequest
-          OpenStruct.new(result: OpenStruct.new(access_token: "ACCESS-TOKEN"))
+          instance_double(
+            'response',
+            result: instance_double(
+              'result',
+              access_token: "ACCESS-TOKEN"
+            )
+          )
         when SolidusPaypalCommercePlatform::FetchMerchantCredentialsRequest
           expect(request.headers.fetch("Authorization")).to eq("Bearer ACCESS-TOKEN")
-          OpenStruct.new(result: OpenStruct.new(
-            client_id: "CLIENT-ID",
-            client_secret: "CLIENT-SECRET",
-          ))
+          instance_double(
+            'response',
+            result: instance_double(
+              'result',
+              client_id: "CLIENT-ID",
+              client_secret: "CLIENT-SECRET",
+            )
+          )
         else
           raise "unexpected request: #{request}"
         end
