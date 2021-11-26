@@ -4,7 +4,7 @@ RSpec.describe "Checkout" do
   describe "paypal payment method" do
     let(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:payment) }
     let(:paypal_payment_method) { create(:paypal_payment_method) }
-    let(:failed_response) { OpenStruct.new(status_code: 500) }
+    let(:failed_response) { instance_double('response', status_code: 500) }
 
     before do
       user = create(:user)

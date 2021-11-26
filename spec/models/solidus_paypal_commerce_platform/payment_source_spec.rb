@@ -21,7 +21,10 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentSource, type: :model do
   before do
     allow_any_instance_of(SolidusPaypalCommercePlatform::Client).to receive(:execute) do |_client, request|
       expect(request).to be_a(SolidusPaypalCommercePlatform::Gateway::OrdersGetRequest) # rubocop:disable RSpec/ExpectInHook
-      OpenStruct.new(result: OpenStruct.new(status: paypal_order_status))
+      instance_double(
+        'response',
+        result: instance_double('result', status: paypal_order_status)
+      )
     end
   end
 
