@@ -77,33 +77,29 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
   describe '.javascript_sdk_url' do
     subject(:url) { URI(paypal_payment_method.javascript_sdk_url(order: order)) }
 
-    context 'when checkout_steps include "confirm"' do
-      let(:order) { instance_double(Spree::Order, checkout_steps: { "confirm" => "bar" }) }
+    let(:order) { build_stubbed(:order) }
 
+    context 'when checkout_steps include "confirm"' do
       it 'sets autocommit' do
         expect(url.query.split("&")).to include("commit=false")
       end
     end
 
     context 'when checkout_steps does not include "confirm"' do
-      let(:order) { instance_double(Spree::Order, checkout_steps: { "foo" => "bar" }) }
-
       it 'disables autocommit' do
+        allow(order).to receive(:checkout_steps).and_return([:address, :delivery, :payment])
         expect(url.query.split("&")).to include("commit=true")
       end
     end
 
     context 'when checkout_steps does not include "delivery"' do
-      let(:order) { instance_double(Spree::Order, checkout_steps: { "foo" => "bar" }) }
-
       it 'disables autocommit' do
+        allow(order).to receive(:checkout_steps).and_return([:address, :confirm, :payment])
         expect(url.query.split("&")).to include("shipping_preference=NO_SHIPPING")
       end
     end
 
     context 'when messaging is turned on' do
-      let(:order) { instance_double(Spree::Order, checkout_steps: { "foo" => "bar" }) }
-
       it 'includes messaging component' do
         paypal_payment_method.preferences.update(display_credit_messaging: true)
         expect(url.query.split("&")).to include("components=buttons%2Cmessages")
@@ -111,8 +107,6 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
     end
 
     context 'when messaging is turned off' do
-      let(:order) { instance_double(Spree::Order, checkout_steps: { "foo" => "bar" }) }
-
       it 'only includes buttons components' do
         paypal_payment_method.preferences.update(display_credit_messaging: false)
         expect(url.query.split("&")).not_to include("messages")
