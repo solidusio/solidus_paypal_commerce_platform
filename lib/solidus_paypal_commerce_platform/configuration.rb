@@ -39,7 +39,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def default_env
-      return ENV['PAYPAL_ENV'] if ENV['PAYPAL_ENV'] # rubocop:disable Rails/EnvironmentVariableAccess
+      return ENV['PAYPAL_ENV'] if ENV['PAYPAL_ENV']
 
       case Rails.env
       when 'production'
@@ -60,11 +60,11 @@ module SolidusPaypalCommercePlatform
     end
 
     def partner_id
-      @partner_id ||= ENV['PAYPAL_PARTNER_ID'] || DEFAULT_PARTNER_ID[env.to_sym] # rubocop:disable Rails/EnvironmentVariableAccess
+      @partner_id ||= ENV['PAYPAL_PARTNER_ID'] || DEFAULT_PARTNER_ID[env.to_sym]
     end
 
     def partner_client_id
-      @partner_client_id ||= ENV['PAYPAL_PARTNER_CLIENT_ID'] || DEFAULT_PARTNER_CLIENT_ID[env.to_sym] # rubocop:disable Rails/EnvironmentVariableAccess
+      @partner_client_id ||= ENV['PAYPAL_PARTNER_CLIENT_ID'] || DEFAULT_PARTNER_CLIENT_ID[env.to_sym]
     end
 
     def partner_code
