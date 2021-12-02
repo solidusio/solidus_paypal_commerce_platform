@@ -13,6 +13,8 @@ module SolidusPaypalCommercePlatform
       request.headers["PayPal-Partner-Attribution-Id"] = SolidusPaypalCommercePlatform.config.partner_code
     }.freeze
 
+    Response = Struct.new(:status_code, :error)
+
     attr_reader :environment
 
     def initialize(client_id:, client_secret: "", test_mode: nil)
@@ -29,7 +31,7 @@ module SolidusPaypalCommercePlatform
       @paypal_client.execute(request)
     rescue PayPalHttp::HttpError => e
       Rails.logger.error e.result
-      OpenStruct.new(status_code: 422, error: e.result)
+      Response.new(status_code: 422, error: e.result)
     end
 
     def execute_with_response(request, success_message: nil, failure_message: nil)
