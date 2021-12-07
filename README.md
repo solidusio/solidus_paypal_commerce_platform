@@ -120,6 +120,20 @@ With product and cart page checkout, the user is directed to the checkout confir
 
 PayPals API does not allow for admin-side payments. Instead, backend users taking payments for customers will need to use the PayPal Virtual Terminal to take payments. [More info is available on the PayPal website.](https://www.paypal.com/merchantapps/appcenter/acceptpayments/virtualterminal?locale.x=en_US)
 
+## Venmo
+Venmo is currently available to US merchants and buyers. There are also other [prequisites](https://developer.paypal.com/docs/business/checkout/pay-with-venmo/#eligibility).
+
+If the transaction supports Venmo then a button should appear for it on checkout, cart and product page, depending on your `Payment Method` preferences.
+
+If you wish to disable Venmo, then set your `Payment Methods`'s `enable_venmo` preference to `false`. See more about preferences([Configuration](#configuration)) below.
+
+[_As Venmo is only available in the US, you may want to mock your location for testing_](#mocking-your-buyer-country)
+
+## Configuration
+The easiest way to change the `Payment Method`'s preferences is through admin: `Settings > Payments > "PayPal Commerce Platform" > Edit`.
+
+See more about preferences [here](https://guides.solidus.io/developers/preferences/add-model-preferences.html#access-your-preferences)/
+
 ## Development
 
 ### Testing the extension
@@ -161,6 +175,12 @@ $ bin/rails server
 * Listening on tcp://127.0.0.1:3000
 Use Ctrl-C to stop
 ```
+
+### Mocking your buyer country
+PayPal normally looks at your IP geolocation to see where you are located to determine what funding sources are available to you. For example, Venmo is currently only available to US buyers.
+Because of this, you may want to pretend you are from US check that that Venmo is correctly integrated for these customers. To do this, set the payment method's preference of `force_buyer_country` to "US". See more information about preferences above.
+
+This preference has no effect on production.
 
 ### Updating the changelog
 

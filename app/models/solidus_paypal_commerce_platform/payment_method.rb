@@ -12,6 +12,8 @@ module SolidusPaypalCommercePlatform
     preference :display_on_cart, :boolean, default: true
     preference :display_on_product_page, :boolean, default: true
     preference :display_credit_messaging, :boolean, default: true
+    preference :enable_venmo, :boolean, default: true
+    preference :force_buyer_country, :string
 
     def partial_name
       "paypal_commerce_platform"
@@ -73,6 +75,12 @@ module SolidusPaypalCommercePlatform
       }
 
       parameters[:shipping_preference] = 'NO_SHIPPING' if step_names.exclude? 'delivery'
+      parameters['enable-funding'] = 'venmo' if options[:enable_venmo]
+      parameters['disable-funding'] = 'venmo' unless options[:enable_venmo]
+
+      if !Rails.env.production? && options[:force_buyer_country].present?
+        parameters['buyer-country'] = options[:force_buyer_country]
+      end
 
       "https://www.paypal.com/sdk/js?#{parameters.to_query}"
     end
