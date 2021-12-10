@@ -114,27 +114,63 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
       end
     end
 
-    context 'when enable_venmo is false' do
-      before { paypal_payment_method.preferences.update(enable_venmo: false) }
+    describe 'preferences' do
+      context 'with venmo_control' do
+        it 'is "default" by default' do
+          expect(paypal_payment_method.preferred_venmo_control).to eq('enabled')
+        end
 
-      it 'does not include "enable-funding=venmo" as a parameter' do
-        expect(url.query.split('&')).not_to include('enable-funding=venmo')
-      end
+        it 'only allows "enforced", "enabled" and "disabled" as values', :aggregate_failures do
+          expect(paypal_payment_method).to be_valid
+          valid_values = %w[enforced enabled disabled]
+          invalid_values = %w[foo bar]
 
-      it 'includes "disable-funding=venmo" as a parameter' do
-        expect(url.query.split('&')).to include('disable-funding=venmo')
+          valid_values.each do |value|
+            paypal_payment_method.preferred_venmo_control = value
+            expect(paypal_payment_method).to be_valid
+          end
+
+          invalid_values.each do |value|
+            paypal_payment_method.preferred_venmo_control = value
+            expect(paypal_payment_method).to be_invalid
+          end
+        end
       end
     end
 
-    context 'when enable_venmo is true' do
-      before { paypal_payment_method.preferences.update(enable_venmo: true) }
+    context 'when venmo_control is "enforced"' do
+      before { paypal_payment_method.preferences.update(venmo_control: 'enforced') }
 
       it 'includes "enable-funding=venmo" as a parameter' do
         expect(url.query.split('&')).to include('enable-funding=venmo')
       end
 
-      it 'does not include "disable-funding=venmo" as a parameter' do
-        expect(url.query.split('&')).not_to include('disable-funding=venmo')
+      it 'does not include the "disable-funding" parameter' do
+        expect(url.query.split('&')).not_to include(match 'disable-funding')
+      end
+    end
+
+    context 'when venmo_control is "enabled"' do
+      before { paypal_payment_method.preferences.update(venmo_control: 'enabled') }
+
+      it 'include the "enable-funding" parameter' do
+        expect(url.query.split('&')).not_to include(match 'enable-funding')
+      end
+
+      it 'does not include the "disable-funding" parameter' do
+        expect(url.query.split('&')).not_to include(match 'disable-funding')
+      end
+    end
+
+    context 'when venmo_control is "disabled"' do
+      before { paypal_payment_method.preferences.update(venmo_control: 'disabled') }
+
+      it 'does not include the "enable-funding" parameter' do
+        expect(url.query.split('&')).not_to include(match 'enable-funding')
+      end
+
+      it 'includes "disable-funding=venmo" as a parameter' do
+        expect(url.query.split('&')).to include('disable-funding=venmo')
       end
     end
 
