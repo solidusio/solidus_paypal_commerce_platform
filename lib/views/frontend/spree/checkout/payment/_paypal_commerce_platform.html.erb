@@ -15,4 +15,12 @@
   })
 </script>
 
+<% if payment_method.venmo_standalone_enabled? %>
+  <script>
+    $( document ).ready(function() {
+      SolidusPaypalCommercePlatform.renderVenmoStandalone("<%= payment_method.id %>",<%= raw payment_method.button_style.to_json %>)
+    })
+  </script>
+<% end %>
+
 <div id="paypal_commerce_platform_overlay"></div>

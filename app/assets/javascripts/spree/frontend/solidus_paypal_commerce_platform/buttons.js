@@ -27,3 +27,13 @@ SolidusPaypalCommercePlatform.renderProductButton = function(payment_method_id, 
     onError: SolidusPaypalCommercePlatform.handleError
   }).render('#paypal-button-container')
 }
+
+SolidusPaypalCommercePlatform.renderVenmoStandalone = function(payment_method_id, style) {
+  paypal.Buttons({
+    style: style,
+    fundingSource: paypal.FUNDING.VENMO,
+    createOrder: SolidusPaypalCommercePlatform.sendOrder.bind(null, payment_method_id),
+    onApprove: SolidusPaypalCommercePlatform.approveOrder,
+    onError: SolidusPaypalCommercePlatform.handleError
+  }).render('#paypal-button-container')
+}

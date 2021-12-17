@@ -123,14 +123,11 @@ PayPals API does not allow for admin-side payments. Instead, backend users takin
 ## Venmo
 Venmo is currently available to US merchants and buyers. There are also other [prequisites](https://developer.paypal.com/docs/business/checkout/pay-with-venmo/#eligibility).
 
-If the transaction supports Venmo then a button should appear for it on checkout, cart and product page, depending on your `Payment Method` preferences.
+If the transaction supports Venmo and it is enabled by the following, then a button should appear for it on checkout payment page. Note, Venmo cannot currently be rendered on the product or cart pages.
 
-By default, the extension and PayPal will try to render a Venmo button to buyers when prequisites are met.
-
-Set the PaypalCommercePlatform `PaymentMethod` `venmo_control` preference to:
-- `enforced`, disregard buyer's location and show button (if other prequisites are met); or
-- `enabled` (default), available as a PayPal funding option (if other prequisites are met); or
-- `disabled`, disable Venmo as a funding option.
+Set the PaypalCommercePlatform `PaymentMethod` `venmo_standalone` preference to:
+- `enabled`, show Venmo on the payment page; or
+- `disabled` (default), do not show the Venmo button.
 
 See more about preferences([Configuration](#configuration)) below.
 
