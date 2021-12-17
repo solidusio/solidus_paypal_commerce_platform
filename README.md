@@ -125,7 +125,14 @@ Venmo is currently available to US merchants and buyers. There are also other [p
 
 If the transaction supports Venmo then a button should appear for it on checkout, cart and product page, depending on your `Payment Method` preferences.
 
-If you wish to disable Venmo, then set your `Payment Methods`'s `enable_venmo` preference to `false`. See more about preferences([Configuration](#configuration)) below.
+By default, the extension and PayPal will try to render a Venmo button to buyers when prequisites are met.
+
+Set the PaypalCommercePlatform `PaymentMethod` `venmo_control` preference to:
+- `enforced`, disregard buyer's location and show button (if other prequisites are met); or
+- `enabled` (default), available as a PayPal funding option (if other prequisites are met); or
+- `disabled`, disable Venmo as a funding option.
+
+See more about preferences([Configuration](#configuration)) below.
 
 [_As Venmo is only available in the US, you may want to mock your location for testing_](#mocking-your-buyer-country)
 
