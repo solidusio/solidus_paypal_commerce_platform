@@ -24,6 +24,10 @@ module SolidusPaypalCommercePlatform
       options[:venmo_standalone] != 'disabled'
     end
 
+    def render_only_venmo_standalone?
+      options[:venmo_standalone] == 'render only standalone'
+    end
+
     def partial_name
       "paypal_commerce_platform"
     end

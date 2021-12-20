@@ -26,6 +26,8 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
         expect(paypal_payment_method).to be_valid
         paypal_payment_method.preferences.update(venmo_standalone: 'enabled')
         expect(paypal_payment_method).to be_invalid
+        paypal_payment_method.preferences.update(venmo_standalone: 'only render standalone')
+        expect(paypal_payment_method).to be_invalid
       end
     end
   end
@@ -126,6 +128,14 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
         paypal_payment_method.preferences.update(display_credit_messaging: false)
         expect(url.query.split("&")).not_to include("messages")
         expect(url.query.split("&")).to include("components=buttons")
+      end
+    end
+
+    context 'when venmo_standalone is "only render standalone"' do
+      before { paypal_payment_method.preferences.update(venmo_standalone: 'only render standalone') }
+
+      it 'includes "enable-funding=venmo" as a parameter' do
+        expect(url.query.split('&')).to include('enable-funding=venmo')
       end
     end
 

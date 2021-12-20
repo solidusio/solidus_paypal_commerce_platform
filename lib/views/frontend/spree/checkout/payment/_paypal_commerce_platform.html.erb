@@ -10,10 +10,15 @@
 <script>
   Spree.current_order_id = "<%= @order.number %>"
   Spree.current_order_token = "<%= @order.guest_token %>"
-  $( document ).ready(function() {
-    SolidusPaypalCommercePlatform.renderButton("<%= payment_method.id %>",<%= raw payment_method.button_style.to_json %>)
-  })
 </script>
+
+<% unless payment_method.render_only_venmo_standalone? %>
+  <script>
+    $( document ).ready(function() {
+      SolidusPaypalCommercePlatform.renderButton("<%= payment_method.id %>",<%= raw payment_method.button_style.to_json %>)
+    })
+  </script>
+<% end %>
 
 <% if payment_method.venmo_standalone_enabled? %>
   <script>

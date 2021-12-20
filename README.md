@@ -126,6 +126,7 @@ Venmo is currently available to US merchants and buyers. There are also other [p
 If the transaction supports Venmo and it is enabled by the following, then a button should appear for it on checkout payment page. Note, Venmo cannot currently be rendered on the product or cart pages.
 
 Set the PaypalCommercePlatform `PaymentMethod` `venmo_standalone` preference to:
+- `render only standalone`, show Venmo on the payment page and do not show the other funding sources (i.e. PayPal, Credit); or
 - `enabled`, show Venmo on the payment page; or
 - `disabled` (default), do not show the Venmo button.
 

@@ -19,7 +19,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def preferred_venmo_standalone_options
-      [['Enabled', 'Enabled'], ['Disabled', 'disabled']]
+      [['Render only standalone', 'render only standalone'], ['Enabled', 'Enabled'], ['Disabled', 'disabled']]
     end
   end
 end
