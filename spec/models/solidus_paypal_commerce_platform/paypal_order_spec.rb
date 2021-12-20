@@ -22,7 +22,19 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalOrder, type: :model do
     end
 
     context 'when checkout_steps does not include "delivery"' do
-      let(:order) { instance_double(Spree::Order, checkout_steps: { "foo" => "bar" }) }
+      let(:old_checkout_flow) { Spree::Order.checkout_flow }
+
+      before do
+        old_checkout_flow
+
+        Spree::Order.class_eval do
+          remove_checkout_step :delivery
+        end
+      end
+
+      after do
+        Spree::Order.checkout_flow(&old_checkout_flow)
+      end
 
       it 'disable shipping requirements' do
         expect(to_json).to match hash_including(
