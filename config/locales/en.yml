@@ -18,6 +18,8 @@ en:
   paypal_capture_id: PayPal Capture ID
   paypal_debug_id: PayPal Debug ID
   paypal_email: PayPal Email
+  paypal_funding: 'PayPal Funding: %{funding}'
+  paypal_funding_source: 'PayPal Funding Source'
   payment_email: "Payment Email: %{email}"
   virtual_terminal_notice_html: Backend Credit Card payments can only be accepted through PayPal via the <a href="https://www.paypal.com/merchantapps/appcenter/acceptpayments/virtualterminal">PayPal Virtual Terminal</a>.
   solidus_paypal_commerce_platform:
@@ -34,4 +36,29 @@ en:
         success: "Payment refunded for %{amount}"
       pay_pal_checkout_sdk/payments/authorizations_void_request:
         success: "Payment voided"
-
+    paypal_funding_sources:
+      applepay: 'Apple Pay'
+      bancontact: 'Bancontact'
+      blik: 'BLIK'
+      boleto: 'Boleto'
+      card: 'Credit or debit card'
+      credit: 'PayPal Credit'
+      eps: 'eps'
+      giropay: 'giropay'
+      ideal: 'iDEAL'
+      itau: 'Itau'
+      maxima: 'Maxima'
+      mercadopago: 'Mercado Pago'
+      mybank: 'MyBank'
+      oxxo: 'Oxxo'
+      p24: 'Przelewy24'
+      paylater: 'Pay Later'
+      paypal: 'PayPal'
+      payu: 'PayU'
+      sepa: 'SEPA-Lastschrift'
+      sofort: 'Sofort'
+      trustly: 'Trustly'
+      venmo: 'Venmo'
+      verkkopankki: 'Verkkopankki'
+      wechatpay: 'WeChat Pay'
+      zimpler: 'Zimpler'

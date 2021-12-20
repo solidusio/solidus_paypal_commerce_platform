@@ -61,5 +61,56 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentSource, type: :model do
         expect(payment.actions).not_to include("void")
       end
     end
+
+    context 'with #display_paypal_funding_source' do
+      context 'when the EN locale exists' do
+        it 'translates the funding source' do
+          payment_source.paypal_funding_source = 'card'
+
+          result = payment_source.display_paypal_funding_source
+
+          expect(result).to eq('Credit or debit card')
+        end
+      end
+
+      context "when the locale doesn't exist" do
+        it 'returns the paypal_funding_source as the default' do
+          allow(payment_source).to receive(:paypal_funding_source).and_return('non-existent')
+
+          result = payment_source.display_paypal_funding_source
+
+          expect(result).to eq('non-existent')
+        end
+      end
+    end
+  end
+
+  describe 'attributes' do
+    context 'with paypal_funding_source' do
+      it 'can be nil' do
+        payment_source.paypal_funding_source = nil
+
+        expect(payment_source).to be_valid
+      end
+
+      it 'makes empty strings nil' do
+        payment_source.paypal_funding_source = ''
+
+        result = payment_source.save
+
+        expect(result).to eq(true)
+        expect(payment_source.paypal_funding_source).to be_nil
+      end
+
+      it 'gets correctly mapped as an enum' do
+        payment_source.paypal_funding_source = 'applepay'
+
+        result = payment_source.save
+
+        expect(result).to eq(true)
+        expect(payment_source.paypal_funding_source).to eq('applepay')
+        expect(payment_source.applepay_funding?).to eq(true)
+      end
+    end
   end
 end
