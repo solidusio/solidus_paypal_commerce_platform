@@ -12,13 +12,21 @@ module SolidusPaypalCommercePlatform
     preference :display_on_cart, :boolean, default: true
     preference :display_on_product_page, :boolean, default: true
     preference :display_credit_messaging, :boolean, default: true
-    preference :venmo_control, :string, default: 'enabled'
+    preference :venmo_standalone, :paypal_select, default: 'disabled'
     preference :force_buyer_country, :string
 
-    validates :preferred_venmo_control, inclusion: {
-      in: %w[enforced enabled disabled],
-      message: "must be 'enforced', 'enabled' or 'disabled'."
-    }
+    validates :preferred_paypal_button_color, exclusion: {
+      in: %w[gold],
+      message: "cannot be 'gold' when Venmo standalone is enabled."
+    }, if: :venmo_standalone_enabled?
+
+    def venmo_standalone_enabled?
+      options[:venmo_standalone] != 'disabled'
+    end
+
+    def render_only_venmo_standalone?
+      options[:venmo_standalone] == 'render only standalone'
+    end
 
     def partial_name
       "paypal_commerce_platform"
@@ -80,8 +88,7 @@ module SolidusPaypalCommercePlatform
       }
 
       parameters[:shipping_preference] = 'NO_SHIPPING' if step_names.exclude? 'delivery'
-      parameters['enable-funding'] = 'venmo' if options[:venmo_control] == 'enforced'
-      parameters['disable-funding'] = 'venmo' if options[:venmo_control] == 'disabled'
+      parameters['enable-funding'] = 'venmo' if venmo_standalone_enabled?
 
       if !Rails.env.production? && options[:force_buyer_country].present?
         parameters['buyer-country'] = options[:force_buyer_country]

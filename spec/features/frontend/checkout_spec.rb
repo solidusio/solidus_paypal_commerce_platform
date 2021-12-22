@@ -70,6 +70,16 @@ RSpec.describe "Checkout" do
         click_button("Save and Continue")
         expect(Spree::Payment.last.source.paypal_email).to eq "fake@email.com"
       end
+
+      it "records the paypal funding source" do
+        visit '/checkout/payment'
+        choose(option: paypal_payment_method.id)
+        find(:xpath, "//input[@id='payments_source_paypal_order_id']", visible: false).set SecureRandom.hex(8)
+        find(:xpath, "//input[@id='payments_source_paypal_email']", visible: false).set "fake@email.com"
+        find(:xpath, "//input[@id='payments_source_paypal_funding_source']", visible: false).set "venmo"
+        click_button("Save and Continue")
+        expect(Spree::Payment.last.source.paypal_funding_source).to eq "venmo"
+      end
     end
 
     context "when a payment fails" do

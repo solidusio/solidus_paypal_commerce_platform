@@ -17,5 +17,9 @@ module SolidusPaypalCommercePlatform
     def preferred_paypal_button_layout_options
       [["Vertical", "vertical"], ["Horizontal", "horizontal"]]
     end
+
+    def preferred_venmo_standalone_options
+      [['Render only standalone', 'render only standalone'], ['Enabled', 'Enabled'], ['Disabled', 'disabled']]
+    end
   end
 end

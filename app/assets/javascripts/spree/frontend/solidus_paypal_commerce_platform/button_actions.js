@@ -84,6 +84,7 @@ SolidusPaypalCommercePlatform.approveOrder = function(data, actions) {
       SolidusPaypalCommercePlatform.verifyTotal(response.purchase_units[0].amount.value).then(function(){
         $("#payments_source_paypal_order_id").val(data.orderID)
         $("#payments_source_paypal_email").val(response.payer.email_address)
+        $("#payments_source_paypal_funding_source").val(SolidusPaypalCommercePlatform.fundingSource)
         $("#checkout_form_payment").submit()
       })
     })
@@ -168,7 +169,8 @@ SolidusPaypalCommercePlatform.addPayment = function(paypal_amount, payment_metho
         payment_method_id: payment_method_id,
         source_attributes: {
           paypal_order_id: data.orderID,
-          paypal_email: email
+          paypal_email: email,
+          paypal_funding_source: SolidusPaypalCommercePlatform.fundingSource
         }
       }
     },

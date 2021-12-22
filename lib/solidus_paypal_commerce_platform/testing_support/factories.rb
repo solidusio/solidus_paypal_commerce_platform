@@ -7,7 +7,8 @@ FactoryBot.define do
     preferences {
       {
         client_id: SecureRandom.hex(8),
-        client_secret: SecureRandom.hex(10)
+        client_secret: SecureRandom.hex(10),
+        venmo_standalone: 'disabled'
       }
     }
   end
