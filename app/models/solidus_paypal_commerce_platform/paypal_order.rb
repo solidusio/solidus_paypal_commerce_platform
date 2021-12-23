@@ -118,9 +118,11 @@ module SolidusPaypalCommercePlatform
     end
 
     def require_shipping?
-      step_names = @order ? @order.checkout_steps : ::Spree::Order.checkout_steps.keys
+      step_names.include? :delivery
+    end
 
-      step_names.include? 'delivery'
+    def step_names
+      @order ? @order.checkout_steps.map(&:to_sym) : ::Spree::Order.checkout_steps.keys
     end
   end
 end
