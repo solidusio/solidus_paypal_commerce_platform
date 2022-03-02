@@ -23,7 +23,7 @@ RSpec.describe SolidusPaypalCommercePlatform::StateGuesser, type: :model do
       it "returns nil" do
         expect(
           described_class.new("Gondor", country).guess
-        ).to eq nil
+        ).to be_nil
       end
     end
 

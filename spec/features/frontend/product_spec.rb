@@ -58,7 +58,7 @@ RSpec.describe "Product page", js: true do
         page.evaluate_script("SolidusPaypalCommercePlatform.createOrder()")
         page.driver.wait_for_network_idle
 
-        expect(Spree::Order.last).not_to be nil
+        expect(Spree::Order.last).to be_an_instance_of(Spree::Order)
       end
 
       it "sets the Spree number and token variables" do

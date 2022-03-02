@@ -106,7 +106,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentSource, type: :model do
 
         result = payment_source.save
 
-        expect(result).to eq(true)
+        expect(result).to be(true)
         expect(payment_source.paypal_funding_source).to be_nil
       end
 
@@ -115,9 +115,9 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentSource, type: :model do
 
         result = payment_source.save
 
-        expect(result).to eq(true)
+        expect(result).to be(true)
         expect(payment_source.paypal_funding_source).to eq('applepay')
-        expect(payment_source.applepay_funding?).to eq(true)
+        expect(payment_source.applepay_funding?).to be(true)
       end
     end
   end
