@@ -29,6 +29,14 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentSource, type: :model do
   end
 
   describe '#actions' do
+    context 'when paypal payment is pending' do
+      let(:paypal_order_status) { 'PENDING' }
+
+      it "doesn't show any action" do
+        expect(payment.actions).to be_empty
+      end
+    end
+
     context 'when the payment is not yet completed' do
       it 'shows "capture" and "void"' do
         expect(payment.actions).to contain_exactly("capture", "void")
@@ -98,7 +106,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentSource, type: :model do
 
         result = payment_source.save
 
-        expect(result).to eq(true)
+        expect(result).to be(true)
         expect(payment_source.paypal_funding_source).to be_nil
       end
 
@@ -107,9 +115,9 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentSource, type: :model do
 
         result = payment_source.save
 
-        expect(result).to eq(true)
+        expect(result).to be(true)
         expect(payment_source.paypal_funding_source).to eq('applepay')
-        expect(payment_source.applepay_funding?).to eq(true)
+        expect(payment_source.applepay_funding?).to be(true)
       end
     end
   end

@@ -21,7 +21,8 @@ module SolidusPaypalCommercePlatform
     end
 
     def can_capture?(payment)
-      payment.pending? || payment.checkout?
+      (payment.pending? || payment.checkout?) &&
+        payment_method.gateway.get_order(paypal_order_id).status != "PENDING"
     end
 
     def can_void?(payment)
