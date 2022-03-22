@@ -62,8 +62,6 @@ module SolidusPaypalCommercePlatform
       )).result
     end
 
-    private
-
     def wrap_response(response, success_message: nil, failure_message: nil)
       if SUCCESS_STATUS_CODES.include? response.status_code
         success_message ||= "Success."

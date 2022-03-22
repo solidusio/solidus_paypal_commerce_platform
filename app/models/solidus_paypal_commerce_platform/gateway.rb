@@ -45,7 +45,7 @@ module SolidusPaypalCommercePlatform
       request = AuthorizationsCaptureRequest.new(source.authorization_id)
       request.request_body(amount: { currency_code: options[:currency], value: Money.new(money).dollars })
 
-      response = @client.execute_with_response(request)
+      response = capture_with_response(request)
       if response.success?
         source.update(capture_id: response.params["result"].id)
       end
@@ -82,6 +82,25 @@ module SolidusPaypalCommercePlatform
 
     def get_order(order_id)
       @client.execute(OrdersGetRequest.new(order_id)).result
+    end
+
+    private
+
+    def capture_with_response(request, success_message: nil, failure_message: nil)
+      response = @client.execute(request)
+      if response.result&.status == "PENDING"
+        ActiveMerchant::Billing::Response.new(
+          false,
+          "Payment is awaiting processing on PayPal's side"
+        )
+      else
+        i18n_scope = @client.i18n_scope_for(request)
+        @client.wrap_response(
+          response,
+          success_message: success_message || I18n.t("#{i18n_scope}.success", default: nil),
+          failure_message: failure_message || I18n.t("#{i18n_scope}.failure", default: nil)
+        )
+      end
     end
   end
 end
