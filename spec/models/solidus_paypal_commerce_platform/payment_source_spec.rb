@@ -29,14 +29,6 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentSource, type: :model do
   end
 
   describe '#actions' do
-    context 'when paypal payment is pending' do
-      let(:paypal_order_status) { 'PENDING' }
-
-      it "doesn't show any action" do
-        expect(payment.actions).to be_empty
-      end
-    end
-
     context 'when the payment is not yet completed' do
       it 'shows "capture" and "void"' do
         expect(payment.actions).to contain_exactly("capture", "void")
