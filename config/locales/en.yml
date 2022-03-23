@@ -23,6 +23,10 @@ en:
   payment_email: "Payment Email: %{email}"
   virtual_terminal_notice_html: Backend Credit Card payments can only be accepted through PayPal via the <a href="https://www.paypal.com/merchantapps/appcenter/acceptpayments/virtualterminal">PayPal Virtual Terminal</a>.
   solidus_paypal_commerce_platform:
+    controllers:
+      payments_controller:
+        invalid_paypal_order_id: "Invalid order confirmation data passed in"
+        order_complete: "Order is already in complete state"
     responses:
       pay_pal_checkout_sdk/orders/orders_capture_request:
         success: "Payment captured"
@@ -36,6 +40,8 @@ en:
         success: "Payment refunded for %{amount}"
       pay_pal_checkout_sdk/payments/authorizations_void_request:
         success: "Payment voided"
+    payment_method:
+      gold_button_message: "cannot be 'gold' when Venmo standalone is enabled."
     paypal_funding_sources:
       applepay: 'Apple Pay'
       bancontact: 'Bancontact'

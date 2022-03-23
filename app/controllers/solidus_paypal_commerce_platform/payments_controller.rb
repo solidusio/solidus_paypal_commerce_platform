@@ -10,11 +10,13 @@ module SolidusPaypalCommercePlatform
       paypal_order_id = paypal_params[:paypal_order_id]
 
       if !paypal_order_id
-        return redirect_to checkout_state_path(@order.state), notice: "Invalid order confirmation data passed in"
+        return redirect_to checkout_state_path(@order.state),
+          notice: I18n.t("solidus_paypal_commerce_platform.controllers.payments_controller.invalid_paypal_order_id")
       end
 
       if @order.complete?
-        return redirect_to spree.order_path(@order), notice: "Order is already in complete state"
+        return redirect_to spree.order_path(@order),
+          notice: I18n.t("solidus_paypal_commerce_platform.controllers.payments_controller.order_complete")
       end
 
       source = SolidusPaypalCommercePlatform::PaymentSource.new(paypal_order_id: paypal_order_id)
