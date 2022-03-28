@@ -57,14 +57,32 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
   end
 
   describe "#capture" do
-    let(:result) { Struct(id: SecureRandom.hex(4)) }
+    let(:result) { Struct(id: SecureRandom.hex(4), status: status) }
 
-    it "sends a capture request to paypal" do
-      authorization_id = SecureRandom.hex(8)
-      source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
-      payment.source = source
-      expect_request(:AuthorizationsCaptureRequest).to receive(:new).with(authorization_id).and_call_original
-      paypal_payment_method.capture(1000, {}, originator: payment)
+    context "when payment COMPLETED" do
+      let(:status) { "COMPLETED" }
+
+      it "sends a capture request to paypal" do
+        authorization_id = SecureRandom.hex(8)
+        source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
+        payment.source = source
+        expect_request(:AuthorizationsCaptureRequest).to receive(:new).with(authorization_id).and_call_original
+        billing_response = paypal_payment_method.capture(1000, {}, originator: payment)
+        expect(billing_response.message).to eq("Authorization captured")
+      end
+    end
+
+    context "when payment PENDING" do
+      let(:status) { "PENDING" }
+
+      it "sends a capture request to paypal" do
+        authorization_id = SecureRandom.hex(8)
+        source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
+        payment.source = source
+        expect_request(:AuthorizationsCaptureRequest).to receive(:new).with(authorization_id).and_call_original
+        billing_response = paypal_payment_method.capture(1000, {}, originator: payment)
+        expect(billing_response.message).to eq("Payment is awaiting processing on PayPal's side")
+      end
     end
   end
 
