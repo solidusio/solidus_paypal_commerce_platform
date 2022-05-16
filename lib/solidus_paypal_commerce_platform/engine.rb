@@ -18,7 +18,7 @@ module SolidusPaypalCommercePlatform
       app.config.to_prepare do
         app.config.spree.payment_methods << SolidusPaypalCommercePlatform::PaymentMethod
         SolidusPaypalCommercePlatform::PaymentMethod.allowed_admin_form_preference_types << :paypal_select
-        Spree::PermittedAttributes.source_attributes.concat [:paypal_order_id, :authorization_id,
+        ::Spree::PermittedAttributes.source_attributes.concat [:paypal_order_id, :authorization_id,
                                                              :paypal_email, :paypal_funding_source]
       end
     end
