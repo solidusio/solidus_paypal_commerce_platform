@@ -60,11 +60,11 @@ module SolidusPaypalCommercePlatform
     end
 
     def partner_id
-      @partner_id ||= ENV['PAYPAL_PARTNER_ID'] || DEFAULT_PARTNER_ID[env.to_sym]
+      @partner_id ||= ENV.fetch('PAYPAL_PARTNER_ID') { DEFAULT_PARTNER_ID[env.to_sym] }
     end
 
     def partner_client_id
-      @partner_client_id ||= ENV['PAYPAL_PARTNER_CLIENT_ID'] || DEFAULT_PARTNER_CLIENT_ID[env.to_sym]
+      @partner_client_id ||= ENV.fetch('PAYPAL_PARTNER_CLIENT_ID') { DEFAULT_PARTNER_CLIENT_ID[env.to_sym] }
     end
 
     def partner_code

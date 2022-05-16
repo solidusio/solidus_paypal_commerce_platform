@@ -19,18 +19,18 @@ RSpec.describe SolidusPaypalCommercePlatform::WizardController, type: :request d
         case request
         when SolidusPaypalCommercePlatform::AccessTokenAuthorizationRequest
           instance_double(
-            'response',
+            response,
             result: instance_double(
-              'result',
+              result,
               access_token: "ACCESS-TOKEN"
             )
           )
         when SolidusPaypalCommercePlatform::FetchMerchantCredentialsRequest
           expect(request.headers.fetch("Authorization")).to eq("Bearer ACCESS-TOKEN")
           instance_double(
-            'response',
+            response,
             result: instance_double(
-              'result',
+              result,
               client_id: "CLIENT-ID",
               client_secret: "CLIENT-SECRET",
             )
