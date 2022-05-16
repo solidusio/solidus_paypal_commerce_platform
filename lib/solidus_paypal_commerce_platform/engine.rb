@@ -22,8 +22,9 @@ module SolidusPaypalCommercePlatform
           SolidusPaypalCommercePlatform::PaymentMethod.allowed_admin_form_preference_types << :paypal_select
         end
 
-        ::Spree::PermittedAttributes.source_attributes.concat [:paypal_order_id, :authorization_id,
-                                                             :paypal_email, :paypal_funding_source]
+        old_source_attributes = ::Spree::PermittedAttributes.source_attributes
+        new_source_attributes = [:paypal_order_id, :authorization_id, :paypal_email, :paypal_funding_source]
+        ::Spree::PermittedAttributes.source_attributes.concat(new_source_attributes - old_source_attributes)
       end
     end
 
