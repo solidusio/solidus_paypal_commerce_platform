@@ -4,7 +4,7 @@ RSpec.describe "Checkout" do
   describe "paypal payment method" do
     let(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:payment) }
     let(:paypal_payment_method) { create(:paypal_payment_method) }
-    let(:failed_response) { instance_double(response, status_code: 500) }
+    let(:failed_response) { double('response', status_code: 500) } # rubocop:disable RSpec/VerifiedDoubles
 
     before do
       user = create(:user)

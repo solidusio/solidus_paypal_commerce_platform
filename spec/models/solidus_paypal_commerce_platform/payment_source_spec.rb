@@ -21,10 +21,13 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentSource, type: :model do
   before do
     allow_any_instance_of(SolidusPaypalCommercePlatform::Client).to receive(:execute) do |_client, request|
       expect(request).to be_a(SolidusPaypalCommercePlatform::Gateway::OrdersGetRequest) # rubocop:disable RSpec/ExpectInHook
-      instance_double(
-        response,
-        result: instance_double(result, status: paypal_order_status)
+
+      # rubocop:disable RSpec/VerifiedDoubles
+      double(
+        'response',
+        result: double('result', status: paypal_order_status)
       )
+      # rubocop:enable RSpec/VerifiedDoubles
     end
   end
 

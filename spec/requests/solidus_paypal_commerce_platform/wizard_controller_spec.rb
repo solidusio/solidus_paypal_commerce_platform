@@ -18,23 +18,28 @@ RSpec.describe SolidusPaypalCommercePlatform::WizardController, type: :request d
       expect_any_instance_of(SolidusPaypalCommercePlatform::Client).to receive(:execute) do |_client, request|
         case request
         when SolidusPaypalCommercePlatform::AccessTokenAuthorizationRequest
-          instance_double(
-            response,
-            result: instance_double(
-              result,
+          # rubocop:disable RSpec/VerifiedDoubles
+          double(
+            'response',
+            result: double(
+              'result',
               access_token: "ACCESS-TOKEN"
             )
           )
+          # rubocop:enable RSpec/VerifiedDoubles
         when SolidusPaypalCommercePlatform::FetchMerchantCredentialsRequest
           expect(request.headers.fetch("Authorization")).to eq("Bearer ACCESS-TOKEN")
-          instance_double(
-            response,
-            result: instance_double(
-              result,
+
+          # rubocop:disable RSpec/VerifiedDoubles
+          double(
+            'response',
+            result: double(
+              'result',
               client_id: "CLIENT-ID",
               client_secret: "CLIENT-SECRET",
             )
           )
+          # rubocop:enable RSpec/VerifiedDoubles
         else
           raise "unexpected request: #{request}"
         end
