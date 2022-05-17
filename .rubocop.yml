@@ -14,6 +14,10 @@ Layout/FirstArgumentIndentation:
 Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
+Naming/VariableNumber:
+  # PayPal uses snake_case, we use normal_case ¯\_(ツ)_/¯
+  Enabled: false
+
 # We use this extensively, the alternatives are not viable or desirable.
 RSpec/AnyInstance:
   Enabled: false
@@ -42,10 +46,6 @@ RSpec/NestedGroups:
 RSpec/VerifiedDoubles:
   # Sometimes you really need an "anything" double
   IgnoreSymbolicNames: true
-
-Rspec/Naming/VariableNumber:
-  # PayPal uses snake_case, we use normal_case ¯\_(ツ)_/¯
-  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Exclude:
