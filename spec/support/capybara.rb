@@ -7,5 +7,5 @@ Capybara.register_driver(:cuprite) do |app|
   # to debug the browser status.
   #
   # See also: https://github.com/rubycdp/cuprite#debugging
-  Capybara::Cuprite::Driver.new(app, window_size: [1920, 1080], inspector: ENV["INSPECTOR"])
+  Capybara::Cuprite::Driver.new(app, window_size: [1920, 1080], inspector: ENV.fetch("INSPECTOR", nil))
 end
