@@ -1,5 +1,27 @@
 # Changelog
 
+## [v0.4.0](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/tree/v0.4.0) (2022-06-02)
+
+[Full Changelog](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/compare/v0.3.2...v0.4.0)
+
+**Closed issues:**
+
+- Gem has RuboCop warnings [\#144](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/144)
+- Silent Failure In JS [\#130](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/130)
+- Not Applying Sales Tax [\#126](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/126)
+
+**Merged pull requests:**
+
+- Fix Rails 7 autoloading issues with SolidusPaypalCommercePlatform [\#156](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/156) ([gsmendoza](https://github.com/gsmendoza))
+- Block \#capture on Pending Payments" [\#155](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/155) ([Naokimi](https://github.com/Naokimi))
+- Block \#capture on PayPal PENDING Payments [\#154](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/154) ([Naokimi](https://github.com/Naokimi))
+- Change Venmo integration to use Venmo standalone [\#151](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/151) ([RyanofWoods](https://github.com/RyanofWoods))
+- Allow enable\_venmo preference to have default Venmo behaviour [\#148](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/148) ([RyanofWoods](https://github.com/RyanofWoods))
+- Fix RuboCop warnings [\#147](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/147) ([RyanofWoods](https://github.com/RyanofWoods))
+- Revert "Allow Ruby 3" [\#146](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/146) ([RyanofWoods](https://github.com/RyanofWoods))
+- Add Venmo as payment option [\#138](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/138) ([RyanofWoods](https://github.com/RyanofWoods))
+- Wizard\#logo use `image_path` over `image_url`. [\#131](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/131) ([essn](https://github.com/essn))
+
 ## [v0.3.2](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/tree/v0.3.2) (2021-05-11)
 
 [Full Changelog](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/compare/v0.3.1...v0.3.2)
