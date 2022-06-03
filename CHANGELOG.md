@@ -1,5 +1,49 @@
 # Changelog
 
+## [v0.4.0](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/tree/v0.4.0) (2022-06-02)
+
+[Full Changelog](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/compare/v0.3.2...v0.4.0)
+
+**Closed issues:**
+
+- Gem has RuboCop warnings [\#144](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/144)
+- Silent Failure In JS [\#130](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/130)
+- Not Applying Sales Tax [\#126](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/126)
+
+**Merged pull requests:**
+
+- Fix Rails 7 autoloading issues with SolidusPaypalCommercePlatform [\#156](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/156) ([gsmendoza](https://github.com/gsmendoza))
+- Block \#capture on Pending Payments" [\#155](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/155) ([Naokimi](https://github.com/Naokimi))
+- Block \#capture on PayPal PENDING Payments [\#154](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/154) ([Naokimi](https://github.com/Naokimi))
+- Change Venmo integration to use Venmo standalone [\#151](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/151) ([RyanofWoods](https://github.com/RyanofWoods))
+- Allow enable\_venmo preference to have default Venmo behaviour [\#148](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/148) ([RyanofWoods](https://github.com/RyanofWoods))
+- Fix RuboCop warnings [\#147](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/147) ([RyanofWoods](https://github.com/RyanofWoods))
+- Revert "Allow Ruby 3" [\#146](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/146) ([RyanofWoods](https://github.com/RyanofWoods))
+- Add Venmo as payment option [\#138](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/138) ([RyanofWoods](https://github.com/RyanofWoods))
+- Wizard\#logo use `image_path` over `image_url`. [\#131](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/131) ([essn](https://github.com/essn))
+
+## [v0.3.2](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/tree/v0.3.2) (2021-05-11)
+
+[Full Changelog](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/compare/v0.3.1...v0.3.2)
+
+**Closed issues:**
+
+- Unable To Cancel An Order [\#120](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/120)
+
+**Merged pull requests:**
+
+- Update solidus using solidus\_dev\_support [\#124](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/124) ([DanielePalombo](https://github.com/DanielePalombo))
+- Add NO\_SHIPPING to shipping preference [\#123](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/123) ([DanielePalombo](https://github.com/DanielePalombo))
+- Support solidus 3.0 [\#122](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/122) ([DanielePalombo](https://github.com/DanielePalombo))
+
+## [v0.3.1](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/tree/v0.3.1) (2021-04-20)
+
+[Full Changelog](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/compare/v0.3.0...v0.3.1)
+
+**Merged pull requests:**
+
+- Allow Solidus 3 [\#121](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/121) ([kennyadsl](https://github.com/kennyadsl))
+
 ## [v0.3.0](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/tree/v0.3.0) (2021-03-16)
 
 [Full Changelog](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/compare/v0.2.2...v0.3.0)
@@ -55,7 +99,7 @@
 **Closed issues:**
 
 - README lists two different types of PayPal credentials [\#97](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/97)
-- `paypal\_email\_confirmed` is not an actual preference [\#96](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/96)
+- `paypal_email_confirmed` is not an actual preference [\#96](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/96)
 - Make this extension the default option for Solidus [\#88](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/issues/88)
 
 **Merged pull requests:**
@@ -75,6 +119,7 @@
 **Merged pull requests:**
 
 - Temporarily switch from apparition to cuprite [\#92](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/92) ([elia](https://github.com/elia))
+- Update links after moving the repo to solidusio-contrib [\#91](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/91) ([elia](https://github.com/elia))
 - Add a configurable state\_guesser class to guess states [\#90](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/90) ([seand7565](https://github.com/seand7565))
 - Add better error handling to button\_actions.js [\#89](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/89) ([seand7565](https://github.com/seand7565))
 
@@ -128,7 +173,6 @@
 
 **Merged pull requests:**
 
-- Update links after moving the repo to solidusio-contrib [\#91](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/91) ([elia](https://github.com/elia))
 - Use live partner ids [\#85](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/85) ([elia](https://github.com/elia))
 - Update README to account for checkouts without a confirmation step [\#84](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/84) ([seand7565](https://github.com/seand7565))
 - Replace order simulator with something simpler [\#82](https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/pull/82) ([seand7565](https://github.com/seand7565))
