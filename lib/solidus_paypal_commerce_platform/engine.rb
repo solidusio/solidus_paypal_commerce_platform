@@ -15,9 +15,17 @@ module SolidusPaypalCommercePlatform
     engine_name 'solidus_paypal_commerce_platform'
 
     initializer "solidus_paypal_commerce_platform.add_payment_method", after: "spree.register.payment_methods" do |app|
-      app.config.spree.payment_methods << SolidusPaypalCommercePlatform::PaymentMethod
-      SolidusPaypalCommercePlatform::PaymentMethod.allowed_admin_form_preference_types << :paypal_select
-      Spree::PermittedAttributes.source_attributes.concat [:paypal_order_id, :authorization_id, :paypal_email]
+      app.config.to_prepare do
+        app.config.spree.payment_methods << SolidusPaypalCommercePlatform::PaymentMethod
+
+        unless SolidusPaypalCommercePlatform::PaymentMethod.allowed_admin_form_preference_types.include?(:paypal_select)
+          SolidusPaypalCommercePlatform::PaymentMethod.allowed_admin_form_preference_types << :paypal_select
+        end
+
+        old_source_attributes = ::Spree::PermittedAttributes.source_attributes
+        new_source_attributes = [:paypal_order_id, :authorization_id, :paypal_email, :paypal_funding_source]
+        ::Spree::PermittedAttributes.source_attributes.concat(new_source_attributes - old_source_attributes)
+      end
     end
 
     initializer "solidus_paypal_commerce_platform.add_wizard", after: "spree.register.payment_methods" do |app|
