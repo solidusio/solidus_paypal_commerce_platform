@@ -10,7 +10,7 @@ module SolidusPaypalCommercePlatform
       authorize! :create, ::Spree::Order
 
       @order = ::Spree::Order.create!(
-        user: try_spree_current_user,
+        user: ::Spree.solidus_gem_version >= Gem::Version.new('3.2') ? spree_current_user : try_spree_current_user,
         store: current_store,
         currency: current_pricing_options.currency
       )
