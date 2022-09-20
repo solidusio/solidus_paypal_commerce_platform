@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SolidusPaypalCommercePlatform
-  class PaymentMethod < SolidusSupport.payment_method_parent_class
+  class PaymentMethod < ::Spree::PaymentMethod
     include SolidusPaypalCommercePlatform::ButtonOptionsHelper
     preference :client_id, :string
     preference :client_secret, :string
