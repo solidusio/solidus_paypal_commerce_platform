@@ -1,12 +1,13 @@
+# frozen_string_literal: false
+
 require 'paypalhttp'
 require "base64"
 
 module PayPal
-
-  SANDBOXAPI = 'https://api.sandbox.paypal.com'
-  LIVEAPI = 'https://api.paypal.com'
-  SANDBOXWEB = 'https://sandbox.paypal.com'
-  LIVEWEB = 'https://paypal.com'
+  SANDBOXAPI = 'https://api.sandbox.paypal.com'.freeze
+  LIVEAPI = 'https://api.paypal.com'.freeze
+  SANDBOXWEB = 'https://sandbox.paypal.com'.freeze
+  LIVEWEB = 'https://paypal.com'.freeze
 
   class PayPalEnvironment < PayPalHttp::Environment
     attr_accessor :client_id, :client_secret, :web_url
@@ -18,9 +19,9 @@ module PayPal
       @web_url = web_url
     end
 
-    def authorizationString
+    def authorization_string
       encoded = Base64.strict_encode64("#{@client_id}:#{@client_secret}")
-      return "Basic #{encoded}"
+      "Basic #{encoded}"
     end
   end
 

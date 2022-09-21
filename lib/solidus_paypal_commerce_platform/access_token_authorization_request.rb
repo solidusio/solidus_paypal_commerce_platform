@@ -9,7 +9,7 @@ module SolidusPaypalCommercePlatform
       @path = "/v1/oauth2/token"
       @headers = {
         "Content-Type" => "application/x-www-form-urlencoded",
-        "Authorization" => environment.authorizationString,
+        "Authorization" => environment.authorization_string,
       }
       @body = {
         grant_type: "authorization_code",

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'paypal/paypal_environment.rb'
+require 'paypal/paypal_environment'
 
 module SolidusPaypalCommercePlatform
   class Configuration

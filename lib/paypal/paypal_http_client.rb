@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 require 'paypalhttp'
 require 'openssl'
 
@@ -9,8 +11,8 @@ module PayPal
       super(environment)
       @refresh_token = refresh_token
 
-      add_injector(&method(:_sign_request))
-      add_injector(&method(:_add_headers))
+      add_injector { _1._sign_request }
+      add_injector { _1._add_headers }
     end
 
     def user_agent
@@ -25,20 +27,20 @@ module PayPal
     end
 
     def _sign_request(request)
-      if (!_has_auth_header(request) && !_is_auth_request(request))
-        if (!@access_token || @access_token.isExpired)
-          accessTokenRequest = PayPal::AccessTokenRequest.new(@environment, @refresh_token)
-          tokenResponse = execute(accessTokenRequest)
-          @access_token = PayPal::AccessToken.new(tokenResponse.result)
-        end
-        request.headers["Authorization"] = @access_token.authorizationString()
+      return if !_has_auth_header(request) && !_is_auth_request(request)
+
+      if !@access_token || @access_token.expired?
+        access_token_request = PayPal.access_token_request.new(@environment, @refresh_token)
+        token_response = execute(access_token_request)
+        @access_token = PayPal::AccessToken.new(token_response.result)
       end
+      request.headers["Authorization"] = @access_token.authorization_string
     end
 
     def _add_headers(request)
       request.headers["Accept-Encoding"] = "gzip"
       request.headers["sdk_name"] = "Checkout SDK"
-      request.headers["sdk_tech_stack"] = "Ruby" + RUBY_VERSION
+      request.headers["sdk_tech_stack"] = "Ruby#{RUBY_VERSION}"
       request.headers["api_integration_type"] = "PAYPALSDK"
     end
 

@@ -9,7 +9,6 @@ require 'solidus_paypal_commerce_platform/version'
 require 'solidus_paypal_commerce_platform/engine'
 require 'paypal/lib'
 
-
 module SolidusPaypalCommercePlatform
   class << self
     def configuration

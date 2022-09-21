@@ -10,7 +10,7 @@ RSpec.describe "Cart page" do
       order.user = user
       visit spree.root_path
       click_link 'Login'
-  
+
       fill_in 'spree_user[email]', with: user.email
       fill_in 'spree_user[password]', with: 'secret'
       click_button 'Login'
@@ -43,7 +43,7 @@ RSpec.describe "Cart page" do
         it "generates a url with intent capture" do
           paypal_payment_method.update(auto_capture: true)
           visit '/cart'
-          
+
           expect(js_sdk_script_query).to include("client-id=#{paypal_payment_method.preferences[:client_id]}")
           expect(js_sdk_script_query).to include("intent=capture")
         end

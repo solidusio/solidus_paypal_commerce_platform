@@ -9,7 +9,7 @@ RSpec.describe "Checkout" do
     before do
       user = create(:user)
       visit spree.root_path
-      click_link 'Login'  
+      click_link 'Login'
       fill_in 'spree_user[email]', with: user.email
       fill_in 'spree_user[password]', with: 'secret'
       click_button 'Login'

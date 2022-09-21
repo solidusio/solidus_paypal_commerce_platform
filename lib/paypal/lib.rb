@@ -1,3 +1,5 @@
+# frozen_string_literal: false
+
 require 'paypal/paypal_environment'
 require 'paypal/paypal_http_client'
 require 'paypal/token_requests'

@@ -36,7 +36,7 @@ RSpec.describe SolidusPaypalCommercePlatform::ShippingRatesController, type: :re
       let(:new_state) { nil }
 
       it "returns a list of errors" do
-        expect(response.status).to be(422) # unprocessable_entity
+        expect(response).to have_http_status(:unprocessable_entity) # unprocessable_entity
         expect(response.body).to include "State can't be blank"
       end
     end
