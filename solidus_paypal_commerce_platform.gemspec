@@ -32,8 +32,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'solidus_core', ['>= 2.0.0', '< 4']
   spec.add_dependency 'solidus_support', [">= 0.8.0", "< 1"]
   spec.add_dependency 'solidus_webhooks', '~> 0.2'
-
-  spec.add_dependency 'paypal-checkout-sdk'
+  
+  spec.add_dependency 'paypalhttp'
 
   spec.add_development_dependency 'cuprite'
   spec.add_development_dependency 'solidus_dev_support', '~> 2.5'

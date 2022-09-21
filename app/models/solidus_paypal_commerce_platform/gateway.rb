@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'paypal-checkout-sdk'
-
 module SolidusPaypalCommercePlatform
   class Gateway
     include PayPalCheckoutSdk::Orders
