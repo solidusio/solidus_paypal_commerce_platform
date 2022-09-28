@@ -70,7 +70,6 @@ unbundled bundle exec rails generate solidus:install \
   --auto-accept \
   --user_class=Spree::User \
   --enforce_available_locales=true \
-  --payment-method=none \
   $@
 
 unbundled bundle exec rails generate ${extension_name}:install
