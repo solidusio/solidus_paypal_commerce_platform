@@ -51,7 +51,7 @@ RSpec.describe "Product page", js: true do
 
         # Waiting until the paypal button becomes available, because the SPCP namespace
         # isn't immediately available
-        page.find("#paypal-button-container")
+        page.find_by_id('paypal-button-container') # rubocop:disable Rails/DynamicFindBy
       end
 
       it "creates an order successfully" do

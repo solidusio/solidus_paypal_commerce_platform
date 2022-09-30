@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SolidusPaypalCommercePlatform
-  class PaymentSource < SolidusSupport.payment_source_parent_class
+  class PaymentSource < ::Spree::PaymentSource
     self.table_name = "paypal_commerce_platform_sources"
     enum paypal_funding_source: {
       applepay: 0, bancontact: 1, blik: 2, boleto: 3, card: 4, credit: 5, eps: 6, giropay: 7, ideal: 8,

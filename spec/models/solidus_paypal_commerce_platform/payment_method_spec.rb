@@ -36,7 +36,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
     let(:result) { Struct(purchase_units: [Struct(payments: payments)]) }
     let(:payments) { Struct(captures: [Struct(id: SecureRandom.hex(4))]) }
 
-    it "sends a purchase request to paypal" do
+    it "sends a purchase request to paypal" do # rubocop:disable Rspec/NoExpectationExample
       paypal_order_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(paypal_order_id: paypal_order_id)
       expect_request(:OrdersCaptureRequest).to receive(:new).with(paypal_order_id).and_call_original
@@ -48,7 +48,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
     let(:result) { Struct(purchase_units: [Struct(payments: payments)]) }
     let(:payments) { Struct(authorizations: [Struct(id: SecureRandom.hex(4))]) }
 
-    it "sends an authorize request to paypal" do
+    it "sends an authorize request to paypal" do # rubocop:disable Rspec/NoExpectationExample
       paypal_order_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(paypal_order_id: paypal_order_id)
       expect_request(:OrdersAuthorizeRequest).to receive(:new).with(paypal_order_id)
@@ -87,7 +87,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
   end
 
   describe "#void" do
-    it "sends a void request to paypal" do
+    it "sends a void request to paypal" do # rubocop:disable Rspec/NoExpectationExample
       authorization_id = SecureRandom.hex(8)
       source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
       payment.source = source

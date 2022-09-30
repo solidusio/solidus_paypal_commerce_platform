@@ -8,6 +8,12 @@ RSpec.describe "Cart page" do
     before do
       user = create(:user)
       order.user = user
+      visit spree.root_path
+      click_link 'Login'
+
+      fill_in 'spree_user[email]', with: user.email
+      fill_in 'spree_user[password]', with: 'secret'
+      click_button 'Login'
 
       paypal_payment_method
       allow_any_instance_of(Spree::OrdersController).to receive_messages(
@@ -37,6 +43,7 @@ RSpec.describe "Cart page" do
         it "generates a url with intent capture" do
           paypal_payment_method.update(auto_capture: true)
           visit '/cart'
+
           expect(js_sdk_script_query).to include("client-id=#{paypal_payment_method.preferences[:client_id]}")
           expect(js_sdk_script_query).to include("intent=capture")
         end

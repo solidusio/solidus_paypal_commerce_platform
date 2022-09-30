@@ -71,7 +71,7 @@ RSpec.describe SolidusPaypalCommercePlatform::Configuration do
     end
 
     it "returns a class" do
-      expect(test_subject.state_guesser_class).to be_kind_of(Class)
+      expect(test_subject.state_guesser_class).to be_a(Class)
     end
 
     it "is settable" do

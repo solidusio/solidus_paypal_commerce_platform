@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'paypal-checkout-sdk'
+require 'paypal/paypal_environment'
 
 module SolidusPaypalCommercePlatform
   class Configuration

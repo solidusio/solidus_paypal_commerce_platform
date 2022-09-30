@@ -3,7 +3,7 @@
 require 'solidus_paypal_commerce_platform/access_token_authorization_request'
 require 'solidus_paypal_commerce_platform/fetch_merchant_credentials_request'
 
-require 'paypal-checkout-sdk'
+require 'paypalhttp'
 
 module SolidusPaypalCommercePlatform
   class Client
