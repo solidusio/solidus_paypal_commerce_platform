@@ -45,7 +45,7 @@ module SolidusPaypalCommercePlatform
 
     def name(address)
       if greater_than_2_10?
-        name = ::Spree::Address::Name.new @order.ship_address.name
+        name = ::Spree::Address::Name.new address.name
 
         {
           given_name: name.first_name,
