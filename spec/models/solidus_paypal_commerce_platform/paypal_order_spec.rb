@@ -25,10 +25,6 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalOrder, type: :model do
   private
 
   def create_address(firstname, lastname)
-    if Spree.solidus_gem_version >= Gem::Version.new('2.11')
-      create(:address, name: "#{firstname} #{lastname}")
-    else
-      create(:address, firstname: firstname, lastname: lastname)
-    end
+    create(:address, name: "#{firstname} #{lastname}")
   end
 end

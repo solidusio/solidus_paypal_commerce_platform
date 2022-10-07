@@ -44,19 +44,12 @@ module SolidusPaypalCommercePlatform
     end
 
     def name(address)
-      if greater_than_2_10?
-        name = ::Spree::Address::Name.new address.name
+      name = ::Spree::Address::Name.new address.name
 
-        {
-          given_name: name.first_name,
-          surname: name.last_name
-        }
-      else
-        {
-          given_name: address.firstname,
-          surname: address.lastname
-        }
-      end
+      {
+        given_name: name.first_name,
+        surname: name.last_name
+      }
     end
 
     def purchase_units(include_shipping_address: true)
@@ -80,11 +73,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def full_name
-      if greater_than_2_10?
-        @order.ship_address.name
-      else
-        @order.ship_address.full_name
-      end
+      @order.ship_address.name
     end
 
     def line_items
@@ -119,10 +108,6 @@ module SolidusPaypalCommercePlatform
         currency_code: @order.currency,
         value: amount
       }
-    end
-
-    def greater_than_2_10?
-      ::Spree.solidus_gem_version >= Gem::Version.new('2.11')
     end
   end
 end
