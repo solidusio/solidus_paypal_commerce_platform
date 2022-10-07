@@ -11,8 +11,8 @@ module PayPal
       super(environment)
       @refresh_token = refresh_token
 
-      add_injector { _1._sign_request }
-      add_injector { _1._add_headers }
+      add_injector(&:_sign_request)
+      add_injector(&:_add_headers)
     end
 
     def user_agent
