@@ -1,5 +1,18 @@
 # Changelog
 
+## [v0.5.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.5.0) (2022-10-07)
+
+[Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.4.0...v0.5.0)
+
+**Merged pull requests:**
+
+- Update links after moving to @solidusio [\#164](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/164) ([elia](https://github.com/elia))
+- Fix assigning API created orders to the current user [\#163](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/163) ([elia](https://github.com/elia))
+- Require Solidus 3 & Ruby 2.7 [\#163](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/163) ([elia](https://github.com/elia))
+- Fix master, import paypal-checkout-sdk [\#161](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/161) ([cpfergus1](https://github.com/cpfergus1))
+- Update to use forked solidus\_frontend when needed [\#160](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/160) ([waiting-for-dev](https://github.com/waiting-for-dev))
+- Fix paypal\_order name address bug [\#153](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/153) ([RyanofWoods](https://github.com/RyanofWoods))
+
 ## [v0.4.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.4.0) (2022-06-03)
 
 [Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.3.2...v0.4.0)
