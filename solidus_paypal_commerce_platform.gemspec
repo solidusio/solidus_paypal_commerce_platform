@@ -9,12 +9,12 @@ Gem::Specification.new do |spec|
   spec.email = 'contact@solidus.io'
 
   spec.summary = 'Integrate Solidus with Paypal Commerce Platform'
-  spec.homepage = 'https://github.com/solidusio-contrib/solidus_paypal_commerce_platform'
+  spec.homepage = 'https://github.com/solidusio/solidus_paypal_commerce_platform'
   spec.license = 'BSD-3-Clause'
 
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['source_code_uri'] = 'https://github.com/solidusio-contrib/solidus_paypal_commerce_platform'
-  spec.metadata['changelog_uri'] = 'https://github.com/solidusio-contrib/solidus_paypal_commerce_platform/releases'
+  spec.metadata['source_code_uri'] = 'https://github.com/solidusio/solidus_paypal_commerce_platform'
+  spec.metadata['changelog_uri'] = 'https://github.com/solidusio/solidus_paypal_commerce_platform/releases'
   spec.metadata['rubygems_mfa_required'] = 'true'
 
   spec.required_ruby_version = Gem::Requirement.new('>= 2.7')
