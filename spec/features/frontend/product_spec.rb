@@ -86,6 +86,18 @@ RSpec.describe "Product page", js: true do
 
         expect(Spree::Order.last.line_items.first.variant_id).to eq variant_two.id
       end
+
+      it "assigns the order to the api token holder" do
+        user = create(:user)
+        user.generate_spree_api_key!
+
+        page.evaluate_script("Spree.api_key = #{user.spree_api_key.to_json}")
+        page.evaluate_script("SolidusPaypalCommercePlatform.createOrder()")
+        page.driver.wait_for_network_idle
+
+        expect(Spree::Order.last).to be_an_instance_of(Spree::Order)
+        expect(Spree::Order.last.user).to eq(user)
+      end
     end
   end
 end

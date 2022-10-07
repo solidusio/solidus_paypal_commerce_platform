@@ -2,7 +2,8 @@ require:
   - solidus_dev_support/rubocop
 
 AllCops:
-  NewCops: enable
+  NewCops: disable
+  TargetRubyVersion: '2.7'
   Exclude:
     - sandbox/**/*
     - spec/dummy/**/*
