@@ -29,6 +29,13 @@ else
   gem 'sqlite3'
 end
 
+if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('3')
+  # 'net/smtp' is required by 'mail', see:
+  # - https://github.com/ruby/net-protocol/issues/10
+  # - https://stackoverflow.com/a/72474475
+  gem 'net-smtp', require: false
+end
+
 gemspec
 
 # Use a local Gemfile to include development dependencies that might not be
