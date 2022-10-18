@@ -4,7 +4,9 @@ module SolidusPaypalCommercePlatform
   module Generators
     class InstallGenerator < Rails::Generators::Base
       class_option :auto_run_migrations, type: :boolean, default: false
-      class_option :skip_migrations, type: :boolean, default: false
+
+      # This should only be used by the solidus installer prior to v3.3.
+      class_option :skip_migrations, type: :boolean, default: false, hide: true
 
       source_root File.expand_path('templates', __dir__)
 
@@ -31,14 +33,9 @@ module SolidusPaypalCommercePlatform
       end
 
       def run_migrations
-        return if options[:skip_migrations]
+        return rake 'db:migrate' if options[:auto_run_migrations] && !options[:skip_migrations]
 
-        run_migrations = options[:auto_run_migrations] || ['', 'y', 'Y'].include?(ask('Would you like to run the migrations now? [Y/n]')) # rubocop:disable Layout/LineLength
-        if run_migrations
-          run 'bin/rails db:migrate'
-        else
-          puts 'Skipping bin/rails db:migrate, don\'t forget to run it!' # rubocop:disable Rails/Output
-        end
+        say_status :skip, 'db:migrate'
       end
     end
   end
