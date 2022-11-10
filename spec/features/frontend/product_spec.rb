@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'solidus_paypal_commerce_platform_spec_helper'
 
 RSpec.describe "Product page", js: true do
   describe "paypal button" do

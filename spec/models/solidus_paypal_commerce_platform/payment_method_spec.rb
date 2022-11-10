@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'solidus_paypal_commerce_platform_spec_helper'
 
 RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
   let(:paypal_payment_method) { create(:paypal_payment_method) }

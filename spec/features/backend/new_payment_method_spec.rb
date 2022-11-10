@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'solidus_paypal_commerce_platform_spec_helper'
 
 RSpec.describe "creating a new payment" do
   stub_authorization!

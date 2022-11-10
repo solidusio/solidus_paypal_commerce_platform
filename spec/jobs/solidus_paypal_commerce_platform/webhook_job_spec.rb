@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'solidus_paypal_commerce_platform_spec_helper'
 
 RSpec.describe SolidusPaypalCommercePlatform::WebhookJob do
   let(:paypal_order_id) { SecureRandom.uuid }

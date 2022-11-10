@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'solidus_paypal_commerce_platform_spec_helper'
 
 RSpec.describe SolidusPaypalCommercePlatform::Client do
   subject(:client) { described_class.new(client_id: "1234") }

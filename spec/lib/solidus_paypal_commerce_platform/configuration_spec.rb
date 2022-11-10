@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'solidus_paypal_commerce_platform_spec_helper'
 
 RSpec.describe SolidusPaypalCommercePlatform::Configuration do
   subject(:test_subject) { described_class.new }
