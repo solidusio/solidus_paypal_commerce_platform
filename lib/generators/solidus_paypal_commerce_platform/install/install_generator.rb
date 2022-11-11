@@ -3,16 +3,14 @@
 module SolidusPaypalCommercePlatform
   module Generators
     class InstallGenerator < Rails::Generators::Base
-      class_option :auto_run_migrations, type: :boolean, default: false
-
-      # This should only be used by the solidus installer prior to v3.3.
-      class_option :skip_migrations, type: :boolean, default: false, hide: true
+      class_option :migrate, type: :boolean, default: true
 
       source_root File.expand_path('templates', __dir__)
 
       def install_solidus_core_support
         template 'initializer.rb', 'config/initializers/solidus_paypal_commerce_platform.rb'
         rake 'railties:install:migrations FROM=solidus_paypal_commerce_platform'
+        run 'bin/rails db:migrate' if options[:migrate]
         route "mount SolidusPaypalCommercePlatform::Engine, at: '/solidus_paypal_commerce_platform'"
       end
 
@@ -45,12 +43,6 @@ module SolidusPaypalCommercePlatform
           )
           directory engine.root.join("lib/views/frontend"), 'app/views/'
         end
-      end
-
-      def run_migrations
-        return rake 'db:migrate' if options[:auto_run_migrations] && !options[:skip_migrations]
-
-        say_status :skip, 'db:migrate'
       end
 
       private
