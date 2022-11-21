@@ -30,7 +30,7 @@ module PayPal
       return if _has_auth_header(request) || _is_auth_request(request)
 
       if !@access_token || @access_token.expired?
-        access_token_request = PayPal.access_token_request.new(@environment, @refresh_token)
+        access_token_request = PayPal::AccessTokenRequest.new(@environment, @refresh_token)
         token_response = execute(access_token_request)
         @access_token = PayPal::AccessToken.new(token_response.result)
       end
