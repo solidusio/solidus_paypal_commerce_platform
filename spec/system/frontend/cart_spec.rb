@@ -1,7 +1,7 @@
 require 'solidus_paypal_commerce_platform_spec_helper'
 
 RSpec.describe "Cart page" do
-  describe "paypal payment method" do
+  describe "paypal payment method", :skip do
     let(:order) { Spree::TestingSupport::OrderWalkthrough.up_to(:address) }
     let(:paypal_payment_method) { create(:paypal_payment_method) }
 
