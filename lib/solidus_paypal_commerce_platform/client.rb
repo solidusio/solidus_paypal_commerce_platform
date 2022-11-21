@@ -13,7 +13,7 @@ module SolidusPaypalCommercePlatform
       request.headers["PayPal-Partner-Attribution-Id"] = SolidusPaypalCommercePlatform.config.partner_code
     }.freeze
 
-    Response = Struct.new(:status_code, :error)
+    Response = Struct.new(:status_code, :error, keyword_init: true)
 
     attr_reader :environment
 
