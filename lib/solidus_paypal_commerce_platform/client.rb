@@ -28,9 +28,12 @@ module SolidusPaypalCommercePlatform
     end
 
     def execute(request)
-      @paypal_client.execute(request)
+      Rails.logger.info "[SolidusPaypalCommercePlatform::Client#execute] #{request.inspect}"
+      @paypal_client.execute(request).tap do |response|
+        Rails.logger.info "[SolidusPaypalCommercePlatform::Client#execute] #{response.inspect}"
+      end
     rescue PayPalHttp::HttpError => e
-      Rails.logger.error e.result
+      Rails.logger.error "[SolidusPaypalCommercePlatform::Client#execute] #{e.result.inspect}"
       Response.new(status_code: 422, error: e.result)
     end
 
