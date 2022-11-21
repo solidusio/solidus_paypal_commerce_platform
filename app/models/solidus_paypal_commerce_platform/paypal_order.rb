@@ -18,7 +18,7 @@ module SolidusPaypalCommercePlatform
     def to_replace_json
       {
         op: 'replace',
-        path: '/purchase_units/@reference_id==\'default\'',
+        path: "/purchase_units/@reference_id=='default'",
         value: purchase_units(include_shipping_address: false)[0]
       }
     end
@@ -56,10 +56,10 @@ module SolidusPaypalCommercePlatform
     def purchase_units(include_shipping_address: true)
       [
         {
-          amount: amount,
+          amount: price(@order.total).merge(breakdown: breakdown),
           items: line_items,
           shipping: (shipping_info if @order.ship_address && include_shipping_address)
-        }
+        }.compact
       ]
     end
 
@@ -82,16 +82,8 @@ module SolidusPaypalCommercePlatform
         {
           name: line_item.product.name,
           unit_amount: price(line_item.price),
-          quantity: line_item.quantity
+          quantity: line_item.quantity.to_i.to_s
         }
-      }
-    end
-
-    def amount
-      {
-        currency_code: @order.currency,
-        value: @order.total,
-        breakdown: breakdown
       }
     end
 
@@ -107,7 +99,7 @@ module SolidusPaypalCommercePlatform
     def price(amount)
       {
         currency_code: @order.currency,
-        value: amount
+        value: ('%.2f' % amount.to_f)
       }
     end
 
