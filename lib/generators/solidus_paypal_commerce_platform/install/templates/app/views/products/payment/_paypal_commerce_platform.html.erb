@@ -7,7 +7,7 @@
 
   <script>
     SolidusPaypalCommercePlatform.checkout_url = "<%= checkout_url %>"
-    $( document ).ready(function() {
+    window.addEventListener('DOMContentLoaded', () => {
       SolidusPaypalCommercePlatform.renderProductButton("<%= payment_method.id %>",<%= raw payment_method.button_style.to_json %>)
     })
   </script>

@@ -8,7 +8,7 @@ RSpec.describe "Checkout" do
 
     before do
       user = create(:user)
-      visit spree.root_path
+      visit '/'
       click_link 'Login'
       fill_in 'spree_user[email]', with: user.email
       fill_in 'spree_user[password]', with: 'secret'
@@ -17,7 +17,7 @@ RSpec.describe "Checkout" do
       order.recalculate
 
       paypal_payment_method
-      allow_any_instance_of(Spree::CheckoutController).to receive_messages(
+      allow_any_instance_of(CheckoutsController).to receive_messages(
         current_order: order, try_spree_current_user: user
       )
     end

@@ -6,10 +6,11 @@
   <div data-pp-message data-pp-placement="cart" data-pp-amount="<%= @order.total %>"></div>
 
   <script>
-    Spree.current_order_id = "<%= @order.number %>"
-    Spree.current_order_token = "<%= @order.guest_token %>"
+    SolidusPaypalCommercePlatform.api_key = "<%= spree_current_user.try(:spree_api_key) %>"
+    SolidusPaypalCommercePlatform.current_order_id = "<%= @order.number %>"
+    SolidusPaypalCommercePlatform.current_order_token = "<%= @order.guest_token %>"
     SolidusPaypalCommercePlatform.checkout_url = "<%= checkout_url %>"
-    $( document ).ready(function() {
+    window.addEventListener('DOMContentLoaded', () => {
       SolidusPaypalCommercePlatform.renderCartButton("<%= payment_method.id %>",<%= raw payment_method.button_style.to_json %>)
     })
   </script>
