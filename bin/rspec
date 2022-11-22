@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+bin/rails-dummy-app g solidus_paypal_commerce_platform:install --force --migrate
+cd dummy-app/
+rspec $@
+exit_status=$?
+cd -
+exit $exit_status
