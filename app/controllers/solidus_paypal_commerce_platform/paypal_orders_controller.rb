@@ -15,7 +15,7 @@ module SolidusPaypalCommercePlatform
     private
 
     def load_payment_method
-      @payment_method = ::Spree::PaymentMethod.find(params[:payment_method_id])
+      @payment_method = ::Spree::PaymentMethod.find(params.require(:payment_method_id))
     end
   end
 end
