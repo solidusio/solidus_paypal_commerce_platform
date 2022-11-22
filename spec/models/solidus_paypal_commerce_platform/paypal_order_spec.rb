@@ -12,6 +12,17 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalOrder, type: :model do
 
     it { expect { to_json }.not_to raise_error }
 
+    it 'represents amounts as strings with double decimals' do
+      purchase_unit = to_json.dig(:purchase_units, 0)
+      expect(purchase_unit.dig(:amount, :breakdown)).to eq(
+        item_total: { currency_code: "USD", value: "10.00" },
+        shipping: { currency_code: "USD", value: "100.00" },
+        tax_total: { currency_code: "USD", value: "0.00" },
+        discount: { currency_code: "USD", value: "0.00" }
+      )
+      expect(purchase_unit.dig(:items, 0, :unit_amount)).to eq(currency_code: "USD", value: "10.00")
+    end
+
     it 'maps the bill and ship address names correctly' do
       expect(to_json).to match hash_including(
         purchase_units: array_including(

@@ -2,7 +2,6 @@
 
 module SolidusPaypalCommercePlatform
   class OrdersController < ::Spree::Api::BaseController
-    before_action :load_order, except: :create
     skip_before_action :authenticate_user
     include ::Spree::Core::ControllerHelpers::Auth
 
@@ -25,6 +24,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def update_address
+      load_order
       authorize! :update, @order, order_token
       paypal_address = SolidusPaypalCommercePlatform::PaypalAddress.new(@order)
 
@@ -38,6 +38,7 @@ module SolidusPaypalCommercePlatform
     end
 
     def verify_total
+      load_order
       authorize! :show, @order, order_token
 
       if total_is_correct?(params[:paypal_total])

@@ -13,7 +13,7 @@ module SolidusPaypalCommercePlatform
       request.headers["PayPal-Partner-Attribution-Id"] = SolidusPaypalCommercePlatform.config.partner_code
     }.freeze
 
-    Response = Struct.new(:status_code, :error)
+    Response = Struct.new(:status_code, :error, keyword_init: true)
 
     attr_reader :environment
 
@@ -28,9 +28,12 @@ module SolidusPaypalCommercePlatform
     end
 
     def execute(request)
-      @paypal_client.execute(request)
+      Rails.logger.info "[SolidusPaypalCommercePlatform::Client#execute] #{request.inspect}"
+      @paypal_client.execute(request).tap do |response|
+        Rails.logger.info "[SolidusPaypalCommercePlatform::Client#execute] #{response.inspect}"
+      end
     rescue PayPalHttp::HttpError => e
-      Rails.logger.error e.result
+      Rails.logger.error "[SolidusPaypalCommercePlatform::Client#execute] #{e.result.inspect}"
       Response.new(status_code: 422, error: e.result)
     end
 

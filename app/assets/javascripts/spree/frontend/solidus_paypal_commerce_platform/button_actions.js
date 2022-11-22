@@ -7,9 +7,9 @@ SolidusPaypalCommercePlatform.hideOverlay = function() {
 }
 
 SolidusPaypalCommercePlatform.handleError = function(error) {
-  console.log(error.name, error.message)
-  console.log("PayPal Debug ID: " + error.debug_id)
+  console.error(error);
   alert("There was a problem connecting with PayPal.")
+  throw error
 }
 
 SolidusPaypalCommercePlatform.sendOrder = function(payment_method_id) {

@@ -11,8 +11,8 @@ module PayPal
       super(environment)
       @refresh_token = refresh_token
 
-      add_injector(&:_sign_request)
-      add_injector(&:_add_headers)
+      add_injector { |r| _sign_request(r) }
+      add_injector { |r| _add_headers(r) }
     end
 
     def user_agent
@@ -27,10 +27,10 @@ module PayPal
     end
 
     def _sign_request(request)
-      return if !_has_auth_header(request) && !_is_auth_request(request)
+      return if _has_auth_header(request) || _is_auth_request(request)
 
       if !@access_token || @access_token.expired?
-        access_token_request = PayPal.access_token_request.new(@environment, @refresh_token)
+        access_token_request = PayPal::AccessTokenRequest.new(@environment, @refresh_token)
         token_response = execute(access_token_request)
         @access_token = PayPal::AccessToken.new(token_response.result)
       end
