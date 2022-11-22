@@ -87,7 +87,6 @@ module SolidusPaypalCommercePlatform
         currency: currency
       }
 
-      parameters[:shipping_preference] = 'NO_SHIPPING' if step_names.exclude? 'delivery'
       parameters['enable-funding'] = 'venmo' if venmo_standalone_enabled?
 
       if !Rails.env.production? && options[:force_buyer_country].present?
