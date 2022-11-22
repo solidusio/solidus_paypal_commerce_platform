@@ -9,5 +9,5 @@ module PaypalSdkScriptTagHelper
 end
 
 RSpec.configure do |config|
-  config.include PaypalSdkScriptTagHelper, type: :feature
+  config.include PaypalSdkScriptTagHelper, type: :system
 end
