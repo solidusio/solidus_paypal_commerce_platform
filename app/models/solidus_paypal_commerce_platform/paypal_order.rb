@@ -80,7 +80,7 @@ module SolidusPaypalCommercePlatform
     def line_items
       @order.line_items.map{ |line_item|
         {
-          name: line_item.product.name,
+          name: line_item.product.name.truncate(127),
           unit_amount: price(line_item.price),
           quantity: line_item.quantity
         }
