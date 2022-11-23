@@ -31,7 +31,7 @@ Since PayPal is being used as the checkout if the user checks out on the product
 
 A) Turn off cart and product page checkout - configurable on the admin payment method page for PayPal Commerce Platform.
 -OR-
-B) Collect the users phone number seperately
+B) Collect the users phone number separately
 
 and then override the `Spree::Address` method `require_phone?` to return `true`.
 
@@ -93,6 +93,7 @@ end
 The instances of your wizard class should respond to `#name` and `#partial_name`, where `partial_name` will return the path to the partial you'd like to display on the wizard setup section. In our case, we just display a button to direct the user to PayPal.
 
 ## State Guesser
+
 PayPal users can change their shipping address directly on PayPal, which will
 update their address on Solidus as well. However, in some instances, Solidus
 uses the incorrect subregion level for states, which causes validation problems
@@ -101,7 +102,7 @@ with the addresses that PayPal sends to us.
 For instance, if your user lives in Pescara, Italy, then PayPal will return
 "Pescara" as the state. However on older version of Solidus, the region
 "Abruzzo" is used, so the address will not be able to validate. To solve this
-issue, we've implented a class that attempts to guess the state of the user
+issue, we've implemented a class that attempts to guess the state of the user
 using Carmen subregions if the state cannot be initially found. You can, of
 course, implement your own state guesser and set it like this:
 
@@ -121,6 +122,7 @@ With product and cart page checkout, the user is directed to the checkout confir
 PayPals API does not allow for admin-side payments. Instead, backend users taking payments for customers will need to use the PayPal Virtual Terminal to take payments. [More info is available on the PayPal website.](https://www.paypal.com/merchantapps/appcenter/acceptpayments/virtualterminal?locale.x=en_US)
 
 ## Venmo
+
 Venmo is currently available to US merchants and buyers. There are also other [prequisites](https://developer.paypal.com/docs/business/checkout/pay-with-venmo/#eligibility).
 
 If the transaction supports Venmo and it is enabled by the following, then a button should appear for it on checkout payment page. Note, Venmo cannot currently be rendered on the product or cart pages.
@@ -135,6 +137,7 @@ See more about preferences([Configuration](#configuration)) below.
 [_As Venmo is only available in the US, you may want to mock your location for testing_](#mocking-your-buyer-country)
 
 ## Configuration
+
 The easiest way to change the `Payment Method`'s preferences is through admin: `Settings > Payments > "PayPal Commerce Platform" > Edit`.
 
 See more about preferences [here](https://guides.solidus.io/developers/preferences/add-model-preferences.html#access-your-preferences)/
@@ -175,6 +178,7 @@ Use Ctrl-C to stop
 ```
 
 ### Mocking your buyer country
+
 PayPal normally looks at your IP geolocation to see where you are located to determine what funding sources are available to you. For example, Venmo is currently only available to US buyers.
 Because of this, you may want to pretend you are from US check that that Venmo is correctly integrated for these customers. To do this, set the payment method's preference of `force_buyer_country` to "US". See more information about preferences above.
 
