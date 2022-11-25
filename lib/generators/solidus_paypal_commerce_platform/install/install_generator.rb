@@ -4,6 +4,8 @@ module SolidusPaypalCommercePlatform
   module Generators
     class InstallGenerator < Rails::Generators::Base
       class_option :migrate, type: :boolean, default: true
+      class_option :backend, type: :boolean, default: true
+      class_option :starter_frontend, type: :boolean, default: true
       class_option :specs, type: :string, enum: %w[all frontend], default: 'frontend'
 
       source_root File.expand_path('templates', __dir__)
@@ -16,7 +18,7 @@ module SolidusPaypalCommercePlatform
       end
 
       def install_solidus_backend_support
-        support_code_for('solidus_backend') do
+        support_code_for(:solidus_backend) do
           append_file(
             'vendor/assets/javascripts/spree/backend/all.js',
             "//= require spree/backend/solidus_paypal_commerce_platform\n"
@@ -31,10 +33,7 @@ module SolidusPaypalCommercePlatform
       end
 
       def install_solidus_starter_frontend_support
-        solidus_frontend_is_missing = !Bundler.locked_gems.specs.map(&:name).include?('solidus_frontend')
-
-        # We can't do better than this for now, over time we might want to mark things differently
-        support_code_for('solidus_starter_frontend', run_if: solidus_frontend_is_missing) do
+        support_code_for(:solidus_starter_frontend) do
           directory 'app', 'app'
           append_file(
             'app/assets/javascripts/solidus_starter_frontend.js',
@@ -70,12 +69,12 @@ module SolidusPaypalCommercePlatform
 
       private
 
-      def support_code_for(gem_name, run_if: Bundler.locked_gems.specs.map(&:name).include?(gem_name), &block)
-        if run_if
-          say_status :install, "[#{engine.engine_name}] #{gem_name} code", :blue
+      def support_code_for(component_name, &block)
+        if options[component_name]
+          say_status :install, "[#{engine.engine_name}] solidus_#{component_name}", :blue
           shell.indent(&block)
         else
-          say_status :skip, "[#{engine.engine_name}] #{gem_name} code", :blue
+          say_status :skip, "[#{engine.engine_name}] solidus_#{component_name}", :blue
         end
       end
 
