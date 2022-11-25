@@ -2,7 +2,16 @@
 
 ## [v0.6.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.6.0) (2022-11-25)
 
-[Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.6.0...v0.6.0)
+[Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.5.0...v0.6.0)
+
+**Fixed bugs:**
+
+- Gem does not support Ruby 3.0 [\#145](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/145)
+
+**Closed issues:**
+
+- Invalid string length error [\#135](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/135)
+- PayPal SDK JS Error: Disallowed query param: shipping\_preference [\#133](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/133)
 
 **Merged pull requests:**
 
@@ -16,19 +25,6 @@
 - Move 'shipping\_preference' preference under PaypalOrder\#to\_json [\#152](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/152) ([retsef](https://github.com/retsef))
 - Truncate the product name to 127 characters [\#139](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/139) ([DanielePalombo](https://github.com/DanielePalombo))
 - Fix issue on international transactions [\#129](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/129) ([jtapia](https://github.com/jtapia))
-
-## [v0.6.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.6.0) (2022-11-25)
-
-[Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.5.0...v0.6.0)
-
-**Fixed bugs:**
-
-- Gem does not support Ruby 3.0 [\#145](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/145)
-
-**Closed issues:**
-
-- Invalid string length error [\#135](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/135)
-- PayPal SDK JS Error: Disallowed query param: shipping\_preference [\#133](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/133)
 
 ## [v0.5.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.5.0) (2022-10-07)
 
