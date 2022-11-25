@@ -1,5 +1,35 @@
 # Changelog
 
+## [v0.6.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.6.0) (2022-11-25)
+
+[Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.6.0...v0.6.0)
+
+**Merged pull requests:**
+
+- More fixes and improvements extracted from SSF support [\#168](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/168) ([elia](https://github.com/elia))
+  * inline the load_order before action
+  * require the payment_method_id param when loading the payment method
+  * mark the javascript_sdk_url as HTML safe
+  * ensure amounts are presented with 2 decimals for the PayPal API
+  * fixed the sign in requests
+- Reorganize the install generator and deprecate `--skip-migrations` [\#167](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/167) ([elia](https://github.com/elia))
+- Move 'shipping\_preference' preference under PaypalOrder\#to\_json [\#152](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/152) ([retsef](https://github.com/retsef))
+- Truncate the product name to 127 characters [\#139](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/139) ([DanielePalombo](https://github.com/DanielePalombo))
+- Fix issue on international transactions [\#129](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/129) ([jtapia](https://github.com/jtapia))
+
+## [v0.6.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.6.0) (2022-11-25)
+
+[Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.5.0...v0.6.0)
+
+**Fixed bugs:**
+
+- Gem does not support Ruby 3.0 [\#145](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/145)
+
+**Closed issues:**
+
+- Invalid string length error [\#135](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/135)
+- PayPal SDK JS Error: Disallowed query param: shipping\_preference [\#133](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/133)
+
 ## [v0.5.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.5.0) (2022-10-07)
 
 [Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.4.0...v0.5.0)
@@ -7,8 +37,7 @@
 **Merged pull requests:**
 
 - Update links after moving to @solidusio [\#164](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/164) ([elia](https://github.com/elia))
-- Fix assigning API created orders to the current user [\#163](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/163) ([elia](https://github.com/elia))
-- Require Solidus 3 & Ruby 2.7 [\#163](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/163) ([elia](https://github.com/elia))
+- Assign created orders to users / Require Solidus 3 & Ruby 2.7 [\#163](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/163) ([elia](https://github.com/elia))
 - Fix master, import paypal-checkout-sdk [\#161](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/161) ([cpfergus1](https://github.com/cpfergus1))
 - Update to use forked solidus\_frontend when needed [\#160](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/160) ([waiting-for-dev](https://github.com/waiting-for-dev))
 - Fix paypal\_order name address bug [\#153](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/153) ([RyanofWoods](https://github.com/RyanofWoods))
@@ -108,13 +137,7 @@
 
 ## [v0.2.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.2.0) (2020-10-13)
 
-[Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.1.0...v0.2.0)
-
-**Closed issues:**
-
-- README lists two different types of PayPal credentials [\#97](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/97)
-- `paypal_email_confirmed` is not an actual preference [\#96](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/96)
-- Make this extension the default option for Solidus [\#88](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/88)
+[Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.2.0.alpha.1...v0.2.0)
 
 **Merged pull requests:**
 
@@ -125,6 +148,16 @@
 - Update the extension with the latest solidus\_dev\_support defaults [\#95](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/95) ([elia](https://github.com/elia))
 - Add skip migration option to installer [\#94](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/94) ([seand7565](https://github.com/seand7565))
 - Update README to reflect referral fee [\#93](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/93) ([seand7565](https://github.com/seand7565))
+
+## [v0.2.0.alpha.1](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.2.0.alpha.1) (2020-10-07)
+
+[Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.1.0...v0.2.0.alpha.1)
+
+**Closed issues:**
+
+- README lists two different types of PayPal credentials [\#97](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/97)
+- `paypal_email_confirmed` is not an actual preference [\#96](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/96)
+- Make this extension the default option for Solidus [\#88](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/88)
 
 ## [v0.1.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.1.0) (2020-09-03)
 
