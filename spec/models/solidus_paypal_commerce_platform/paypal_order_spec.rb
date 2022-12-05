@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'solidus_paypal_commerce_platform_spec_helper'
 
 RSpec.describe SolidusPaypalCommercePlatform::PaypalOrder, type: :model do
   describe '#to_json' do

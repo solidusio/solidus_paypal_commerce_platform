@@ -6,6 +6,7 @@ AllCops:
   TargetRubyVersion: '2.7'
   Exclude:
     - sandbox/**/*
+    - dummy-app/**/*
     - spec/dummy/**/*
     - vendor/bundle/**/*
 
@@ -23,10 +24,10 @@ Naming/VariableNumber:
 RSpec/AnyInstance:
   Enabled: false
 
-# Feature specs are not describing any class or module.
+# System specs are not describing any class or module.
 RSpec/DescribeClass:
   Exclude:
-    - spec/features/**/*
+    - spec/system/**/*
 
 # No need to make the code more complex for no real gain.
 RSpec/MessageSpies:
