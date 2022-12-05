@@ -1,5 +1,22 @@
 # Changelog
 
+## [v1.0.0.beta1](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v1.0.0.beta1) (2022-12-05)
+
+[Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.6.0...v1.0.0.beta1)
+
+**Closed issues:**
+
+- Release 0.6 and attach that version to a different branch [\#169](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/169)
+
+**Merged pull requests:**
+
+- Bugfixes and improvements \(extracted from the SSF support branch\) [\#168](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/168) ([elia](https://github.com/elia))
+- Reorganize the install generator and deprecate `--skip-migrations` [\#167](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/167) ([elia](https://github.com/elia))
+- Setup compatibility with the starter frontend [\#166](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/166) ([elia](https://github.com/elia))
+- Move 'shipping\_preference' preference under PaypalOrder\#to\_json [\#152](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/152) ([retsef](https://github.com/retsef))
+- Truncate the product name to 127 characters [\#139](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/139) ([DanielePalombo](https://github.com/DanielePalombo))
+- Fix issue on international transactions [\#129](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/129) ([jtapia](https://github.com/jtapia))
+
 ## [v0.6.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.6.0) (2022-11-25)
 
 [Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.5.0...v0.6.0)
@@ -12,19 +29,6 @@
 
 - Invalid string length error [\#135](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/135)
 - PayPal SDK JS Error: Disallowed query param: shipping\_preference [\#133](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/133)
-
-**Merged pull requests:**
-
-- More fixes and improvements extracted from SSF support [\#168](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/168) ([elia](https://github.com/elia))
-  * inline the load_order before action
-  * require the payment_method_id param when loading the payment method
-  * mark the javascript_sdk_url as HTML safe
-  * ensure amounts are presented with 2 decimals for the PayPal API
-  * fixed the sign in requests
-- Reorganize the install generator and deprecate `--skip-migrations` [\#167](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/167) ([elia](https://github.com/elia))
-- Move 'shipping\_preference' preference under PaypalOrder\#to\_json [\#152](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/152) ([retsef](https://github.com/retsef))
-- Truncate the product name to 127 characters [\#139](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/139) ([DanielePalombo](https://github.com/DanielePalombo))
-- Fix issue on international transactions [\#129](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/129) ([jtapia](https://github.com/jtapia))
 
 ## [v0.5.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.5.0) (2022-10-07)
 
