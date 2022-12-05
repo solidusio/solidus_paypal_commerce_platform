@@ -2,4 +2,4 @@ bump:
   recurse: false
   file: 'lib/solidus_paypal_commerce_platform/version.rb'
   message: Bump SolidusPaypalCommercePlatform to %{version}
-  tag: true
+  tag: false

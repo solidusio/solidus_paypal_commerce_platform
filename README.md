@@ -206,7 +206,8 @@ Your new extension version can be released using `gem-release` like this:
 bundle exec gem bump -v 1.6.0
 bin/rake changelog
 git commit -a --amend
-git push
+git tag v1.6.0
+git push --tags
 bundle exec gem release
 ```
 
