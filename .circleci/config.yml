@@ -16,7 +16,9 @@ commands:
       - browser-tools/install-chrome
       - run:
           name: Install libvips
-          command: sudo apt-get install -y libvips
+          command: |
+            sudo apt-get update
+            sudo apt-get install -yq libvips-dev
       - solidusio_extensions/test-branch:
           branch: master
           command: |
