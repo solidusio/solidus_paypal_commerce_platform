@@ -18,7 +18,7 @@ module SolidusPaypalCommercePlatform
       end
 
       def install_solidus_backend_support
-        support_code_for(:solidus_backend) do
+        support_code_for(:backend) do
           append_file(
             'vendor/assets/javascripts/spree/backend/all.js',
             "//= require spree/backend/solidus_paypal_commerce_platform\n"
@@ -33,7 +33,7 @@ module SolidusPaypalCommercePlatform
       end
 
       def install_solidus_starter_frontend_support
-        support_code_for(:solidus_starter_frontend) do
+        support_code_for(:starter_frontend) do
           directory 'app', 'app'
           append_file(
             'app/assets/javascripts/solidus_starter_frontend.js',
