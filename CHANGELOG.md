@@ -1,5 +1,31 @@
 # Changelog
 
+## [v1.0.0.beta2](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v1.0.0.beta2) (2022-12-12)
+
+[Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v1.0.0.beta1...v1.0.0.beta2)
+
+**Fixed bugs:**
+
+- wizard doesn't create payment method in v1.0.0.beta1 and no partial. [\#174](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/174)
+- Solidus 3.2 doesn't install SPCP's checkout page when PayPal is chosen as the payment method [\#172](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/172)
+
+**Closed issues:**
+
+- Hide the installer option for copying specs [\#175](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/175)
+- Decide about the testing approach for extensions that involve SSF code [\#171](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/171)
+- Release 1.0.0.beta1 compatible with the new starter frontend [\#170](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/170)
+
+**Merged pull requests:**
+
+- Hide the installer `--specs=…` option [\#176](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/176) ([elia](https://github.com/elia))
+- Remove solidus prefix from component names [\#173](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/173) ([gsmendoza](https://github.com/gsmendoza))
+- Bugfixes and improvements \(extracted from the SSF support branch\) [\#168](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/168) ([elia](https://github.com/elia))
+- Reorganize the install generator and deprecate `--skip-migrations` [\#167](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/167) ([elia](https://github.com/elia))
+- Setup compatibility with the starter frontend [\#166](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/166) ([elia](https://github.com/elia))
+- Move 'shipping\_preference' preference under PaypalOrder\#to\_json [\#152](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/152) ([retsef](https://github.com/retsef))
+- Truncate the product name to 127 characters [\#139](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/139) ([DanielePalombo](https://github.com/DanielePalombo))
+- Fix issue on international transactions [\#129](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/129) ([jtapia](https://github.com/jtapia))
+
 ## [v1.0.0.beta1](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v1.0.0.beta1) (2022-12-05)
 
 [Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.6.0...v1.0.0.beta1)
@@ -7,15 +33,6 @@
 **Closed issues:**
 
 - Release 0.6 and attach that version to a different branch [\#169](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/169)
-
-**Merged pull requests:**
-
-- Bugfixes and improvements \(extracted from the SSF support branch\) [\#168](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/168) ([elia](https://github.com/elia))
-- Reorganize the install generator and deprecate `--skip-migrations` [\#167](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/167) ([elia](https://github.com/elia))
-- Setup compatibility with the starter frontend [\#166](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/166) ([elia](https://github.com/elia))
-- Move 'shipping\_preference' preference under PaypalOrder\#to\_json [\#152](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/152) ([retsef](https://github.com/retsef))
-- Truncate the product name to 127 characters [\#139](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/139) ([DanielePalombo](https://github.com/DanielePalombo))
-- Fix issue on international transactions [\#129](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/129) ([jtapia](https://github.com/jtapia))
 
 ## [v0.6.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.6.0) (2022-11-25)
 
