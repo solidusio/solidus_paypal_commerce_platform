@@ -6,7 +6,10 @@ module SolidusPaypalCommercePlatform
       class_option :migrate, type: :boolean, default: true
       class_option :backend, type: :boolean, default: true
       class_option :starter_frontend, type: :boolean, default: true
-      class_option :specs, type: :string, enum: %w[all frontend], default: 'frontend'
+
+      # This is only used to run all-specs during development and CI,  regular installation limits
+      # installed specs to frontend, which are the ones related to code copied to the target application.
+      class_option :specs, type: :string, enum: %w[all frontend], default: 'frontend', hide: true
 
       source_root File.expand_path('templates', __dir__)
 
