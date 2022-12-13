@@ -62,12 +62,28 @@ Rails.application.config.to_prepare do
 end
 ```
 
+With the payment method credentials statically configured, you can now go to the payment methods admin page and
+create a payment method for PayPal. Remember that you need to create the payment method first before you can set its
+Preference Source to `paypal_commerce_platform_credentials`.
+
 ### I don't have API credentials
 
 In this case, we still recommend following the above flow for security, but we have made a payment method setup
-wizard to make it easier to get started. On the payment_methods index page, you'll see a button to set up your
+wizard to make it easier to get started. On the payment methods admin page, you'll see a button to set up your
 PayPal Commerce Platform payment method. Click on this button and follow the instructions provided by PayPal.
 When you return to your app, your payment method should be set up and ready to go.
+
+## Usage in development environment
+
+When testing your PayPal integration, we recommend that you utilize the sandbox business and personal accounts that come
+with your PayPal developer account. These sandbox accounts are designed to generate mock transactions for testing your
+app. You can learn more about sandbox accounts at https://developer.paypal.com/tools/sandbox.
+
+Please take note of a gotcha when you're in development environment and you click on the "Setup PayPal Commerce
+Platform" button in the payment methods admin page. Once PayPal asks you to connect to a business account, we recommend
+that you log in with the sandbox business account that comes with your PayPal developer account. If you create a new
+sandbox business account here, the resulting account may not recognize your sandbox personal accounts, which can make
+it difficult to test a successful cart checkout.
 
 ### Email Confirmation
 
