@@ -24,8 +24,12 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
 
       it 'cannot be gold when Venmo standalone is enabled' do
         expect(paypal_payment_method).to be_valid
+
         paypal_payment_method.preferences.update(venmo_standalone: 'enabled')
         expect(paypal_payment_method).to be_invalid
+        expect(paypal_payment_method.errors[:preferred_paypal_button_color])
+          .to include(I18n.t("solidus_paypal_commerce_platform.payment_method.gold_button_message"))
+
         paypal_payment_method.preferences.update(venmo_standalone: 'only render standalone')
         expect(paypal_payment_method).to be_invalid
       end
