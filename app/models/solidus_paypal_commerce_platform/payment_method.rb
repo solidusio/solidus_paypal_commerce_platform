@@ -17,7 +17,9 @@ module SolidusPaypalCommercePlatform
 
     validates :preferred_paypal_button_color, exclusion: {
       in: %w[gold],
-      message: I18n.t("solidus_paypal_commerce_platform.payment_method.gold_button_message")
+      message: ->(_object, _data) do
+        I18n.t("solidus_paypal_commerce_platform.payment_method.gold_button_message")
+      end
     }, if: :venmo_standalone_enabled?
 
     def venmo_standalone_enabled?
