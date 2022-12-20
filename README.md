@@ -45,17 +45,20 @@ them in as a preference on initialization.
 
 ```ruby
 # config/initializers/spree.rb
-Spree::Config.configure do |config|
-  config.static_model_preferences.add(
-    SolidusPaypalCommercePlatform::PaymentMethod,
-    'paypal_commerce_platform_credentials', {
-      test_mode: !Rails.env.production?,
-      client_id: ENV['PAYPAL_CLIENT_ID'],
-      client_secret: ENV['PAYPAL_CLIENT_SECRET'],
-      display_on_product_page: true,
-      display_on_cart: true,
-    }
-  )
+Rails.application.config.to_prepare do
+  Spree::Config.configure do |config|
+    config.static_model_preferences.add(
+      SolidusPaypalCommercePlatform::PaymentMethod,
+      'paypal_commerce_platform_credentials', {
+        test_mode: !Rails.env.production?,
+        client_id: ENV['PAYPAL_CLIENT_ID'],
+        client_secret: ENV['PAYPAL_CLIENT_SECRET'],
+        display_on_product_page: true,
+        display_on_cart: true,
+        venmo_standalone: 'disabled'
+      }
+    )
+  end
 end
 ```
 
