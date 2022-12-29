@@ -96,6 +96,32 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
     end
   end
 
+  describe "#try_void" do
+    context "when the payment is already captured" do
+      let(:status_code) { 500 }
+
+      it "returns false" do
+        authorization_id = SecureRandom.hex(8)
+        source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
+        payment.source = source
+
+        expect(paypal_payment_method.try_void(payment)).to be_falsey
+      end
+    end
+
+    context "when the payment is not yet captured" do
+      let(:status_code) { 204 }
+
+      it "returns the success response" do
+        authorization_id = SecureRandom.hex(8)
+        source = paypal_payment_method.payment_source_class.create(authorization_id: authorization_id)
+        payment.source = source
+
+        expect(paypal_payment_method.try_void(payment)).to be_success
+      end
+    end
+  end
+
   describe "#credit" do
     let(:result) { Struct(id: SecureRandom.hex(4)) }
 
