@@ -40,6 +40,7 @@ en:
         success: "Payment refunded for %{amount}"
       pay_pal_checkout_sdk/payments/authorizations_void_request:
         success: "Payment voided"
+        failure: "This payment can't be voided"
     payment_method:
       gold_button_message: "cannot be 'gold' when Venmo standalone is enabled."
     paypal_funding_sources:
