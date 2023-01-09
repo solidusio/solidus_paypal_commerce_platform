@@ -34,12 +34,6 @@ module SolidusPaypalCommercePlatform
       app.config.spree.payment_setup_wizards << "SolidusPaypalCommercePlatform::Wizard"
     end
 
-    initializer "solidus_paypal_commerce_platform.set_pricing_options_class" do
-      def (Spree::Config).pricing_options_class
-        SolidusPaypalCommercePlatform::PricingOptions
-      end
-    end
-
     initializer "solidus_paypal_commerce_platform.webhooks" do
       SolidusWebhooks.config.register_webhook_handler :solidus_paypal_commerce_platform, ->(payload) {
         SolidusPaypalCommercePlatform::WebhooksJob.perform_now(payload)
