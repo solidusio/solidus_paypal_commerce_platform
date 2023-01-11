@@ -16,6 +16,24 @@ gem 'solidus_paypal_commerce_platform'
 Bundle your dependencies and run the installation generator:
 
 ```shell
+bundle install
+bin/rails generate solidus_paypal_commerce_platform:install
+```
+
+### Compatibility with solidus_frontend (deprecated)
+
+Support for the old frontend is terminated but if you are using the
+`solidus_frontend` gem instead of Solidus Starter Frontend, you can
+still use this gem for some time. Please, use `0.x` version.
+
+```ruby
+gem 'solidus_paypal_commerce_platform', '< 1'
+```
+
+Bundle your dependencies and run the installation generator:
+
+```shell
+bundle install
 bin/rails generate solidus_paypal_commerce_platform:install
 ```
 
