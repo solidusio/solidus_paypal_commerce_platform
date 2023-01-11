@@ -5,13 +5,21 @@ module SolidusPaypalCommercePlatform
     class InstallGenerator < Rails::Generators::Base
       class_option :migrate, type: :boolean, default: true
       class_option :backend, type: :boolean, default: true
-      class_option :starter_frontend, type: :boolean, default: true
+      class_option :frontend, type: :string, default: 'starter'
 
       # This is only used to run all-specs during development and CI,  regular installation limits
       # installed specs to frontend, which are the ones related to code copied to the target application.
       class_option :specs, type: :string, enum: %w[all frontend], default: 'frontend', hide: true
 
       source_root File.expand_path('templates', __dir__)
+
+      def normalize_components_options
+        @components = {
+          backend: options[:backend],
+          starter_frontend: options[:frontend] == 'starter',
+          classic_frontend: options[:frontend] == 'classic',
+        }
+      end
 
       def install_solidus_core_support
         directory 'config/initializers', 'config/initializers'
@@ -70,10 +78,21 @@ module SolidusPaypalCommercePlatform
         end
       end
 
+      def alert_no_classic_frontend_support
+        support_code_for(:classic_frontend) do
+          message = <<~TEXT
+            For solidus_frontend compatibility, please use the deprecated version 0.x.
+            The new version of this extension only supports Solidus Starter Frontend.
+            No frontend code has been copied to your application.
+          TEXT
+          say_status :error, set_color(message.tr("\n", ' '), :red), :red
+        end
+      end
+
       private
 
       def support_code_for(component_name, &block)
-        if options[component_name]
+        if @components[component_name]
           say_status :install, "[#{engine.engine_name}] solidus_#{component_name}", :blue
           shell.indent(&block)
         else
