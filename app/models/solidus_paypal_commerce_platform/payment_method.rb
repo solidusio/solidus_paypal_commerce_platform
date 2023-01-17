@@ -99,5 +99,22 @@ module SolidusPaypalCommercePlatform
 
       "https://www.paypal.com/sdk/js?#{parameters.compact.to_query}".html_safe # rubocop:disable Rails/OutputSafety
     end
+
+    # Will void the payment depending on its state or return false
+    #
+    # If the payment has not yet been captured, we can void the transaction.
+    # Otherwise, we return false so Solidus creates a refund instead.
+    #
+    # https://developer.paypal.com/docs/api/payments/v2/#authorizations_void
+    #
+    # @api public
+    # @param payment [Spree::Payment] the payment to void
+    # @return [Response|FalseClass]
+    def try_void(payment)
+      void_attempt = void(nil, { originator: payment })
+      return void_attempt if void_attempt.success?
+
+      false
+    end
   end
 end
