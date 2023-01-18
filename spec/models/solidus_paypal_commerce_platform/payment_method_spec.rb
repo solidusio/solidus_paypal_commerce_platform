@@ -153,6 +153,31 @@ RSpec.describe SolidusPaypalCommercePlatform::PaymentMethod, type: :model do
       end
     end
 
+    context 'when autocapture value is true' do
+      it 'sets the intent to capture' do
+        paypal_payment_method.update(auto_capture: true)
+
+        expect(url.query.split("&")).to include("intent=capture")
+      end
+    end
+
+    context 'when autocapture value is false' do
+      it 'sets the intent to capture' do
+        paypal_payment_method.update(auto_capture: false)
+
+        expect(url.query.split("&")).to include("intent=authorize")
+      end
+    end
+
+    context 'when autocapture value is nil' do
+      it 'sets the intent to the global auto_capture value' do
+        paypal_payment_method.update(auto_capture: nil)
+        stub_spree_preferences(auto_capture: true)
+
+        expect(url.query.split("&")).to include("intent=capture")
+      end
+    end
+
     context 'when messaging is turned on' do
       it 'includes messaging component' do
         paypal_payment_method.preferences.update(display_credit_messaging: true)
