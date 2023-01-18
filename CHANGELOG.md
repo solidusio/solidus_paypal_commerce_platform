@@ -1,5 +1,27 @@
 # Changelog
 
+## [v1.0.0.beta3](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v1.0.0.beta3) (2023-01-18)
+
+[Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v1.0.0.beta2...v1.0.0.beta3)
+
+**Fixed bugs:**
+
+- Allow cancelling orders \(v1 port of \#180\) [\#182](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/182)
+- Preferred paypal button color error message should be translated [\#178](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/178)
+- Allow cancelling orders [\#183](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/183) ([kennyadsl](https://github.com/kennyadsl))
+
+**Closed issues:**
+
+- Make the Venmo button testable from outside US contries [\#137](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/137)
+
+**Merged pull requests:**
+
+- \[v1\] Allow to use the auto\_capture global preference [\#186](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/186) ([kennyadsl](https://github.com/kennyadsl))
+- Uniform installer with Solidus Starter Frontend [\#184](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/184) ([kennyadsl](https://github.com/kennyadsl))
+- Do not break custom pricing options classes [\#181](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/181) ([mamhoff](https://github.com/mamhoff))
+- Fix: preferred\_paypal\_button\_color error message should be translated dynamically [\#179](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/179) ([gsmendoza](https://github.com/gsmendoza))
+- Add instructions on how to use the PayPal sandbox [\#177](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/177) ([elia](https://github.com/elia))
+
 ## [v1.0.0.beta2](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v1.0.0.beta2) (2022-12-12)
 
 [Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v1.0.0.beta1...v1.0.0.beta2)
@@ -85,10 +107,6 @@
 ## [v0.3.2](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.3.2) (2021-05-11)
 
 [Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.3.1...v0.3.2)
-
-**Closed issues:**
-
-- Unable To Cancel An Order [\#120](https://github.com/solidusio/solidus_paypal_commerce_platform/issues/120)
 
 **Merged pull requests:**
 
