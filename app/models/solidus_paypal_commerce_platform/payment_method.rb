@@ -85,7 +85,7 @@ module SolidusPaypalCommercePlatform
 
       parameters = {
         'client-id': client_id,
-        intent: auto_capture ? "capture" : "authorize",
+        intent: auto_capture? ? "capture" : "authorize",
         commit: commit_immediately ? "false" : "true",
         components: options[:display_credit_messaging] ? "buttons,messages" : "buttons",
         currency: currency,
