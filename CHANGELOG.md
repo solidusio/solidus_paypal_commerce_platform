@@ -1,5 +1,14 @@
 # Changelog
 
+## [v0.7.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.7.0) (2023-01-18)
+
+[Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.6.0...v0.7.0)
+
+**Merged pull requests:**
+
+- Allow to use the auto\_capture global preference [\#185](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/185) ([kennyadsl](https://github.com/kennyadsl))
+- Allow cancelling orders [\#180](https://github.com/solidusio/solidus_paypal_commerce_platform/pull/180) ([kennyadsl](https://github.com/kennyadsl))
+
 ## [v0.6.0](https://github.com/solidusio/solidus_paypal_commerce_platform/tree/v0.6.0) (2022-11-25)
 
 [Full Changelog](https://github.com/solidusio/solidus_paypal_commerce_platform/compare/v0.5.0...v0.6.0)
