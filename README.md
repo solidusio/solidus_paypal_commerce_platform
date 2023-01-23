@@ -221,28 +221,9 @@ Because of this, you may want to pretend you are from US check that that Venmo i
 
 This preference has no effect on production.
 
-### Updating the changelog
-
-Before and after releases the changelog should be updated to reflect the up-to-date status of
-the project:
-
-```shell
-bin/rake changelog
-git add CHANGELOG.md
-git commit -m "Update the changelog"
-```
-
 ### Releasing new versions
 
-Your new extension version can be released using `gem-release` like this:
-
-```shell
-bundle exec gem bump -v 1.6.0
-bin/rake changelog
-git commit -a --amend
-git push
-bundle exec gem release
-```
+Please refer to the [dedicated page](https://github.com/solidusio/solidus/wiki/How-to-release-extensions) in the Solidus wiki.
 
 ## Referral Fee
 
