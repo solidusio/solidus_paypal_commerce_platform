@@ -33,14 +33,15 @@ function unbundled {
 }
 
 rm -rf ./sandbox
-unbundled bundle exec rails new sandbox --database="$RAILSDB" \
+rails_version=`bundle exec ruby -e'require "rails"; puts Rails.version'`
+rails _${rails_version}_ new sandbox \
+  --database="$RAILSDB" \
   --skip-bundle \
   --skip-git \
   --skip-keeps \
   --skip-rc \
-  --skip-spring \
-  --skip-test \
-  --skip-javascript
+  --skip-bootsnap \
+  --skip-test
 
 if [ ! -d "sandbox" ]; then
   echo 'sandbox rails application failed'
