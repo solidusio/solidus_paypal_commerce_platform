@@ -33,8 +33,7 @@ function unbundled {
 }
 
 rm -rf ./sandbox
-rails_version=`bundle exec ruby -e'require "rails"; puts Rails.version'`
-rails _${rails_version}_ new sandbox \
+rails new sandbox \
   --database="$RAILSDB" \
   --skip-bundle \
   --skip-git \
