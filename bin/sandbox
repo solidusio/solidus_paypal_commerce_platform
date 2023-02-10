@@ -35,7 +35,6 @@ function unbundled {
 rm -rf ./sandbox
 rails new sandbox \
   --database="$RAILSDB" \
-  --skip-bundle \
   --skip-git \
   --skip-keeps \
   --skip-rc \
