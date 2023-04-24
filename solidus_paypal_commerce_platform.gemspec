@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'deface', '~> 1.5'
   spec.add_dependency 'solidus_api'
-  spec.add_dependency 'solidus_core', '~> 3.0'
+  spec.add_dependency 'solidus_core', '>= 3.0', '< 5.0'
   spec.add_dependency 'solidus_support', '>= 0.8.0'
   spec.add_dependency 'solidus_webhooks', '~> 0.2'
 
