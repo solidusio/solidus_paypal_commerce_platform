@@ -72,7 +72,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalOrder, type: :model do
     end
 
     context 'when an order has an inapplicable promo adjustment' do
-      it 'does not include it in the paypal order break' do
+      it 'does not include it in the paypal order breakdown' do
         # TODO
       end
     end
