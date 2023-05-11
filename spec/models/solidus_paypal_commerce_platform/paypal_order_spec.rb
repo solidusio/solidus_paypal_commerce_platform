@@ -72,8 +72,40 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalOrder, type: :model do
     end
 
     context 'when an order has an inapplicable promo adjustment' do
+      let(:best_promotion) {
+        create(:promotion,
+          :with_line_item_adjustment,
+          :with_item_total_rule, adjustment_rate: 2.5, item_total_threshold_amount: 10,
+          apply_automatically: true,
+          promotion_actions: [
+            Spree::Promotion::Actions::CreateItemAdjustments.new(
+              calculator: Spree::Calculator::FlatPercentItemTotal.new(preferred_flat_percent: 10)
+            )
+          ])
+      }
+
+      let(:worst_promotion) {
+        create(:promotion,
+          :with_line_item_adjustment,
+          :with_item_total_rule, adjustment_rate: 2.5, item_total_threshold_amount: 10,
+          apply_automatically: true,
+          promotion_actions: [
+            Spree::Promotion::Actions::CreateItemAdjustments.new(
+              calculator: Spree::Calculator::FlatPercentItemTotal.new(preferred_flat_percent: 5)
+            )
+          ])
+      }
+
+      before do
+        best_promotion.activate(order: order)
+        worst_promotion.activate(order: order)
+        order.recalculate
+      end
+
       it 'does not include it in the paypal order breakdown' do
-        # TODO
+        expect(to_json.dig(:purchase_units, 0).dig(:amount, :breakdown)).to match hash_including(
+          discount: { currency_code: "USD", value: "2.50" }
+        )
       end
     end
   end
