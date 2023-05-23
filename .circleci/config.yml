@@ -40,14 +40,14 @@ jobs:
   run-specs-with-mysql:
     executor:
       name: solidusio_extensions/mysql
-      ruby_version: '3.0'
+      ruby_version: '3.1'
     steps:
       - test-with-starter-frontend
 
   run-specs-with-sqlite:
     executor:
       name: solidusio_extensions/sqlite
-      ruby_version: '2.7'
+      ruby_version: '3.0'
     steps:
       - test-with-starter-frontend
 
