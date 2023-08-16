@@ -6,7 +6,7 @@ module SolidusPaypalCommercePlatform
     include PayPalCheckoutSdk::Payments
 
     def initialize(options)
-      # Cannot use kwargs because of how the Gateway is initialize by Solidus.
+      # Cannot use kwargs because of how the Gateway is initialized by Solidus.
       @client = Client.new(
         test_mode: options.fetch(:test_mode, nil),
         client_id: options.fetch(:client_id),
