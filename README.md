@@ -1,7 +1,7 @@
 # Solidus Paypal Commerce Platform
 
 [![CircleCI](https://circleci.com/gh/solidusio/solidus_paypal_commerce_platform.svg?style=shield)](https://circleci.com/gh/solidusio/solidus_paypal_commerce_platform)
-[![codecov](https://codecov.io/gh/solidusio-contrib/solidus_paypal_commerce_platform/branch/master/graph/badge.svg?token=J8HCLE0CZW)](https://codecov.io/gh/solidusio-contrib/solidus_paypal_commerce_platform)
+[![codecov](https://codecov.io/gh/solidusio-contrib/solidus_paypal_commerce_platform/branch/main/graph/badge.svg?token=J8HCLE0CZW)](https://codecov.io/gh/solidusio-contrib/solidus_paypal_commerce_platform)
 
 The official PayPal integration of Solidus.
 
