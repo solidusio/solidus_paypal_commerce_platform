@@ -24,17 +24,18 @@ Gem::Specification.new do |spec|
   files = Dir.chdir(__dir__) { `git ls-files -z`.split("\x0") }
 
   spec.files = files # don't exclude specs, they need to be copied to the target app
-  spec.bindir = "exe"
+  spec.bindir = 'exe'
   spec.executables = files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
-  spec.add_dependency 'deface', '~> 1.5'
-  spec.add_dependency 'solidus_api'
-  spec.add_dependency 'solidus_core', '>= 3.0', '< 5.0'
-  spec.add_dependency 'solidus_support', '>= 0.8.0'
-  spec.add_dependency 'solidus_webhooks', '~> 0.2'
+  spec.add_dependency 'deface', '~> 1.0'
+  spec.add_dependency 'solidus_core', ['>= 3', '< 5']
+  spec.add_dependency 'solidus_support', '~> 0.5'
+
+  spec.add_development_dependency 'solidus_backend'
+  spec.add_development_dependency 'solidus_frontend'
+  spec.add_development_dependency 'solidus_dev_support', '~> 2.5'
+  spec.add_development_dependency 'rails-controller-testing'
 
   spec.add_dependency 'paypalhttp'
-
-  spec.add_development_dependency 'solidus_dev_support', '~> 2.5'
 end
