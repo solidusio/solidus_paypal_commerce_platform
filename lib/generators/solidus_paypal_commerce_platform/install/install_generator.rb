@@ -25,7 +25,7 @@ module SolidusPaypalCommercePlatform
         directory 'config/initializers', 'config/initializers'
         rake 'railties:install:migrations FROM=solidus_paypal_commerce_platform'
         run 'bin/rails db:migrate' if options[:migrate]
-        route "mount SolidusPaypalCommercePlatform::Engine, at: '/solidus_paypal_commerce_platform'"
+        route "mount SolidusPaypalCommercePlatform::Engine, at: '#{solidus_mount_point}solidus_paypal_commerce_platform'"
       end
 
       def install_solidus_backend_support
@@ -90,6 +90,12 @@ module SolidusPaypalCommercePlatform
       end
 
       private
+
+      def solidus_mount_point
+        mount_point = Spree::Core::Engine.routes.find_script_name({})
+        mount_point += "/" unless mount_point.end_with?("/")
+        mount_point
+      end
 
       def support_code_for(component_name, &block)
         if @components[component_name]
