@@ -69,3 +69,6 @@ Rails/Inquiry:
   Enabled: true
   Exclude:
     - spec/lib/solidus_paypal_commerce_platform/configuration_spec.rb
+
+Layout/LineLength:
+  Enabled: false
