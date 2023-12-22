@@ -92,7 +92,7 @@ module SolidusPaypalCommercePlatform
       private
 
       def solidus_mount_point
-        mount_point = Spree::Core::Engine.routes.find_script_name({})
+        mount_point = ::Spree::Core::Engine.routes.find_script_name({})
         mount_point += "/" unless mount_point.end_with?("/")
         mount_point
       end

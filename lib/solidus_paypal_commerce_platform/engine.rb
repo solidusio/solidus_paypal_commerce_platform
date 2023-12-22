@@ -14,6 +14,10 @@ module SolidusPaypalCommercePlatform
 
     engine_name 'solidus_paypal_commerce_platform'
 
+    initializer "solidus_paypal_commerce_platform.zeitwerk_ignore_deface_overrides", before: :eager_load! do |app|
+      app.autoloaders.main.ignore(root.join('app/overrides'))
+    end
+
     initializer "solidus_paypal_commerce_platform.add_payment_method", after: "spree.register.payment_methods" do |app|
       app.config.to_prepare do
         app.config.spree.payment_methods << SolidusPaypalCommercePlatform::PaymentMethod
