@@ -8,7 +8,7 @@ require 'solidus_support'
 
 module SolidusPaypalCommercePlatform
   class Engine < Rails::Engine
-    include SolidusSupport::EngineExtensions
+    include ::SolidusSupport::EngineExtensions
 
     isolate_namespace SolidusPaypalCommercePlatform
 
@@ -34,12 +34,12 @@ module SolidusPaypalCommercePlatform
 
     initializer "solidus_paypal_commerce_platform.add_wizard", after: "spree.register.payment_methods" do |app|
       # Adding the class set below - if this is ported to core, we can remove this line.
-      Spree::Core::Environment.add_class_set("payment_setup_wizards")
+      ::Spree::Core::Environment.add_class_set("payment_setup_wizards")
       app.config.spree.payment_setup_wizards << "SolidusPaypalCommercePlatform::Wizard"
     end
 
     initializer "solidus_paypal_commerce_platform.webhooks" do
-      SolidusWebhooks.config.register_webhook_handler :solidus_paypal_commerce_platform, ->(payload) {
+      ::SolidusWebhooks.config.register_webhook_handler :solidus_paypal_commerce_platform, ->(payload) {
         SolidusPaypalCommercePlatform::WebhooksJob.perform_now(payload)
       }
     end
