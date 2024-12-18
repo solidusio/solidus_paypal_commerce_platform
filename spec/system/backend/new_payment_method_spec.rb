@@ -24,7 +24,7 @@ RSpec.describe "creating a new payment" do
   end
 
   it "displays the onboarding button", :js do
-    visit "/admin/payment_methods"
+    visit "/admin/payment_methods?solidus_admin=false"
 
     # main_window = current_window
 
