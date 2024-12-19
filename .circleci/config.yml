@@ -30,6 +30,8 @@ commands:
 
 jobs:
   run-specs-with-postgres:
+    environment:
+      FRONTEND_SPECS: none
     executor:
       name: solidusio_extensions/postgres
       ruby_version: "3.2"
@@ -37,6 +39,8 @@ jobs:
       - test-with-starter-frontend
 
   run-specs-with-mysql:
+    environment:
+      FRONTEND_SPECS: none
     executor:
       name: solidusio_extensions/mysql
       ruby_version: "3.1"
@@ -44,6 +48,8 @@ jobs:
       - test-with-starter-frontend
 
   run-specs-with-sqlite:
+    environment:
+      FRONTEND_SPECS: none
     executor:
       name: solidusio_extensions/sqlite
       ruby_version: "3.1"
