@@ -106,7 +106,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalAddress, type: :model do
           }
         }
 
-        context "using CN as country code" do
+        context "with CN as country code" do
           it "formats PayPal addresses correctly" do
             order.ship_address = original_address
 
@@ -128,7 +128,7 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalAddress, type: :model do
           end
         end
 
-        context "using C2 as country code" do
+        context "with C2 as country code" do
           before do
             country.update(iso: "C2")
           end

@@ -64,6 +64,7 @@ RSpec/MultipleMemoizedHelpers:
     - spec/jobs/solidus_paypal_commerce_platform/webhook_job_spec.rb
     - spec/models/solidus_paypal_commerce_platform/payment_method_spec.rb
     - spec/models/solidus_paypal_commerce_platform/payment_source_spec.rb
+    - spec/models/solidus_paypal_commerce_platform/paypal_address_spec.rb
 
 Rails/Inquiry:
   Enabled: true
