@@ -42,12 +42,26 @@ module SolidusPaypalCommercePlatform
       @order.update(email: recipient[:email_address])
     end
 
+    def find_country(state_name, country_code)
+      country = ::Spree::Country.find_by(iso: country_code)
+      return country if country.present?
+
+      state = ::Spree::State.find_by("lower(name) LIKE '%#{state_name.downcase}%'")
+      state.country
+    end
+
     def find_state(state_name, country)
-      if state = country.states.find_by(abbr: state_name) || country.states.find_by(name: state_name)
-        state
-      else
-        SolidusPaypalCommercePlatform.config.state_guesser_class.new(state_name, country).guess
-      end
+      return nil if country.blank?
+
+      state = country.states.find_by(abbr: state_name) ||
+                country.states.find_by(name: state_name)
+      return state if state.present?
+
+      state = SolidusPaypalCommercePlatform.config.state_guesser_class.new(
+        state_name,
+        country
+      )
+      state.guess
     end
 
     def format_simulated_address(paypal_address)
@@ -60,11 +74,13 @@ module SolidusPaypalCommercePlatform
     end
 
     def address_attributes(address, recipient)
-      country = ::Spree::Country.find_by(iso: address[:country_code])
-      state = find_state(
-        address[:admin_area_1] || address[:admin_area_2] || address[:state],
-        country,
-      )
+      state_name = address[:admin_area_1] ||
+                     address[:admin_area_2] ||
+                     address[:state]
+      country_code = address[:country_code]
+
+      country = find_country(state_name, country_code)
+      state = find_state(state_name, country)
 
       attributes = {
         address1: address[:address_line_1],
