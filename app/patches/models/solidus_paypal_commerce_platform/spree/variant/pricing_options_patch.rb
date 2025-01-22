@@ -3,7 +3,7 @@
 module SolidusPaypalCommercePlatform
   module Spree
     module Variant
-      module PricingOptionsDecorator
+      module PricingOptionsPatch
         def cache_key
           SolidusPaypalCommercePlatform::PaymentMethod.
             active.
