@@ -3,11 +3,11 @@
 module SolidusPaypalCommercePlatform
   class PaymentSource < ::Spree::PaymentSource
     self.table_name = "paypal_commerce_platform_sources"
-    enum paypal_funding_source: {
+    enum :paypal_funding_source, {
       applepay: 0, bancontact: 1, blik: 2, boleto: 3, card: 4, credit: 5, eps: 6, giropay: 7, ideal: 8,
       itau: 9, maxima: 10, mercadopago: 11, mybank: 12, oxxo: 13, p24: 14, paylater: 15, paypal: 16, payu: 17,
       sepa: 18, sofort: 19, trustly: 20, venmo: 21, verkkopankki: 22, wechatpay: 23, zimpler: 24
-    }, _suffix: :funding
+    }, suffix: :funding
     validates :paypal_order_id, :payment_method_id, presence: true
 
     def display_paypal_funding_source
