@@ -45,8 +45,7 @@ module PayPal
     end
 
     def _is_auth_request(request)
-      request.path == '/v1/oauth2/token' ||
-        request.path == '/v1/identity/openidconnect/tokenservice'
+      ['/v1/oauth2/token', '/v1/identity/openidconnect/tokenservice'].include?(request.path)
     end
 
     def _has_auth_header(request)
