@@ -16,7 +16,7 @@ module SolidusPaypalCommercePlatform
       def normalize_components_options
         @components = {
           backend: options[:backend],
-          starter_frontend: options[:frontend] == 'starter',
+          storefront: options[:frontend] == 'starter' || options[:frontend] == 'storefront',
           classic_frontend: options[:frontend] == 'classic',
         }
       end
@@ -43,15 +43,21 @@ module SolidusPaypalCommercePlatform
         end
       end
 
-      def install_solidus_starter_frontend_support
-        support_code_for(:starter_frontend) do
+      def install_solidus_storefront_support
+        support_code_for(:storefront) do
           directory 'app', 'app'
+          js_manifest = File.exist?('app/assets/javascripts/solidus_storefront.js') ?
+            'app/assets/javascripts/solidus_storefront.js' :
+            'app/assets/javascripts/solidus_starter_frontend.js'
+          css_manifest = File.exist?('app/assets/stylesheets/solidus_storefront.css') ?
+            'app/assets/stylesheets/solidus_storefront.css' :
+            'app/assets/stylesheets/solidus_starter_frontend.css'
           append_file(
-            'app/assets/javascripts/solidus_starter_frontend.js',
+            js_manifest,
             "//= require spree/frontend/solidus_paypal_commerce_platform\n"
           )
           inject_into_file(
-            'app/assets/stylesheets/solidus_starter_frontend.css',
+            css_manifest,
             " *= require spree/frontend/solidus_paypal_commerce_platform\n",
             before: %r{\*/},
             verbose: true,
