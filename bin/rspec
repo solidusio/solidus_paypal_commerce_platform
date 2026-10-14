@@ -5,7 +5,7 @@ set -e
 bin/rails-dummy-app generate solidus_paypal_commerce_platform:install --force --migrate --specs=all
 
 cd dummy-app/
-rspec "$@"
+bundle exec rspec "$@"
 exit_status=$?
 cd -
 exit $exit_status
