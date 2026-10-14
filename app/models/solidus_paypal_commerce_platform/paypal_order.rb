@@ -92,7 +92,7 @@ module SolidusPaypalCommercePlatform
         item_total: price(@order.item_total),
         shipping: price(@order.shipment_total),
         tax_total: price(@order.additional_tax_total),
-        discount: price(@order.all_adjustments.promotion.sum(&:amount).abs)
+        discount: price(@order.promo_total.abs)
       }
     end
 
