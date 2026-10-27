@@ -70,6 +70,24 @@ RSpec.describe SolidusPaypalCommercePlatform::PaypalOrder, type: :model do
         )
       end
     end
+
+    context 'when an order has an inapplicable promo adjustment' do
+      let(:order) { create :order_with_line_items }
+      let(:best_promotion) { create(:promotion, :with_line_item_adjustment, adjustment_rate: 2.5) }
+      let(:worst_promotion) { create(:promotion, :with_line_item_adjustment, adjustment_rate: 1) }
+
+      before do
+        best_promotion.activate(order: order)
+        worst_promotion.activate(order: order)
+        order.recalculate
+      end
+
+      it 'does not include it in the paypal order breakdown' do
+        expect(to_json.dig(:purchase_units, 0).dig(:amount, :breakdown)).to match hash_including(
+          discount: { currency_code: "USD", value: "2.50" }
+        )
+      end
+    end
   end
 
   private
