@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'deface', '~> 1.5'
   spec.add_dependency 'solidus_api'
   spec.add_dependency 'solidus_core', '>= 4.1', '< 5.0'
-  spec.add_dependency 'solidus_support', '>= 0.12.0'
+  spec.add_dependency 'solidus_support', '>= 0.14.0'
   spec.add_dependency 'solidus_webhooks', '~> 0.2'
 
   spec.add_dependency 'paypalhttp'
